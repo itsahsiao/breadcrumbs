@@ -48,6 +48,7 @@ for business in response.businesses:
     print "Categories: "
     for category in business.categories:
         print category.name
+    print "Yelp URL: ", business.url
 
 
 
