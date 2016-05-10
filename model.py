@@ -30,7 +30,8 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+        return "<User user_id=%s email=%s>" % (self.user_id,
+                                               self.email)
 
 
 class Restaurant(db.Model):
@@ -40,7 +41,7 @@ class Restaurant(db.Model):
 
     rest_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_code = db.column(db.String(10), db.ForeignKey('cities.city_code'), nullable=False)
-    name = db.Column(db.String(150), nullable=False)
+    rest_name = db.Column(db.String(150), nullable=False)
     address = db.Column(db.String(150), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
     image_url = db.Column(db.String(200), nullable=True)
@@ -53,18 +54,20 @@ class Restaurant(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Restaurant rest_id=%s name=%s>" % (self.rest_id, self.name)
+        return "<Restaurant rest_id=%s name=%s>" % (self.rest_id,
+                                                    self.name)
 
 
 class Visit(db.Model):
-    """User's visited/saved restaurant on Breadcrumbs website."""
+    """User's visited/saved restaurant on Breadcrumbs website.
+    Association table between User and Restaurant.
+    """
 
     __tablename__ = "visits"
 
     visit_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     rest_id = db.Column(db.Integer, db.ForeignKey('restaurants.rest_id'), nullable=False)
-    rating = db.Column(db.Integer, nullable=True)
 
     # Define relationships
     user = db.relationship("User")
@@ -73,10 +76,104 @@ class Visit(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Visit visit_id=%s rest_id=%s>" % (self.visit_id, self.rest_id)
+        return "<Visit visit_id=%s rest_id=%s>" % (self.visit_id,
+                                                   self.rest_id)
 
 
-### STILL NEED TO ADD CITIES, CATEGORIES, CONNECTIONS, AND IMAGES TABLES
+class City(db.Model):
+    """City where the restaurant is in."""
+
+    __tablename__ = "cities"
+
+    city_code = db.column(db.String(10), primary_key=True)
+    city_name = db.column(db.String(100), nullable=False)
+    updated_At = db.column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<City city_code=%s city_name=%s>" % (self.city_code,
+                                                     self.city_name)
+
+
+class Category(db.Model):
+    """Category of the restaurant."""
+
+    __tablename__ = "categories"
+
+    cat_id = db.column(db.Integer, primary_key=True)
+    cat_name = db.column(db.String(100), unique=True, nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Category cat_id=%s cat_name=%s>" % (self.cat_id,
+                                                     self.cat_name)
+
+
+class RestaurantCategory(db.Model):
+    """Association table linking Restaurant and Category to manage the M2M relationship."""
+
+    __tablename__ = "restaurantcategories"
+
+    restcat_id = db.column(db.Integer, primary_key=True)
+    rest_id = db.Column(db.Integer, db.ForeignKey('restaurants.rest_id'), nullable=False)
+    cat_id = db.Column(db.Integer, db.ForeignKey('categories.cat_id'), nullable=False)
+
+    # Define relationships
+    restaurant = db.relationship("Restaurant")
+    category = db.relationship("Category")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<RestaurantCategory restcat_id=%s rest_id=%s cat_id=%s>" % (self.restcat_id,
+                                                                            self.rest_id,
+                                                                            self.cat_id)
+
+
+class Image(db.Model):
+    """Image uploaded by user for each restaurant visit."""
+
+    __tablename__ = "images"
+
+    image_id = db.column(db.Integer, primary_key=True)
+    visit_id = db.column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
+    image_url = db.column(db.String(200), nullable=True)
+    uploaded_At = db.column(db.DateTime, nullable=False)
+    taken_At = db.column(db.DateTime, nullable=True)
+    rating = db.column(db.String(100), nullable=True)
+
+    # Define relationship
+    visit = db.relationship("Visit")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Image image_id=%s visit_id=%s>" % (self.image_id,
+                                                    self.visit_id)
+
+
+class Connection(db.Model):
+    """Connection between two users to establish a friendship and can see each other's info."""
+
+    __tablename__ = "connections"
+
+    connection_id = db.column(db.Integer, primary_key=True)
+    first_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    added_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    status = db.column(db.String(100), nullable=True)
+
+    # Define relationship
+    user = db.relationship("User")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Connection connection_id=%s first_user=%s added_user=%s status=%s>" % (self.connection_id,
+                                                                                        self.first_user,
+                                                                                        self.added_user,
+                                                                                        self.status)
 
 
 ##############################################################################
