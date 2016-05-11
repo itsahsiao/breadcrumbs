@@ -22,7 +22,7 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    city_code = db.Column(db.String(10), db.ForeignKey('cities.city_code'), nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=True)
 
     # Define relationship
     city = db.relationship("Cities")
@@ -40,7 +40,7 @@ class Restaurant(db.Model):
     __tablename__ = "restaurants"
 
     rest_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    city_code = db.Column(db.String(10), db.ForeignKey('cities.city_code'), nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=False)
     rest_name = db.Column(db.String(150), nullable=False)
     address = db.Column(db.String(150), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
@@ -85,14 +85,14 @@ class City(db.Model):
 
     __tablename__ = "cities"
 
-    city_code = db.Column(db.String(10), primary_key=True)
+    city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String(100), nullable=False)
     updated_At = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<City city_code=%s city_name=%s>" % (self.city_code,
+        return "<City city_id=%s city_name=%s>" % (self.city_id,
                                                      self.city_name)
 
 
@@ -101,7 +101,7 @@ class Category(db.Model):
 
     __tablename__ = "categories"
 
-    cat_id = db.Column(db.Integer, primary_key=True)
+    cat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     cat_name = db.Column(db.String(100), unique=True, nullable=False)
 
     def __repr__(self):
@@ -116,7 +116,7 @@ class RestaurantCategory(db.Model):
 
     __tablename__ = "restaurantcategories"
 
-    restcat_id = db.Column(db.Integer, primary_key=True)
+    restcat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     rest_id = db.Column(db.Integer, db.ForeignKey('restaurants.rest_id'), nullable=False)
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.cat_id'), nullable=False)
 
@@ -137,7 +137,7 @@ class Image(db.Model):
 
     __tablename__ = "images"
 
-    image_id = db.Column(db.Integer, primary_key=True)
+    image_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     visit_id = db.Column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
     image_url = db.Column(db.String(200), nullable=True)
     uploaded_At = db.Column(db.DateTime, nullable=False)
@@ -159,7 +159,7 @@ class Connection(db.Model):
 
     __tablename__ = "connections"
 
-    connection_id = db.Column(db.Integer, primary_key=True)
+    connection_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     first_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     added_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.String(100), nullable=True)
