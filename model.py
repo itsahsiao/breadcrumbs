@@ -89,6 +89,7 @@ class City(db.Model):
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String(100), nullable=False)
+    # Set default for timestamp of current time at UTC time zone
     updated_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
@@ -166,7 +167,9 @@ class Connection(db.Model):
     added_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.String(100), nullable=True)
 
-    # Define relationship
+    # Define relationships
+    # When both columns have a relationship with the same table, need to specify how
+    # to handle multiple join paths in the square brackets of foreign_keys per below
     first_user = db.relationship("User", foreign_keys=[first_user_id])
     added_user = db.relationship("User", foreign_keys=[added_user_id])
 
