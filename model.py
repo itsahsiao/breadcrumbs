@@ -56,8 +56,8 @@ class Restaurant(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Restaurant rest_id=%s name=%s>" % (self.rest_id,
-                                                    self.name)
+        return "<Restaurant rest_id=%s rest_name=%s>" % (self.rest_id,
+                                                         self.rest_name)
 
 
 class Visit(db.Model):
@@ -141,7 +141,7 @@ class Image(db.Model):
 
     image_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     visit_id = db.Column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
-    image_url = db.Column(db.String(200), nullable=True)
+    image_url = db.Column(db.String(200), nullable=False)
     uploaded_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     taken_At = db.Column(db.DateTime, nullable=True)
     rating = db.Column(db.String(100), nullable=True)
@@ -174,8 +174,8 @@ class Connection(db.Model):
         """Provide helpful representation when printed."""
 
         return "<Connection connection_id=%s first_user=%s added_user=%s status=%s>" % (self.connection_id,
-                                                                                        self.first_user,
-                                                                                        self.added_user,
+                                                                                        self.first_user_id,
+                                                                                        self.added_user_id,
                                                                                         self.status)
 
 
