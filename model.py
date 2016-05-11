@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+import datetime
+
 
 ##############################################################################
 # Model definitions
@@ -87,13 +89,13 @@ class City(db.Model):
 
     city_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     city_name = db.Column(db.String(100), nullable=False)
-    updated_At = db.Column(db.DateTime, nullable=False)
+    updated_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
         return "<City city_id=%s city_name=%s>" % (self.city_id,
-                                                     self.city_name)
+                                                   self.city_name)
 
 
 class Category(db.Model):
@@ -140,7 +142,7 @@ class Image(db.Model):
     image_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     visit_id = db.Column(db.Integer, db.ForeignKey('visits.visit_id'), nullable=False)
     image_url = db.Column(db.String(200), nullable=True)
-    uploaded_At = db.Column(db.DateTime, nullable=False)
+    uploaded_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     taken_At = db.Column(db.DateTime, nullable=True)
     rating = db.Column(db.String(100), nullable=True)
 
