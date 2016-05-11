@@ -160,12 +160,13 @@ class Connection(db.Model):
     __tablename__ = "connections"
 
     connection_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    first_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    added_user = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    first_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    added_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.String(100), nullable=True)
 
     # Define relationship
-    user = db.relationship("User")
+    first_user = db.relationship("User", foreign_keys=[first_user_id])
+    added_user = db.relationship("User", foreign_keys=[added_user_id])
 
     def __repr__(self):
         """Provide helpful representation when printed."""
