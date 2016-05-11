@@ -24,7 +24,7 @@ def load_restaurants(city):
 
     # Delete all rows in table, so if we need to run this a second time,
     # we won't be trying to add duplicate users
-    # Restaurant.query.delete()
+    Restaurant.query.delete()
 
     # Read Yelp API keys
     with io.open('config_secret.json') as cred:
@@ -44,19 +44,19 @@ def load_restaurants(city):
         'limit': 20,
     }
 
+    # Make Yelp API request and store response
+    response = client.search(city, **params)
+
     # Check to see if city exists in database to get the city id
     # If not, add city into database and get city it
     if db.session.query(City.city_id).filter(City.city_name == city).first():
         city_id = db.session.query(City.city_id).filter(City.city_name == city).first()
         city_id = city_id[0]
     else:
-        city = City(city_name=city)
+        new_city = City(city_name=city)
         db.session.add(city)
         db.session.commit()
-        city_id = city.city_id
-
-    # Make Yelp API request and store response
-    response = client.search(city, **params)
+        city_id = new_city.city_id
 
     # API response returns a SearchResponse object
     # Specify information by looking at its attributes and indexing
