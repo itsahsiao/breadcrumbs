@@ -25,7 +25,7 @@ class User(db.Model):
     city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'), nullable=True)
 
     # Define relationship
-    city = db.relationship("Cities")
+    city = db.relationship("City")
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -49,7 +49,7 @@ class Restaurant(db.Model):
     longitude = db.Column(db.Integer, nullable=False)
 
     # Define relationship
-    city = db.relationship("Cities")
+    city = db.relationship("City")
 
     def __repr__(self):
         """Provide helpful representation when printed."""
