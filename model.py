@@ -47,8 +47,9 @@ class Restaurant(db.Model):
     address = db.Column(db.String(150), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
     image_url = db.Column(db.String(200), nullable=True)
-    latitude = db.Column(db.Integer, nullable=False)
-    longitude = db.Column(db.Integer, nullable=False)
+    # Latitude and Longitude need to be Numeric, not Integer to have decimal places
+    latitude = db.Column(db.Numeric, nullable=False)
+    longitude = db.Column(db.Numeric, nullable=False)
 
     # Define relationship
     city = db.relationship("City")
