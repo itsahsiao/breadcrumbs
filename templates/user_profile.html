@@ -57,16 +57,35 @@
         });
 
         // Give coordinates of marker
-        var markerLatLng = {lat: 37.351158, lng: -122.03274};
+        // var markerLatLng = {lat: 37.351158, lng: -122.03274};
         // var markerLatLng = new google.maps.Latlng(37.351158, -122.032746)
 
         // Create a marker object
-        var marker = new google.maps.Marker({
-          position: markerLatLng,
-          map: map,
-          title: 'This is a marker!!'
-        });
+        // var marker = new google.maps.Marker({
+        //   position: markerLatLng,
+        //   map: map,
+        //   title: 'This is a marker!!'
+        // });
 
+        // Get coordinates for all of user's visited restaurants and plot markers onto map
+        {% for visit in user_visits %}
+          var lat = {{ visit.restaurant.latitude }};
+          var lng = {{ visit.restaurant.longitude }};
+
+          // Specify marker coordinates
+          var markerLatLng = {lat: lat, lng: lng};
+
+          // Create a marker object
+          var marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map,
+            title: 'This is a marker!!'
+          });
+        {% endfor %}
+
+
+
+        
       }
     </script>
 
