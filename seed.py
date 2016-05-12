@@ -49,12 +49,12 @@ def load_restaurants(city):
 
     # Check to see if city exists in database to get the city id
     # If not, add city into database and get city it
-    if db.session.query(City.city_id).filter(City.city_name == city).first():
-        city_id = db.session.query(City.city_id).filter(City.city_name == city).first()
+    if db.session.query(City.city_id).filter(City.name == city).first():
+        city_id = db.session.query(City.city_id).filter(City.name == city).first()
         city_id = city_id[0]
     else:
-        new_city = City(city_name=city)
-        db.session.add(city)
+        new_city = City(name=city)
+        db.session.add(new_city)
         db.session.commit()
         city_id = new_city.city_id
 
@@ -63,7 +63,7 @@ def load_restaurants(city):
     # response.businesses returns a list of business objects with further attributes
     for business in response.businesses:
         restaurant = Restaurant(city_id=city_id,
-                                rest_name=business.name,
+                                name=business.name,
                                 address=" ".join(business.location.display_address),
                                 phone=business.display_phone,
                                 image_url=business.image_url,
@@ -92,11 +92,11 @@ def load_restaurants(city):
 
 #     # Check to see if city exists in database to get the city id
 #     # If not, add city into database and get city it
-#     if db.session.query(City.city_id).filter(City.city_name == city).first() != None:
-#         city_id = db.session.query(City.city_id).filter(City.city_name == city).first()
+#     if db.session.query(City.city_id).filter(City.name == city).first() != None:
+#         city_id = db.session.query(City.city_id).filter(City.name == city).first()
 #         city_id = city_id[0]
 #     else:
-#         city = City(city_name=city)
+#         city = City(name=city)
 #         db.session.add(city)
 #         db.session.commit()
 #         city_id = city.city_id
