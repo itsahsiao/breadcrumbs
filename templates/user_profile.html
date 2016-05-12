@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 80%;
+      }
+    </style>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"></script>
+
+  </head>
+  <body>
+    <div>
+      {% for visit in user_visits %}
+        Visited Restaurant: {{ visit.restaurant.name }}<br>
+        Latitude: {{ visit.restaurant.latitude }}<br>
+        Longitude: {{ visit.restaurant.longitude }}<br>
+        <br><br>
+      {% endfor %}
+    </div>
+
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        // Specify where the map is centered
+        // Note re: coordinates
+        // North is positive / South is negative
+        // West is negative / East is positive
+        var myLatLng = {lat: 37.3688, lng: -122.0363};
+
+        // Create a map object and specify the DOM element for display
+        // Customize the control options
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 13,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+          },
+          streetViewControl: true,
+          streetViewControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER
+          },
+          zoomControl: true,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_CENTER
+          },
+        });
+
+        // Give coordinates of marker
+        var markerLatLng = {lat: 37.351158, lng: -122.03274};
+        // var markerLatLng = new google.maps.Latlng(37.351158, -122.032746)
+
+        // Create a marker object
+        var marker = new google.maps.Marker({
+          position: markerLatLng,
+          map: map,
+          title: 'This is a marker!!'
+        });
+
+      }
+    </script>
+
+
+  </body>
+</html>

@@ -8,6 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
 
+import os
+
 
 app = Flask(__name__)
 
@@ -54,11 +56,24 @@ def user_list():
     return render_template("user_list.html")
 
 
-@app.route("/users/<int:user_id>")
-def user_profile(user_id):
+# Use /user-profile for now to test Google Maps API
+@app.route("/user-profile")
+def user_profile():
     """Show user profile with map and list of visited restaurants."""
 
-    return render_template("user_profile.html")
+    user_visits = db.session.query(Visit).filter(Visit.user_id == 1).all()
+
+    # google_key = os.environ["GOOGLE_MAPS_KEY"]
+
+    return render_template("user_profile.html", user_visits=user_visits)
+    # , google_key=google_key)
+
+
+# @app.route("/users/<int:user_id>")
+# def user_profile(user_id):
+#     """Show user profile with map and list of visited restaurants."""
+
+#     return render_template("user_profile.html")
 
 
 @app.route("/restaurants")
