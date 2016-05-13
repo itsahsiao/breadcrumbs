@@ -53,7 +53,10 @@ def signup():
 def user_list():
     """Show list of users."""
 
-    return render_template("user_list.html")
+    # Query to get all users
+    users = db.session.query(User).all()
+
+    return render_template("user_list.html", users=users)
 
 
 # Use /user-profile for now to test Google Maps API
