@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
+{% extends 'base.html' %}
+
+{% block title %}User: {{ user.user_id }}{% endblock %}
+
+{% block head %}
+  <style>
       html, body {
         height: 100%;
         margin: 0;
@@ -15,17 +14,16 @@
       }
     </style>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"></script>
+{% endblock %}
 
-  </head>
-  <body>
+{% block content %}
     <div>
-      {% for visit in user_visits %}
-        Visited Restaurant: {{ visit.restaurant.name }}<br>
-        Latitude: {{ visit.restaurant.latitude }}<br>
-        Longitude: {{ visit.restaurant.longitude }}<br>
-        <br><br>
-      {% endfor %}
+      <p>
+        User ID {{ user.user_id }}<br>
+        Name: {{ user.first_name }} {{ user.last_name }}<br>
+        Email: {{ user.email }}<br>
+      </p>
     </div>
 
     <div id="map"></div>
@@ -67,21 +65,23 @@
         //   title: 'This is a marker!!'
         // });
 
-        // Get coordinates for all of user's visited restaurants and plot markers onto map
-        {% for visit in user_visits %}
-          var lat = {{ visit.restaurant.latitude }};
-          var lng = {{ visit.restaurant.longitude }};
+        // This works but uncommon to pass Jinja through Javascript
+        // // Get coordinates for all of user's visited restaurants and plot markers onto map
+        // {% for visit in user_visits %}
+        //   var lat = {{ visit.restaurant.latitude }};
+        //   var lng = {{ visit.restaurant.longitude }};
 
-          // Specify marker coordinates
-          var markerLatLng = {lat: lat, lng: lng};
+        //   // Specify marker coordinates
+        //   var markerLatLng = {lat: lat, lng: lng};
 
-          // Create a marker object
-          var marker = new google.maps.Marker({
-            position: markerLatLng,
-            map: map,
-            title: 'This is a marker!!'
-          });
-        {% endfor %}
+        //   // Create a marker object
+        //   var marker = new google.maps.Marker({
+        //     position: markerLatLng,
+        //     map: map,
+        //     title: 'This is a marker!!'
+        //   });
+        // {% endfor %}
+        
 
 
 
@@ -89,6 +89,4 @@
       }
     </script>
 
-
-  </body>
-</html>
+{% endblock %}
