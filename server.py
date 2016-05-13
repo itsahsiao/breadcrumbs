@@ -78,9 +78,11 @@ def user_profile():
 
 @app.route("/restaurants")
 def restaurant_list():
-    """Show list of movies."""
+    """Show list of restaurants."""
 
-    return render_template("restaurant_list.html")
+    restaurants = db.session.query(Restaurant).order_by(Restaurant.name).all()
+
+    return render_template("restaurant_list.html", restaurants=restaurants)
 
 
 @app.route("/restaurants/<int:rest_id>")
