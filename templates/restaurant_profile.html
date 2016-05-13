@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Restaurant: {{ restaurant.name }}{% endblock %}
+
+{% block content %}
+
+    <h2>Restaurant: {{ restaurant.name }}</h2>
+    <img src="{{ restaurant.image_url }}">
+    <ul>
+        <li>Restaurant ID: {{ restaurant.restaurant_id }}</li>
+        <li>City: {{ restaurant.city.name }}</li>        
+        <li>Address: {{ restaurant.address }}</li>
+        <li>Phone Number: {{ restaurant.phone }}</li>
+        <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
+    </ul>
+
+{% endblock %}

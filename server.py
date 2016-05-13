@@ -80,16 +80,20 @@ def user_profile():
 def restaurant_list():
     """Show list of restaurants."""
 
+    # Query to get all restaurants, sorted alphabetically
     restaurants = db.session.query(Restaurant).order_by(Restaurant.name).all()
 
     return render_template("restaurant_list.html", restaurants=restaurants)
 
 
-@app.route("/restaurants/<int:rest_id>")
-def restaurant_profile(rest_id):
+@app.route("/restaurants/<int:restaurant_id>")
+def restaurant_profile(restaurant_id):
     """Show restaurant information."""
 
-    return render_template("restaurant_profile.html")
+    # Query by restaurant id to return the record from the database and access its attributes
+    restaurant = db.session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).one()
+
+    return render_template("restaurant_profile.html", restaurant=restaurant)
 
 
 @app.route("/restaurants/search")
