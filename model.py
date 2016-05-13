@@ -26,6 +26,9 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
 
+    # Define relationship
+    city = db.relationship("City", backref=db.backref("users"))
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 
@@ -53,6 +56,8 @@ class Restaurant(db.Model):
     latitude = db.Column(db.Numeric, nullable=False)
     longitude = db.Column(db.Numeric, nullable=False)
 
+    # Define relationships
+    city = db.relationship("City", backref=db.backref("restaurants"))
     categories = db.relationship("Category", secondary="restaurantcategories", backref="restaurants")
 
     def __repr__(self):
@@ -93,10 +98,6 @@ class City(db.Model):
     name = db.Column(db.String(100), nullable=False)
     # Set default for timestamp of current time at UTC time zone
     updated_At = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-
-    # Define relationships
-    users = db.relationship("User", backref=db.backref("city"))
-    restaurants = db.relationship("Restaurant", backref=db.backref("city"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
