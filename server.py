@@ -74,7 +74,7 @@ def user_restaurant_visits():
             "address": visit.restaurant.address,
             "phone": visit.restaurant.phone,
             "image_url": visit.restaurant.image_url,
-            # Need to convert latitude and longitude to strings or floats
+            # Need to convert latitude and longitude to floats
             # Otherwise get a TypeError: Decimal is not JSON serializable
             "latitude": float(visit.restaurant.latitude),
             "longitude": float(visit.restaurant.longitude)
