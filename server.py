@@ -10,9 +10,9 @@ from model import connect_to_db, db
 
 import os
 
-# from flask import jsonify
+from flask import jsonify
 # Use simplejson which encodes JSON correctly and supports Decimal types
-import simplejson as json
+# import simplejson as json
 
 app = Flask(__name__)
 
@@ -78,15 +78,15 @@ def user_restaurant_visits():
             "image_url": visit.restaurant.image_url,
             # Need to convert latitude and longitude to strings or floats
             # Otherwise get a TypeError: Decimal is not JSON serializable
-            # "latitude": float(visit.restaurant.latitude),
-            # "longitude": float(visit.restaurant.longitude)
+            "latitude": float(visit.restaurant.latitude),
+            "longitude": float(visit.restaurant.longitude)
             # Use simplejson which encodes JSON correctly and supports Decimal types
-            "latitude": visit.restaurant.latitude,
-            "longitude": visit.restaurant.longitude
+            # "latitude": visit.restaurant.latitude,
+            # "longitude": visit.restaurant.longitude
         }
 
-    return json.dumps(rest_visits, use_decimal=True)
-    # return jsonify(rest_visits)
+    # return json.dumps(rest_visits, use_decimal=True)
+    return jsonify(rest_visits)
 
 
 @app.route("/users/<int:user_id>")
