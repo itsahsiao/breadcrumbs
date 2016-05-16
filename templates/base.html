@@ -13,7 +13,7 @@
       <a href="/users">Users</a>
     </p>
     <p>
-      {% if session.get('current_user_email') %}
+      {% if session.get('current_user') %}
         <a href="/logout">Log out</a>
 
       {% else %}
@@ -26,7 +26,7 @@
             <input id="password" type="text" name="login_password">
             <input type="submit" value="Login">
         </form>
-        
+
       {% endif %}
     <hr>
 
