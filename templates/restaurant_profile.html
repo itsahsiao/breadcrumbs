@@ -2,7 +2,9 @@
 
 {% block title %}Restaurant: {{ restaurant.name }}{% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+<script src="https://code.jquery.com/jquery.js"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -15,5 +17,20 @@
         <li>Phone Number: {{ restaurant.phone }}</li>
         <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
     </ul>
+
+    <form id="add-restaurant" action="/add-visit">
+        <input type="text" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
+        <input type="submit" value="Add Visit">
+    </form>
+
+    <!-- <button id="add-restaurant" type="button">Add breadcrumb</a> -->
+
+    <script>
+    $("#add-restaurant").on("submit", function(evt) {
+        // evt.preventDefault();
+        alert("You have added this restaurant to your trail of breadcrumbs.")
+    });
+    
+    </script>
 
 {% endblock %}

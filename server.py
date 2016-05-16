@@ -2,15 +2,13 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
 
 import os
-
-from flask import jsonify
 
 app = Flask(__name__)
 
@@ -115,6 +113,28 @@ def restaurant_profile(restaurant_id):
     restaurant = db.session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).one()
 
     return render_template("restaurant_profile.html", restaurant=restaurant)
+
+
+@app.route("/add-visit/<int:restaurant_id>", methods=["POST"])
+def add_restaurant():
+    """Add restaurant to user's list of visited restaurants."""
+
+    # import pdb; pdb.set_trace()
+    # Get restaurant id from add form
+    # restaurant = request.form.get("restaurant_id")
+
+    # if fails (i.e. server issues), redirect back to restaurant page
+    # else, add and redicect to user profile page
+
+    return redirect("/users/<int:user_id>")
+#     # Get user id from session
+#     user = 
+
+#     # Check if user has added this restaurant previously
+
+#     # Add visit 
+#     db.session.add(Visit(user_id=user, restaurant_id=restaurant))
+#     db.session.commit()
 
 
 @app.route("/restaurants/search")
