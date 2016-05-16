@@ -49,15 +49,23 @@ def login():
     # Ask regarding .one() and .first()
     # There should only be one record for a user???
     # Need to try/except if doing .one()?
+    # OR use nested if statements?
+        # If user exists in database
+            # then check if password matches this user
+
+    # import pdb; pdb.set_trace()
+
     if db.session.query(User).filter(User.email == login_email,
                                      User.password == login_password).first():
 
         current_user = User.query.filter(User.email == login_email).one()
 
-        # Get both email and user id for now, as need to pass in user_id
-        # TODO: Remember to remove one if not needed, as now need to pass both into /logout
-        session["current_user_email"] = current_user.email
-        session["current_user_id"] = current_user.user_id
+        # Use a nested dictionary for session["current_user"] to access email and user id
+        # This way, create only one session and delete only one session vs. two or more
+        session["current_user"] = {
+            "email": current_user.email,
+            "user_id": current_user.user_id
+        }
 
         flash("You have successfully logged in.")
 
@@ -72,9 +80,7 @@ def login():
 def logout():
     """Log user out."""
 
-    # TODO: Remember to remove one if not needed, based on /login route above
-    del session["current_user_email"]
-    del session["current_user_id"]
+    del session["current_user"]
 
     flash("You have been successfully logged out.")
 
@@ -98,12 +104,22 @@ def user_list():
     return render_template("user_list.html", users=users)
 
 
+@app.route("/users/<int:user_id>")
+def user_profile(user_id):
+    """Show user profile with map and list of visited restaurants."""
+
+    # Query by user id to return that record in database about user info
+    user = db.session.query(User).filter(User.user_id == user_id).one()
+
+    return render_template("user_profile.html", user=user)
+
+
 @app.route("/user-visits.json")
 def user_restaurant_visits():
     """Return info about user's restaurant visits as JSON."""
 
     # Query to get all visits for current logged in user (pass in user id from session)
-    user_visits = db.session.query(Visit).filter(Visit.user_id == session["current_user_id"]).all()
+    user_visits = db.session.query(Visit).filter(Visit.user_id == session["current_user"]["user_id"]).all()
 
     rest_visits = {}
 
@@ -120,16 +136,6 @@ def user_restaurant_visits():
         }
 
     return jsonify(rest_visits)
-
-
-@app.route("/users/<int:user_id>")
-def user_profile(user_id):
-    """Show user profile with map and list of visited restaurants."""
-
-    # Query by user id to return that record in database about user info
-    user = db.session.query(User).filter(User.user_id == user_id).one()
-
-    return render_template("user_profile.html", user=user)
 
 
 @app.route("/restaurants")
