@@ -102,11 +102,8 @@ def user_list():
 def user_restaurant_visits():
     """Return info about user's restaurant visits as JSON."""
 
-    # This only tests user id 1
-    # TODO:
-    # Need to be able to pass user id in later
-    # Use session to get info re: user when logged in?
-    user_visits = db.session.query(Visit).filter(Visit.user_id == 1).all()
+    # Query to get all visits for current logged in user (pass in user id from session)
+    user_visits = db.session.query(Visit).filter(Visit.user_id == session["current_user_id"]).all()
 
     rest_visits = {}
 
