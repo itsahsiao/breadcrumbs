@@ -27,11 +27,44 @@ def index():
     return render_template("homepage.html")
 
 
+@app.route("/login", methods=["GET"])
+def show_login():
+    """Show login form."""
+
+    return render_template("login.html")
+
+
 @app.route("/login", methods=["POST"])
 def login():
     """Check if user's email matches password to login, otherwise ask user to try again."""
 
-    return render_template("login.html")
+    # Get values from login form
+    login_email = request.form.get("login_email")
+    login_password = request.form.get("login_password")
+
+    # Check if user email and password matches
+    # If so, log them in and keep user email and id in session to use elsewhere
+
+    # TODO:
+    # Ask regarding .one() and .first()
+    # There should only be one record for a user???
+    # Need to try/except if doing .one()?
+    if db.session.query(User).filter(User.email == login_email,
+                                     User.password == login_password).first():
+
+        current_user = User.query.filter(User.email == login_email).one()
+
+        # Get both email and user id for now, as need to pass in user_id
+        session["current_user_email"] = current_user.email
+        session["current_user_id"] = current_user.user_id
+
+        flash("You have successfully logged in.")
+
+        return redirect("/users/%s" % current_user.user_id)
+
+    else:
+        flash("The email or password you have entered did not match our records. Please try again.")
+        return redirect("/login")
 
 
 @app.route("/logout")

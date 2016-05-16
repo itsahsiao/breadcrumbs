@@ -7,10 +7,18 @@
 
 <body>
     <h1>Breadcrumbs</h1>
-    <a href="/">Homepage</a>
-    <a href="/restaurants">Restaurants</a>
-    <a href="/users">Users</a>
-
+    <p>
+      <a href="/">Homepage</a>
+      <a href="/restaurants">Restaurants</a>
+      <a href="/users">Users</a>
+    </p>
+    <p>
+      {% if session.get('current_user_email') %}
+        <a href="/logout">Log out</a>
+      {% else %}
+        <a href="/signup">Sign up</a> | 
+        <a href="/login">Log in</a>
+      {% endif %}
     <hr>
 
     <!-- Display flash messages -->
