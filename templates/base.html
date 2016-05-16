@@ -17,15 +17,15 @@
         <a href="/logout">Log out</a>
 
       {% else %}
-        <a href="/signup">Sign up</a> | 
+        <a href="/signup">Sign up</a> | <a href="/login">Log in</a>
 
-        <form action="/login" method="POST">
+        <!-- <form action="/login" method="POST">
             <label for="email">Email Address:</label>
             <input id="email" type="text" name="login_email">
             <label for="password">Password:</label>
             <input id="password" type="text" name="login_password">
             <input type="submit" value="Login">
-        </form>
+        </form> -->
 
       {% endif %}
     <hr>
