@@ -13,6 +13,13 @@
 
     <hr>
 
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+          {{ message }}
+      {% endfor %}
+    {% endwith %}
+
     {% block content %} put content here {% endblock %}
 
 </body>
