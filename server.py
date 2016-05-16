@@ -8,6 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
 
+from sqlalchemy.orm.exc import NoResultFound
+
 import os
 
 app = Flask(__name__)
@@ -36,44 +38,32 @@ def show_login():
 
 @app.route("/login", methods=["POST"])
 def login():
-    """Check if user's email matches password to login, otherwise ask user to try again."""
+    """Log user in if credentials provided are correct."""
 
     # Get values from login form
     login_email = request.form.get("login_email")
     login_password = request.form.get("login_password")
 
-    # Check if user email and password matches
-    # If so, log them in and keep user email and id in session to use elsewhere
-
-    # TODO:
-    # Ask regarding .one() and .first()
-    # There should only be one record for a user???
-    # Need to try/except if doing .one()?
-    # OR use nested if statements?
-        # If user exists in database
-            # then check if password matches this user
-
-    # import pdb; pdb.set_trace()
-
-    if db.session.query(User).filter(User.email == login_email,
-                                     User.password == login_password).first():
-
-        current_user = User.query.filter(User.email == login_email).one()
-
-        # Use a nested dictionary for session["current_user"] to access email and user id
-        # This way, create only one session and delete only one session vs. two or more
-        session["current_user"] = {
-            "email": current_user.email,
-            "user_id": current_user.user_id
-        }
-
-        flash("You have successfully logged in.")
-
-        return redirect("/users/%s" % current_user.user_id)
-
-    else:
+    # Check if user credentials match record in database
+    # If user does not exist or credentials are incorrect, ask them to try again
+    # If correct, log them in, redirecting them to their user profile
+    try:
+        current_user = db.session.query(User).filter(User.email == login_email,
+                                                     User.password == login_password).one()
+    except NoResultFound:
         flash("The email or password you have entered did not match our records. Please try again.")
         return redirect("/login")
+
+    # Use a nested dictionary for session["current_user"] to store email and user id
+    # This way, create only one session and delete only one session vs. two or more
+    session["current_user"] = {
+        "email": current_user.email,
+        "user_id": current_user.user_id
+    }
+
+    flash("You have successfully logged in.")
+
+    return redirect("/users/%s" % current_user.user_id)
 
 
 @app.route("/logout")
@@ -82,7 +72,7 @@ def logout():
 
     del session["current_user"]
 
-    flash("You have been successfully logged out.")
+    flash("You have successfully logged out.")
 
     return redirect("/")
 
