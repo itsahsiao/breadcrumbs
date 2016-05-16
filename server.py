@@ -55,6 +55,7 @@ def login():
         current_user = User.query.filter(User.email == login_email).one()
 
         # Get both email and user id for now, as need to pass in user_id
+        # TODO: Remember to remove one if not needed, as now need to pass both into /logout
         session["current_user_email"] = current_user.email
         session["current_user_id"] = current_user.user_id
 
@@ -70,6 +71,12 @@ def login():
 @app.route("/logout")
 def logout():
     """Log user out."""
+
+    # TODO: Remember to remove one if not needed, based on /login route above
+    del session["current_user_email"]
+    del session["current_user_id"]
+
+    flash("You have been successfully logged out.")
 
     return redirect("/")
 
