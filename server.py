@@ -152,21 +152,25 @@ def restaurant_profile(restaurant_id):
 def add_visit():
     """Add restaurant visit to user's restaurant history."""
 
-    # Get restaurant id from form submission when user clicks "Leave a Breadcrumb"
+    # Get restaurant id from hidden input form when user clicks "Leave a Breadcrumb" button
     restaurant_id = request.form.get("restaurant_id")
 
     # Check if user has added this restaurant previously
-    # If so, do not add and redirect user back to restaurant page
+    # If so, do not add restaurant visit and redirect user back to restaurant page
     # If not, add this restaurant visit to database under this user id
     # and redirect user to their profile page to see the newly added marker
     try:
         db.session.query(Visit).filter(Visit.restaurant_id == restaurant_id,
                                        Visit.user_id == session["current_user"]["user_id"]).one()
+
     except NoResultFound:
+        # Add restaurant visit to database and commit change
         visit = Visit(user_id=session["current_user"]["user_id"], restaurant_id=restaurant_id)
         db.session.add(visit)
         db.session.commit()
+
         flash("You just left a breadcrumb for this restaurant!")
+
         return redirect("/users/%s" % session["current_user"]["user_id"])
 
     flash("You have already left a breadcrumb for this restaurant previously.")

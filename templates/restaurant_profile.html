@@ -18,7 +18,9 @@
         <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
     </ul>
 
-    <!-- Button to add restaurant to user's restaurant history -->
+    <!-- Button to add restaurant visit to user's restaurant history
+         This is a regular form submit with hidden input
+    -->
     <form id="add-visit" action="/add-visit" method="post">
         <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
         <input type="submit" value="Leave a Breadcrumb">
