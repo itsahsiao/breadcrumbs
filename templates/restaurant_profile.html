@@ -18,19 +18,10 @@
         <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
     </ul>
 
-    <form id="add-restaurant" action="/add-visit">
-        <input type="text" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
-        <input type="submit" value="Add Visit">
+    <!-- Button to add restaurant to user's restaurant history -->
+    <form id="add-visit" action="/add-visit" method="post">
+        <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
+        <input type="submit" value="Leave a Breadcrumb">
     </form>
-
-    <!-- <button id="add-restaurant" type="button">Add breadcrumb</a> -->
-
-    <script>
-    $("#add-restaurant").on("submit", function(evt) {
-        // evt.preventDefault();
-        alert("You have added this restaurant to your trail of breadcrumbs.")
-    });
-    
-    </script>
 
 {% endblock %}

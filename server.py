@@ -148,26 +148,30 @@ def restaurant_profile(restaurant_id):
     return render_template("restaurant_profile.html", restaurant=restaurant)
 
 
-@app.route("/add-visit/<int:restaurant_id>", methods=["POST"])
-def add_restaurant():
-    """Add restaurant to user's list of visited restaurants."""
+@app.route("/add-visit", methods=["POST"])
+def add_visit():
+    """Add restaurant visit to user's restaurant history."""
 
-    # import pdb; pdb.set_trace()
-    # Get restaurant id from add form
-    # restaurant = request.form.get("restaurant_id")
+    # Get restaurant id from form submission when user clicks "Leave a Breadcrumb"
+    restaurant_id = request.form.get("restaurant_id")
 
-    # if fails (i.e. server issues), redirect back to restaurant page
-    # else, add and redicect to user profile page
+    # Check if user has added this restaurant previously
+    # If so, do not add and redirect user back to restaurant page
+    # If not, add this restaurant visit to database under this user id
+    # and redirect user to their profile page to see the newly added marker
+    try:
+        db.session.query(Visit).filter(Visit.restaurant_id == restaurant_id,
+                                       Visit.user_id == session["current_user"]["user_id"]).one()
+    except NoResultFound:
+        visit = Visit(user_id=session["current_user"]["user_id"], restaurant_id=restaurant_id)
+        db.session.add(visit)
+        db.session.commit()
+        flash("You just left a breadcrumb for this restaurant!")
+        return redirect("/users/%s" % session["current_user"]["user_id"])
 
-    return redirect("/users/<int:user_id>")
-#     # Get user id from session
-#     user = 
+    flash("You have already left a breadcrumb for this restaurant previously.")
 
-#     # Check if user has added this restaurant previously
-
-#     # Add visit 
-#     db.session.add(Visit(user_id=user, restaurant_id=restaurant))
-#     db.session.commit()
+    return redirect("/restaurants/%s" % restaurant_id)
 
 
 @app.route("/restaurants/search")
