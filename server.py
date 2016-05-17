@@ -10,11 +10,11 @@ from test_search_model import connect_to_db, db
 # from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 # from model import connect_to_db, db
 
+# Import SQLALchemy exception for try/except
 from sqlalchemy.orm.exc import NoResultFound
 
+# Import search function to query for information in database
 from sqlalchemy_searchable import search
-
-import os
 
 app = Flask(__name__)
 
@@ -188,13 +188,15 @@ def search_restaurants():
 
     # import pdb; pdb.set_trace()
 
-    user_search = request.args.get("searchbox")
+    user_search = request.args.get("search")
 
-    query = db.session.query(Restaurant)
+    # query = db.session.query(Restaurant)
 
-    query = search(query, user_search)
+    # query = search(query, user_search)
 
-    search_results = query.all()
+    # search_results = query.all()
+
+    search_results = search(db.session.query(Restaurant), user_search).all()
 
     return render_template("search_results.html", search_results=search_results)
 
