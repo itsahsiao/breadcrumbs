@@ -14,6 +14,15 @@
     </p>
     <p>
       {% if session.get('current_user') %}
+        <form action="/search">
+          <!-- Invisible label for accessibility
+          Source: http://webaim.org/techniques/forms/advanced -->
+          <input id="searchbox" type="text" name="searchbox" aria-label="Find Restaurant" placeholder="Find restaurant">
+
+          <input type="submit" value="Search">
+
+        </form>
+        <br>
         <a href="/logout">Log out</a>
 
       {% else %}
