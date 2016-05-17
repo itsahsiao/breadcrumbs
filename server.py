@@ -5,10 +5,14 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
-from model import connect_to_db, db
+from test_search_model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
+from test_search_model import connect_to_db, db
+# from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
+# from model import connect_to_db, db
 
 from sqlalchemy.orm.exc import NoResultFound
+
+from sqlalchemy_searchable import search
 
 import os
 
@@ -178,11 +182,21 @@ def add_visit():
     return redirect("/restaurants/%s" % restaurant_id)
 
 
-@app.route("/restaurants/search")
+@app.route("/search", methods=["GET"])
 def search_restaurants():
-    """Search for a restaurant."""
+    """Search for a restaurant and return results."""
 
-    return redirect("/")
+    # import pdb; pdb.set_trace()
+
+    user_search = request.args.get("searchbox")
+
+    query = db.session.query(Restaurant)
+
+    query = search(query, user_search)
+
+    search_results = query.all()
+
+    return render_template("search_results.html", search_results=search_results)
 
 
 if __name__ == "__main__":

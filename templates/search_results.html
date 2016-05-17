@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+
+    <h2>Search Results</h2>
+    {% if search_results %}
+      <ul>
+        {% for restaurant in search_results %}
+            <li>
+                <a href="/restaurants/{{ restaurant.restaurant_id }}">
+                  {{ restaurant.name }}
+                </a>
+            </li>
+        {% endfor %}
+      </ul>
+
+    {% else %}
+      <p>No results found. Please try again.</p>
+    
+
+    {% endif %}
+
+{% endblock %}

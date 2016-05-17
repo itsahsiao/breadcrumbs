@@ -2,8 +2,10 @@
 
 from sqlalchemy import func
 
-from model import City, Restaurant
-from model import connect_to_db, db
+from test_search_model import City, Restaurant
+from test_search_model import connect_to_db, db
+# from model import City, Restaurant
+# from model import connect_to_db, db
 
 from server import app
 
