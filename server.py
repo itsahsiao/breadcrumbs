@@ -186,16 +186,15 @@ def add_visit():
 def search_restaurants():
     """Search for a restaurant and return results."""
 
-    # import pdb; pdb.set_trace()
-
+    # Get value from searchbox for user's query
     user_search = request.args.get("q")
 
+    # # Search user's query in database and return all search results
     # query = db.session.query(Restaurant)
-
     # query = search(query, user_search)
-
     # search_results = query.all()
 
+    # Refactored above code to one line
     search_results = search(db.session.query(Restaurant), user_search).all()
 
     return render_template("search_results.html", search_results=search_results)
