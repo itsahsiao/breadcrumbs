@@ -2,8 +2,6 @@
 
 from sqlalchemy import func
 
-# from test_search_model import City, Restaurant
-# from test_search_model import connect_to_db, db
 from model import City, Restaurant
 from model import connect_to_db, db
 
@@ -150,7 +148,7 @@ def load_restaurants(city):
 if __name__ == "__main__":
     connect_to_db(app)
 
-    # Configure mappers before calling tables in order for search triggers in
+    # Configure mappers before creating tables in order for search trigger in
     # SQLAlchemy-Searchable to work properly
     db.configure_mappers()
 

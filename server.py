@@ -5,8 +5,6 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-# from test_search_model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
-# from test_search_model import connect_to_db, db
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
 
