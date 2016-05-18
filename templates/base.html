@@ -14,19 +14,21 @@
     </p>
     <p>
       {% if session.get('current_user') %}
+
         <!-- Searchbox feature for restaurants -->
         <form action="/search">
           <!-- Invisible label for accessibility
           Source: http://webaim.org/techniques/forms/advanced -->
           <input id="searchbox" type="text" name="q" aria-label="Find Restaurant" placeholder="Find restaurant">
-
           <input type="submit" value="Search">
-
         </form>
+
         <br>
+
         <a href="/logout">Log out</a>
 
       {% else %}
+
         <a href="/signup">Sign up</a> | <a href="/login">Log in</a>
 
         <!-- Think about user flow if want to implement login form in nav bar -->
@@ -39,6 +41,7 @@
         </form> -->
 
       {% endif %}
+      
     <hr>
 
     <!-- Display flash messages -->
