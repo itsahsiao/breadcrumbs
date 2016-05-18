@@ -2,13 +2,19 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
+import datetime
+
+# SQLAlchemy-Searchable is used for the searchbox feature to look up restaurants
+# Import and call make_searchable function below
+from sqlalchemy_searchable import make_searchable
+from sqlalchemy_utils.types import TSVectorType
+
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
 # object, where we do most of our interactions (like committing, etc.)
-
 db = SQLAlchemy()
 
-import datetime
+make_searchable()
 
 
 ##############################################################################
@@ -55,6 +61,9 @@ class Restaurant(db.Model):
     # Note: food trucks do not have an address, but random marker...
     latitude = db.Column(db.Numeric, nullable=False)
     longitude = db.Column(db.Numeric, nullable=False)
+    # We want restaurant name and address to be fulltext-indexed (searchable),
+    # so put them inside the definition of TSVectorType
+    search_vector = db.Column(TSVectorType('name', 'address'))
 
     # Define relationships
     city = db.relationship("City", backref=db.backref("restaurants"))

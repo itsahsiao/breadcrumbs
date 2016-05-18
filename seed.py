@@ -2,10 +2,10 @@
 
 from sqlalchemy import func
 
-from test_search_model import City, Restaurant
-from test_search_model import connect_to_db, db
-# from model import City, Restaurant
-# from model import connect_to_db, db
+# from test_search_model import City, Restaurant
+# from test_search_model import connect_to_db, db
+from model import City, Restaurant
+from model import connect_to_db, db
 
 from server import app
 
@@ -42,7 +42,7 @@ def load_restaurants(city):
     # Limit API request to 20 results first
     # Keep database small, until something working to make another API request
     params = {
-        'term': 'food',
+        'term': 'restaurant',
         'limit': 20,
     }
 
@@ -149,6 +149,10 @@ def load_restaurants(city):
 
 if __name__ == "__main__":
     connect_to_db(app)
+
+    # Configure mappers before calling tables in order for search triggers in
+    # SQLAlchemy-Searchable to work properly
+    db.configure_mappers()
 
     # In case tables haven't been created, create them
     db.create_all()
