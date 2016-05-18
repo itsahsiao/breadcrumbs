@@ -188,7 +188,7 @@ def search_restaurants():
 
     # import pdb; pdb.set_trace()
 
-    user_search = request.args.get("search")
+    user_search = request.args.get("q")
 
     # query = db.session.query(Restaurant)
 
