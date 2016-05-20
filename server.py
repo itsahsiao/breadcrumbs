@@ -79,11 +79,18 @@ def logout():
     return redirect("/")
 
 
-@app.route("/signup")
-def signup():
-    """Check if user exists in database, otherwise add user to database."""
+@app.route("/signup", methods=["GET"])
+def show_signup():
+    """Show signup form."""
 
     return render_template("signup.html")
+
+
+# @app.route("/signup", methods=["POST"])
+# def signup():
+#     """Check if user exists in database, otherwise add user to database."""
+
+#     return render_template("/")
 
 
 @app.route("/users")
