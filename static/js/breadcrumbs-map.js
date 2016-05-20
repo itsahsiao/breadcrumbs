@@ -26,45 +26,7 @@ function initMap() {
     },
   });
 
-  // // ----------- Test code for plotting a marker on the map ----------- 
-  // // Give coordinates of marker
-  // var markerLatLng = {lat: 37.351158, lng: -122.03274};
-
-  // // Create a marker object
-  // var marker = new google.maps.Marker({
-  //   position: markerLatLng,
-  //   map: map,
-  //   title: 'This is a marker!!'
-  // });
-  // // ------------------------------------------------------------------
-
-  // // Test code for opening an info window when user clicks a marker ---
-  // // Content of info window
-  // var contentString = '<div id="content">' +
-  //   '<h3>Restaurant Name: Blah blah</h3>' +
-  //   'Address: blah blah blah blah<br>' +
-  //   'Phone: 1234567890' +
-  //   '</div>';
-
-  // // Create an info window object
-  // var infowindow = new google.maps.InfoWindow({
-  //   content: contentString
-  // });
-
-  // // Create a marker object
-  // var marker2 = new google.maps.Marker({
-  //   position: {lat: 37.3765035, lng: -122.0321156},
-  //   map: map,
-  //   title: 'Nom Burger'
-  // });
-
-  // // Create an event handler that opens info window when marker is clicked
-  // marker2.addListener('click', function() {
-  //   infowindow.open(map, marker2);
-  // });
-  // // ------------------------------------------------------------------
-
-  // Solution for multiple info windows:
+  // Resource used for multiple info windows:
   // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
   
   // Create an info window object
