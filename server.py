@@ -86,11 +86,45 @@ def show_signup():
     return render_template("signup.html")
 
 
-# @app.route("/signup", methods=["POST"])
-# def signup():
-#     """Check if user exists in database, otherwise add user to database."""
+@app.route("/signup", methods=["POST"])
+def signup():
+    """Check if user exists in database, otherwise add user to database."""
 
-#     return render_template("/")
+    # Get values from signup form
+    first_name = request.form.get("first_name")
+    last_name = request.form.get("last_name")
+    city = request.form.get("city")
+    signup_email = request.form.get("signup_email")
+    signup_password = request.form.get("signup_password")
+
+    # Get city id for city name
+    # TODO: Ask about object vs tuple, since can query on City.city_id and index [0] to get city id
+    city_id = db.session.query(City).filter(City.name == city).one().city_id
+
+    try:
+        db.session.query(User).filter(User.email == signup_email).one()
+
+    except NoResultFound:
+        new_user = User(city_id=city_id,
+                        email=signup_email,
+                        password=signup_password,
+                        first_name=first_name,
+                        last_name=last_name)
+        db.session.add(new_user)
+        db.session.commit()
+
+        session["current_user"] = {
+            "email": new_user.email,
+            "user_id": new_user.user_id
+        }
+
+        flash("You have succesfully signed up for an account, and you are now logged in.")
+
+        return redirect("/users/%s" % new_user.user_id)
+
+    flash("An account already exists with this email address. Please login.")
+
+    return redirect("/login")
 
 
 @app.route("/users")
