@@ -86,6 +86,8 @@ def load_restaurants(city):
 
     # Offset by 20 each time to get all restaurants and load each restaurant into the database
     # while offset < total_results:
+    # Return 100 results for now, as Yelp has a limitation for accessible results (1000)
+    # TODO: Ask in help queue re: Yelp limitation and dataset
     for i in range(0, 100, 20):
 
         for business in response.businesses:
