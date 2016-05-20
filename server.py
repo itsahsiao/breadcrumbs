@@ -91,11 +91,11 @@ def signup():
     """Check if user exists in database, otherwise add user to database."""
 
     # Get values from signup form
+    signup_email = request.form.get("signup_email")
+    signup_password = request.form.get("signup_password")
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
     city = request.form.get("city")
-    signup_email = request.form.get("signup_email")
-    signup_password = request.form.get("signup_password")
 
     # Get city id for city name
     # TODO: Ask about object vs tuple, since can query on City.city_id and index [0] to get city id
