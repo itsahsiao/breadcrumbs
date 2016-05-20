@@ -87,8 +87,12 @@ def load_restaurants(city):
     # Offset by 20 each time to get all restaurants and load each restaurant into the database
     # Return 100 results for now, as Yelp has a limitation for accessible results (1000)
     # TODO: Ask in help queue re: Yelp limitation and dataset
+    # for i in range(0, total_results, 20):
+    # while offset < total_results:
     while offset < 100:
 
+        # API response returns a SearchResponse object with accessible attributes
+        # response.businesses returns a list of business objects with further attributes
         for business in response.businesses:
             restaurant = Restaurant(city_id=city_id,
                                     name=business.name,
@@ -107,99 +111,6 @@ def load_restaurants(city):
 
     # Commit to save changes
     db.session.commit()
-
-
-    ### BELOW CODE WAS PREVIOUS THOUGHT PROCESS - KEEP FOR NOW ###
-
-    # city_id = get_city_id(city)
-
-    # offset = 0
-
-    # response = get_restaurants(city, offset)
-
-    # # total_results = response.total
-
-    # # Test with 40 instead of total_results first to see if working
-    # for i in range(0, 40, 20):
-
-    #     for business in response.businesses:
-    #         restaurant = Restaurant(city_id=city_id,
-    #                                 name=business.name,
-    #                                 address=" ".join(business.location.display_address),
-    #                                 phone=business.display_phone,
-    #                                 image_url=business.image_url,
-    #                                 latitude=business.location.coordinate.latitude,
-    #                                 longitude=business.location.coordinate.longitude)
-
-    #         # Add to the session to store into the db
-    #         db.session.add(restaurant)
-
-    #     offset += 20
-
-    #     response = get_restaurants(city, offset)
-
-    #     # Commit to save changes
-    #     db.session.commit()
-
-
-# def load_restaurants(city):
-#     """Load restaurants from Yelp API into database."""
-
-#     print "Restaurants"
-
-#     # Delete all rows in table, so if we need to run this a second time,
-#     # we won't be trying to add duplicate users
-#     Restaurant.query.delete()
-
-#     # Read Yelp API keys
-#     with io.open('config_secret.json') as cred:
-#         creds = json.load(cred)
-#         auth = Oauth1Authenticator(**creds)
-#         client = Client(auth)
-
-#     ## TO-DO:
-#     # Limit / offset to get all results for a restaurant
-#     # Separate seed.py from help function
-
-#     # Set search parameters for Yelp API request
-#     # Limit API request to 20 results first
-#     # Keep database small, until something working to make another API request
-#     params = {
-#         'term': 'food',
-#         'limit': 20,
-#     }
-
-#     # Make Yelp API request and store response
-#     response = client.search(city, **params)
-
-#     # Check to see if city exists in database to get the city id
-#     # If not, add city into database and get city it
-#     if db.session.query(City.city_id).filter(City.name == city).first():
-#         city_id = db.session.query(City.city_id).filter(City.name == city).first()
-#         city_id = city_id[0]
-#     else:
-#         new_city = City(name=city)
-#         db.session.add(new_city)
-#         db.session.commit()
-#         city_id = new_city.city_id
-
-#     # API response returns a SearchResponse object
-#     # Specify information by looking at its attributes and indexing
-#     # response.businesses returns a list of business objects with further attributes
-#     for business in response.businesses:
-#         restaurant = Restaurant(city_id=city_id,
-#                                 name=business.name,
-#                                 address=" ".join(business.location.display_address),
-#                                 phone=business.display_phone,
-#                                 image_url=business.image_url,
-#                                 latitude=business.location.coordinate.latitude,
-#                                 longitude=business.location.coordinate.longitude)
-
-#         # Add to the session to store into the db
-#         db.session.add(restaurant)
-
-#         # Commit to save changes
-#         db.session.commit()
 
 
 # Might not need this function, as no user data seeded into database initially
@@ -242,6 +153,5 @@ if __name__ == "__main__":
 
     # Import different types of data
     load_restaurants("Sunnyvale")
-    # load_categories()
     # set_val_user_id()
     set_val_restaurant_id()
