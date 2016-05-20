@@ -27,9 +27,7 @@ def get_city_id(city):
     # If not, instantiate the new city in the database and get the city id
     # Otherwise, return the city id for the existing city from the database
     try:
-        # existing_city_id = db.session.query(City.city_id).filter(City.name == city).one()[0]
         existing_city = db.session.query(City).filter(City.name == city).one()
-        # TODO: Ask if object better or tuple better???
 
     except NoResultFound:
         new_city = City(name=city)
@@ -40,7 +38,7 @@ def get_city_id(city):
     return existing_city.city_id
 
 
-# Got ideas on how to offset Yelp API results from http://www.mfumagalli.com/wp/portfolio/nycbars/
+# Resource for how to offset Yelp API results from http://www.mfumagalli.com/wp/portfolio/nycbars/
 def get_restaurants(city, offset):
     """
     Make API request to Yelp to get restaurants for a city, and offset the results by an amount.
@@ -70,30 +68,23 @@ def get_restaurants(city, offset):
 def load_restaurants(city):
     """Get all restaurants for a city from Yelp and load restaurants into database."""
 
-    # Delete all rows in table, so if we need to run this a second time,
-    # we won't be trying to add duplicate users
-    Restaurant.query.delete()
-
     # Get city id, as city id is a required parameter when adding a restaurant to the database
     city_id = get_city_id(city)
 
     # Start offset at 0 to return the first 20 results from Yelp API request
     offset = 0
-    response = get_restaurants(city, offset)
 
     # Get total number of restaurants for this city
-    total_results = response.total
+    total_results = get_restaurants(city, offset).total
 
-    # Offset by 20 each time to get all restaurants and load each restaurant into the database
-    # Return 100 results for now, as Yelp has a limitation for accessible results (1000)
-    # TODO: Ask in help queue re: Yelp limitation and dataset
-    # for i in range(0, total_results, 20):
-    # while offset < total_results:
-    while offset < 100:
+    # Get all restaurants for a city and load each restaurant into the database
+    # Note: Yelp has a limitation of 1000 for accessible results, so get total results
+    # if less than 1000 or get only 1000 results back even if there should be more
+    while 1000 > offset < total_results:
 
         # API response returns a SearchResponse object with accessible attributes
         # response.businesses returns a list of business objects with further attributes
-        for business in response.businesses:
+        for business in get_restaurants(city, offset).businesses:
             restaurant = Restaurant(city_id=city_id,
                                     name=business.name,
                                     address=" ".join(business.location.display_address),
@@ -105,9 +96,8 @@ def load_restaurants(city):
             # Add each restaurant to the db
             db.session.add(restaurant)
 
+        # Yelp returns only 20 results each time, so need to offset by 20 while iterating
         offset += 20
-
-        response = get_restaurants(city, offset)
 
     # Commit to save changes
     db.session.commit()
