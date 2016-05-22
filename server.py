@@ -239,6 +239,31 @@ def search_restaurants():
     return render_template("search_results.html", search_results=search_results)
 
 
+@app.route("/add-friend", methods=["POST"])
+def add_friend():
+    """Send a friend request to another user."""
+
+    # Get values from add-friend-form
+    user_a_id = request.form.get("user_a_id")
+    user_b_id = request.form.get("user_b_id")
+
+    # Add a connection in the database that user_a sent a friend request to user_b
+    first_connection = Connection(user_a_id=user_a_id,
+                                  user_b_id=user_b_id,
+                                  status="Request Sent")
+
+    db.session.add(first_connection)
+    db.session.commit()
+
+    # This only prints in the console
+    print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
+
+    return "Sent Request"
+
+    # Once user_b has accepted the friend request, update the status for this record in db to Request Accepted
+    # Then add another connection with the user ids flipped around and status Friends
+
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
