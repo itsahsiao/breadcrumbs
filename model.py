@@ -190,10 +190,10 @@ class Connection(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Connection connection_id=%s first_user=%s added_user=%s status=%s>" % (self.connection_id,
-                                                                                        self.user_a_id,
-                                                                                        self.user_b_id,
-                                                                                        self.status)
+        return "<Connection connection_id=%s user_a_id=%s user_b_id=%s status=%s>" % (self.connection_id,
+                                                                                      self.user_a_id,
+                                                                                      self.user_b_id,
+                                                                                      self.status)
 
 
 ##############################################################################
