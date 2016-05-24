@@ -146,7 +146,20 @@ def user_profile(user_id):
     # Query by user id to return that record in database about user info
     user = db.session.query(User).filter(User.user_id == user_id).one()
 
-    return render_template("user_profile.html", user=user)
+    user_a_id = session["current_user"]["user_id"]
+    user_b_id = user.user_id
+
+    # Query to see if user_a and user_b are friends; returns None if false
+    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                  Connection.user_b_id == user_b_id,
+                                                  Connection.status == "Accepted").first()
+
+    # Query to see if user_a has sent user_b a friend request; returns None if false
+    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                          Connection.user_b_id == user_b_id,
+                                                          Connection.status == "Requested").first()
+
+    return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
 
 
 @app.route("/user-visits.json")
@@ -249,10 +262,12 @@ def add_friend():
     user_a_id = request.form.get("user_a_id")
     user_b_id = request.form.get("user_b_id")
 
+    # Query to see if user_a and user_b are friends; returns None if false
     friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
                                                   Connection.user_b_id == user_b_id,
                                                   Connection.status == "Accepted").first()
 
+    # Query to see if user_a has sent user_b a friend request; returns None if false
     pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
                                                           Connection.user_b_id == user_b_id,
                                                           Connection.status == "Requested").first()

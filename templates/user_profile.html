@@ -29,7 +29,7 @@
     </p>
   </div>
 
-  {% if not session.current_user.user_id == user.user_id %}
+  {% if not session.current_user.user_id == user.user_id and not friends and not pending_request %}
   <div>
     <form id="add-friend-form" action="/add-friend" method="post">
       <input type="hidden" name="user_a_id" value="{{ session.current_user.user_id }}" id="user-a-field">
