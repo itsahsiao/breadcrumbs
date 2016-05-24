@@ -24,7 +24,8 @@
         </form>
 
         <br>
-
+        <a href="/users/{{ session.current_user.user_id }}">User Profile</a>
+        <br>
         <a href="/logout">Log out</a>
 
       {% else %}
