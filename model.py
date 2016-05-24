@@ -184,8 +184,8 @@ class Connection(db.Model):
     # Define relationships
     # When both columns have a relationship with the same table, need to specify how
     # to handle multiple join paths in the square brackets of foreign_keys per below
-    user_a = db.relationship("User", foreign_keys=[user_a_id])
-    user_b = db.relationship("User", foreign_keys=[user_b_id])
+    user_a = db.relationship("User", foreign_keys=[user_a_id], backref=db.backref("requested_friendships"))
+    user_b = db.relationship("User", foreign_keys=[user_b_id], backref=db.backref("accepted_friendships"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
