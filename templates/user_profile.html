@@ -29,6 +29,7 @@
     </p>
   </div>
 
+  {% if not session.current_user.user_id == user.user_id %}
   <div>
     <form id="add-friend-form" action="/add-friend" method="post">
       <input type="hidden" name="user_a_id" value="{{ session.current_user.user_id }}" id="user-a-field">
@@ -58,6 +59,7 @@
 
     $("#add-friend-form").on("submit", sendFriendRequest);
   </script>
+  {% endif %}
 
   <div id="map"></div>
   <script src="/static/js/breadcrumbs-map.js"></script>
