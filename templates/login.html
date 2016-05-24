@@ -6,18 +6,20 @@
 
 {% block content %}
 
-    <h2>Login</h2>
+  <h2>Login</h2>
 
-    <form action="/login" method="post">
-        <label for="email">Email Address:</label>
-        <input id="email" type="email" name="login_email" placeholder="example@gmail.com">
-        <br>
-        <label for="password">Password:</label>
-        <input id="password" type="password" name="login_password" placeholder="Password">
-        <br>
-        <input type="submit" value="Login">
-    </form>
+  <form action="/login" method="post">
+    <label for="email">Email Address:</label>
+    <input id="email" type="email" name="login_email" placeholder="example@gmail.com">
+    <br>
+    <label for="password">Password:</label>
+    <input id="password" type="password" name="login_password" placeholder="Password">
+    <br>
+    <input type="submit" value="Login">
+  </form>
 
-    <p>Don't have an account? <a href="/signup">Sign up here</a>
-
+  <p>
+    Don't have an account? <a href="/signup">Sign up here</a>
+  </p>
+  
 {% endblock %}

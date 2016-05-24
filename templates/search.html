@@ -5,15 +5,13 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-    <h2>Search</h2>
 
-    <form action="/search">
-        <!-- Invisible label for accessibility
-        Source: http://webaim.org/techniques/forms/advanced -->
-        <input id="searchbox" type="text" name="searchbox" aria-label="Find Restaurant" placeholder="Find restaurant">
+  <h2>Search</h2>
 
-        <input type="submit" value="Search">
-
-    </form>
+  <form action="/search">
+    <!-- Source for invisible label for accessibility: http://webaim.org/techniques/forms/advanced -->
+    <input id="searchbox" type="text" name="searchbox" aria-label="Find Restaurant" placeholder="Find restaurant">
+    <input type="submit" value="Search">
+  </form>
 
 {% endblock %}

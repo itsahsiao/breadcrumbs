@@ -6,15 +6,16 @@
 
 {% block content %}
 
-    <h2>Restaurants</h2>
-    <ul>
-      {% for restaurant in restaurants %}
-          <li>
-              <a href="/restaurants/{{ restaurant.restaurant_id }}">
-                {{ restaurant.name }}
-              </a>
-          </li>
-      {% endfor %}
-    </ul>
+  <h2>Restaurants</h2>
+  
+  <ul>
+    {% for restaurant in restaurants %}
+      <li>
+        <a href="/restaurants/{{ restaurant.restaurant_id }}">
+          {{ restaurant.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 
 {% endblock %}

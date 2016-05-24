@@ -3,27 +3,28 @@
 {% block title %}Restaurant: {{ restaurant.name }}{% endblock %}
 
 {% block head %}
-<script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery.js"></script>
 {% endblock %}
 
 {% block content %}
 
-    <h2>Restaurant: {{ restaurant.name }}</h2>
-    <img src="{{ restaurant.image_url }}">
-    <ul>
-        <li>Restaurant ID: {{ restaurant.restaurant_id }}</li>
-        <li>City: {{ restaurant.city.name }}</li>        
-        <li>Address: {{ restaurant.address }}</li>
-        <li>Phone Number: {{ restaurant.phone }}</li>
-        <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
-    </ul>
+  <h2>Restaurant: {{ restaurant.name }}</h2>
+  
+  <img src="{{ restaurant.image_url }}">
+  
+  <ul>
+    <li>Restaurant ID: {{ restaurant.restaurant_id }}</li>
+    <li>City: {{ restaurant.city.name }}</li>        
+    <li>Address: {{ restaurant.address }}</li>
+    <li>Phone Number: {{ restaurant.phone }}</li>
+    <li>Coordinates: Lat {{ restaurant.latitude}}, Long {{ restaurant.longitude }}</li>
+  </ul>
 
-    <!-- Button to add restaurant visit to user's restaurant history
-         This is a regular form submit with hidden input
-    -->
-    <form id="add-visit" action="/add-visit" method="post">
-        <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
-        <input type="submit" value="Leave a Breadcrumb">
-    </form>
+  <!-- Button to add restaurant visit to user's restaurant history -->
+  <!-- This is a regular form submit with hidden input -->
+  <form id="add-visit" action="/add-visit" method="post">
+    <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
+    <input type="submit" value="Leave a Breadcrumb">
+  </form>
 
 {% endblock %}
