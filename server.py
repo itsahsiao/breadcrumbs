@@ -57,7 +57,7 @@ def login():
         return redirect("/login")
 
     # Use a nested dictionary for session["current_user"] to store email and user id
-    # This way, create only one session and delete only one session vs. two or more
+    # This way, create only one session and delete only one session vs. two or more if want to store more info
     session["current_user"] = {
         "email": current_user.email,
         "user_id": current_user.user_id
@@ -82,6 +82,8 @@ def logout():
 @app.route("/signup", methods=["GET"])
 def show_signup():
     """Show signup form."""
+
+    # query cities and pass into jinja for drop down menu and option value = city id
 
     return render_template("signup.html")
 
@@ -243,25 +245,40 @@ def search_restaurants():
 def add_friend():
     """Send a friend request to another user."""
 
-    # Get values from add-friend-form
+    # Get values from add-friend-form via AJAX
     user_a_id = request.form.get("user_a_id")
     user_b_id = request.form.get("user_b_id")
 
+    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                  Connection.user_b_id == user_b_id,
+                                                  Connection.status == "Accepted").first()
+
+    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                          Connection.user_b_id == user_b_id,
+                                                          Connection.status == "Requested").first()
+
+    # user_a cannot send friend request to self
+    if user_a_id == user_b_id:
+        return "You cannot add yourself as a friend."
+
+    # user_a cannot send friend request to user_b if they are friends or if request is pending
+    elif friends or pending_request:
+        return "You cannot send a friend request"
+
+    # If user_a and user_b are not friends and there is no pending request for user_b,
     # Add a connection in the database that user_a sent a friend request to user_b
-    first_connection = Connection(user_a_id=user_a_id,
-                                  user_b_id=user_b_id,
-                                  status="Request Sent")
+    else:
+        requested_connection = Connection(user_a_id=user_a_id,
+                                          user_b_id=user_b_id,
+                                          status="Requested")
 
-    db.session.add(first_connection)
-    db.session.commit()
+        db.session.add(requested_connection)
+        db.session.commit()
 
-    # This only prints in the console
-    print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
+        # Print in the console to check
+        print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
 
-    return "Sent Request"
-
-    # Once user_b has accepted the friend request, update the status for this record in db to Request Accepted
-    # Then add another connection with the user ids flipped around and status Friends
+        return "Sent Friend Request"
 
 
 if __name__ == "__main__":
