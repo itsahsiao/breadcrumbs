@@ -276,9 +276,13 @@ def add_friend():
     if user_a_id == user_b_id:
         return "You cannot add yourself as a friend."
 
-    # user_a cannot send friend request to user_b if they are friends or if request is pending
-    elif friends or pending_request:
-        return "You cannot send a friend request"
+    # user_a cannot send friend request to user_b if they are friends
+    elif friends:
+        return "You are already friends."
+
+    # user_a cannot send another friend request to user_b if there is a request pending
+    elif pending_request:
+        return "Your friend request is pending."
 
     # If user_a and user_b are not friends and there is no pending request for user_b,
     # Add a connection in the database that user_a sent a friend request to user_b
