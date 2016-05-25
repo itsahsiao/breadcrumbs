@@ -162,6 +162,52 @@ def user_profile(user_id):
     return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
 
 
+@app.route("/add-friend", methods=["POST"])
+def add_friend():
+    """Send a friend request to another user."""
+
+    # Get value for user_b from add-friend-form via AJAX
+    user_a_id = request.form.get("user_a_id")
+    user_b_id = request.form.get("user_b_id")
+
+    # Query to see if user_a and user_b are friends; returns None if false
+    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                  Connection.user_b_id == user_b_id,
+                                                  Connection.status == "Accepted").first()
+
+    # Query to see if user_a has sent user_b a friend request; returns None if false
+    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
+                                                          Connection.user_b_id == user_b_id,
+                                                          Connection.status == "Requested").first()
+
+    # user_a cannot send friend request to self
+    if user_a_id == user_b_id:
+        return "You cannot add yourself as a friend."
+
+    # user_a cannot send friend request to user_b if they are friends
+    elif friends:
+        return "You are already friends."
+
+    # user_a cannot send another friend request to user_b if there is a request pending
+    elif pending_request:
+        return "Your friend request is pending."
+
+    # If user_a and user_b are not friends and there is no pending request for user_b,
+    # Add a connection in the database that user_a sent a friend request to user_b
+    else:
+        requested_connection = Connection(user_a_id=user_a_id,
+                                          user_b_id=user_b_id,
+                                          status="Requested")
+
+        db.session.add(requested_connection)
+        db.session.commit()
+
+        # Print in the console to check
+        print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
+
+        return "Sent Friend Request"
+
+
 @app.route("/user-visits.json")
 def user_restaurant_visits():
     """Return info about user's restaurant visits as JSON."""
@@ -252,52 +298,6 @@ def search_restaurants():
     search_results = search(db.session.query(Restaurant), user_search).all()
 
     return render_template("search_results.html", search_results=search_results)
-
-
-@app.route("/add-friend", methods=["POST"])
-def add_friend():
-    """Send a friend request to another user."""
-
-    # Get values from add-friend-form via AJAX
-    user_a_id = request.form.get("user_a_id")
-    user_b_id = request.form.get("user_b_id")
-
-    # Query to see if user_a and user_b are friends; returns None if false
-    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                  Connection.user_b_id == user_b_id,
-                                                  Connection.status == "Accepted").first()
-
-    # Query to see if user_a has sent user_b a friend request; returns None if false
-    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                          Connection.user_b_id == user_b_id,
-                                                          Connection.status == "Requested").first()
-
-    # user_a cannot send friend request to self
-    if user_a_id == user_b_id:
-        return "You cannot add yourself as a friend."
-
-    # user_a cannot send friend request to user_b if they are friends
-    elif friends:
-        return "You are already friends."
-
-    # user_a cannot send another friend request to user_b if there is a request pending
-    elif pending_request:
-        return "Your friend request is pending."
-
-    # If user_a and user_b are not friends and there is no pending request for user_b,
-    # Add a connection in the database that user_a sent a friend request to user_b
-    else:
-        requested_connection = Connection(user_a_id=user_a_id,
-                                          user_b_id=user_b_id,
-                                          status="Requested")
-
-        db.session.add(requested_connection)
-        db.session.commit()
-
-        # Print in the console to check
-        print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
-
-        return "Sent Friend Request"
 
 
 if __name__ == "__main__":
