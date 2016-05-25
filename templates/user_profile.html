@@ -29,13 +29,19 @@
     </p>
   </div>
 
-  {% if not session.current_user.user_id == user.user_id and not friends and not pending_request %}
   <div>
-    <form id="add-friend-form" action="/add-friend" method="post">
-      <input type="hidden" name="user_a_id" value="{{ session.current_user.user_id }}" id="user-a-field">
-      <input type="hidden" name="user_b_id" value="{{ user.user_id }}" id="user-b-field">
-      <input type="submit" value="Add Friend" id="add-friend-btn">
-    </form>
+    {% if session.current_user.user_id != user.user_id %}
+      {% if friends %}
+        <button type="button" id="accepted-btn" disabled="true">Friends</button>
+      {% elif pending_request %}
+        <button type="button" id="requested-btn" disabled="true">Request Pending</button>
+      {% else %}
+        <form id="add-friend-form" action="/add-friend" method="post">
+          <input type="hidden" name="user_a_id" value="{{ session.current_user.user_id }}" id="user-a-field">
+          <input type="hidden" name="user_b_id" value="{{ user.user_id }}" id="user-b-field">
+          <input type="submit" value="Add Friend" id="add-friend-btn">
+        </form>
+    {% endif %}
   </div>
 
   <script>
@@ -60,6 +66,7 @@
     $("#add-friend-form").on("submit", sendFriendRequest);
   </script>
   {% endif %}
+
 
   <div id="map"></div>
   <script src="/static/js/breadcrumbs-map.js"></script>
