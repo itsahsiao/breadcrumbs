@@ -151,9 +151,11 @@ def user_profile(user_id):
     # Query by user id to return that record in database about user info
     user = db.session.query(User).filter(User.user_id == user_id).one()
 
+    # Get user_a_id (current user) and user_b_id (from user profile page)
     user_a_id = session["current_user"]["user_id"]
     user_b_id = user.user_id
 
+    # Check connection status between user_a and user_b
     friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
 
     return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
@@ -163,10 +165,11 @@ def user_profile(user_id):
 def add_friend():
     """Send a friend request to another user."""
 
-    # Get value for user_b from add-friend-form via AJAX
-    user_a_id = request.form.get("user_a_id")
+    # Get user_a_id (current user) and user_b_id via AJAX post request when Add Friend button is clicked
+    user_a_id = session["current_user"]["user_id"]
     user_b_id = request.form.get("user_b_id")
 
+    # Check connection status between user_a and user_b
     friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
 
     # user_a cannot send friend request to self
@@ -194,7 +197,7 @@ def add_friend():
         # Print in the console to check
         print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
 
-        return "Sent Friend Request"
+        return "Request Sent"
 
 
 @app.route("/user-visits.json")
