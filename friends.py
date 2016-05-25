@@ -5,7 +5,7 @@ from model import db
 
 
 def is_friends_or_pending(user_a_id, user_b_id):
-    """Checks if user a and user b are friends, or if there is a pending request from user a to user b"""
+    """Checks if user_a and user_b are friends, or if there is a pending request from user_a to user_b"""
 
     # Query to see if user_a and user_b are friends; returns None if false
     friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
