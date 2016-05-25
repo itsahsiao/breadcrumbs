@@ -14,6 +14,10 @@ from sqlalchemy.orm.exc import NoResultFound
 # Import search function to query for information in database
 from sqlalchemy_searchable import search
 
+# Import help function
+from friends import is_friends_or_pending
+
+# Create Flask app
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -22,6 +26,7 @@ app.secret_key = "ABC"
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
+
 
 
 @app.route('/')
@@ -149,15 +154,7 @@ def user_profile(user_id):
     user_a_id = session["current_user"]["user_id"]
     user_b_id = user.user_id
 
-    # Query to see if user_a and user_b are friends; returns None if false
-    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                  Connection.user_b_id == user_b_id,
-                                                  Connection.status == "Accepted").first()
-
-    # Query to see if user_a has sent user_b a friend request; returns None if false
-    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                          Connection.user_b_id == user_b_id,
-                                                          Connection.status == "Requested").first()
+    friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
 
     return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
 
@@ -170,15 +167,7 @@ def add_friend():
     user_a_id = request.form.get("user_a_id")
     user_b_id = request.form.get("user_b_id")
 
-    # Query to see if user_a and user_b are friends; returns None if false
-    friends = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                  Connection.user_b_id == user_b_id,
-                                                  Connection.status == "Accepted").first()
-
-    # Query to see if user_a has sent user_b a friend request; returns None if false
-    pending_request = db.session.query(Connection).filter(Connection.user_a_id == user_a_id,
-                                                          Connection.user_b_id == user_b_id,
-                                                          Connection.status == "Requested").first()
+    friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
 
     # user_a cannot send friend request to self
     if user_a_id == user_b_id:
