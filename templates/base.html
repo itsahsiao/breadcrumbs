@@ -8,40 +8,38 @@
 <body>
   <h1>Breadcrumbs</h1>
 
-  <p>
-    <a href="/">Homepage</a>
-    <a href="/restaurants">Restaurants</a>
-    <a href="/users">Users</a>
-  </p>
+  <a href="/">Homepage</a>
+  <a href="/restaurants">Restaurants</a>
+  <a href="/users">Users</a>
 
-  <p>
-    {% if session.get('current_user') %}
+  {% if session.get('current_user') %}
+    <br>
+    <br>
+    <!-- Searchbox feature for restaurants -->
+    <form action="/search">
+      <!-- Source for invisible label for accessibility: http://webaim.org/techniques/forms/advanced -->
+      <input id="searchbox" type="search" name="q" aria-label="Find Restaurant" placeholder="Find restaurant">
+      <input type="submit" value="Search">
+    </form>
+    <br>
+    <a href="/users/{{ session.current_user.user_id }}">User Profile</a>
+    <a href="/logout">Log out</a>
 
-      <!-- Searchbox feature for restaurants -->
-      <form action="/search">
-        <!-- Source for invisible label for accessibility: http://webaim.org/techniques/forms/advanced -->
-        <input id="searchbox" type="search" name="q" aria-label="Find Restaurant" placeholder="Find restaurant">
-        <input type="submit" value="Search">
-      </form>
-      <br>
-      <a href="/users/{{ session.current_user.user_id }}">User Profile</a>
-      <a href="/logout">Log out</a>
+  {% else %}
 
-    {% else %}
+    <a href="/signup">Sign up</a>
+    <a href="/login">Log in</a>
 
-      <a href="/signup">Sign up</a> | <a href="/login">Log in</a>
-
-      <!-- Think about user flow if want to implement login form in nav bar -->
-      <!-- <form action="/login" method="POST">
-        <label for="email">Email Address:</label>
-        <input id="email" type="text" name="login_email">
-        <label for="password">Password:</label>
-        <input id="password" type="text" name="login_password">
-        <input type="submit" value="Login">
-      </form> -->
-      
-    {% endif %}
-  </p>  
+    <!-- Think about user flow if want to implement login form in nav bar -->
+    <!-- <form action="/login" method="POST">
+      <label for="email">Email Address:</label>
+      <input id="email" type="text" name="login_email">
+      <label for="password">Password:</label>
+      <input id="password" type="text" name="login_password">
+      <input type="submit" value="Login">
+    </form> -->
+    
+  {% endif %} 
 
   <hr>
 
