@@ -68,6 +68,8 @@ class Restaurant(db.Model):
     # Define relationships
     city = db.relationship("City", backref=db.backref("restaurants"))
     categories = db.relationship("Category", secondary="restaurantcategories", backref="restaurants")
+    # Use the visits association table to create the relationship between restaurant and users
+    users = db.relationship("User", secondary="visits", backref="restaurants")
 
     def __repr__(self):
         """Provide helpful representation when printed."""

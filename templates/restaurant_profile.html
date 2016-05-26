@@ -27,4 +27,16 @@
     <input type="submit" value="Leave a Breadcrumb">
   </form>
 
+  <div>
+    Friends who have left breadcrumbs for this restaurant:
+    <br>
+    {% if which_friends %}
+      {% for friend in which_friends %}
+        {{ friend.first_name }} {{ friend.last_name }}
+      {% endfor %}
+    {% else %}
+      No friends have left breadcrumbs for this restaurant!
+    {% endif %}
+  </div>
+
 {% endblock %}

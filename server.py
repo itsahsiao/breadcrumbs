@@ -237,7 +237,7 @@ def show_friends_and_requests():
                                                                Connection.status == "Requested").all()
 
     # Query to get all friends for current user
-    friends = db.session.query(Connection).filter(Connection.user_b_id == session["current_user"]["user_id"],
+    friends = db.session.query(Connection).filter(Connection.user_a_id == session["current_user"]["user_id"],
                                                   Connection.status == "Accepted").all()
 
     # friend_requests[0].user_a.name
@@ -265,7 +265,37 @@ def restaurant_profile(restaurant_id):
     # Query by restaurant id to return the record from the database and access its attributes
     restaurant = db.session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).one()
 
-    return render_template("restaurant_profile.html", restaurant=restaurant)
+    # Query to get all friends for current user
+    friends = db.session.query(Connection).filter(Connection.user_a_id == session["current_user"]["user_id"],
+                                                  Connection.status == "Accepted").all()
+
+    # friends_user_ids = []
+
+    # for friend in friends:
+    #     friends_user_ids.append(friend.user_b.user_id)
+
+    # friends_user_ids = set(friends_user_ids)
+
+    # Get a set of user ids for friends of the current user
+    friends_user_ids = set([friend.user_b.user_id for friend in friends])
+
+    # restaurant_user_ids = []
+
+    # for user in restaurant.users:
+    #     restaurant_user_ids.append(user.user_id)
+
+    # restaurant_user_ids = set(restaurant_user_ids)
+
+    # Get a set of user ids for people who have visited this restaurant
+    restaurant_user_ids = set([user.user_id for user in restaurant.users])
+
+    # Find out which friends of the current user has visited this restaurant
+    which_friends_user_ids = friends_user_ids & restaurant_user_ids  # intersection of the two sets
+    # which_friends_user_ids = list(which_friends_user_ids)
+
+    which_friends = db.session.query(User).filter(User.user_id.in_(which_friends_user_ids)).all()
+
+    return render_template("restaurant_profile.html", restaurant=restaurant, which_friends=which_friends)
 
 
 @app.route("/add-visit", methods=["POST"])
