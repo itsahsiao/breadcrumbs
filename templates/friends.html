@@ -8,33 +8,57 @@
 
   <h2>Friend Requests</h2>
 
-  {% if friend_requests %}
+  <h3>Received</h3>
+  <div>
+    {% if received_friend_requests %}
 
-    {% for friend_request in friend_requests %}
-      <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a><br>
-      Accept or Delete
-      <br>
-    {% endfor %}
+      {% for friend_request in received_friend_requests %}
+        <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a>
+        <br>
+        Accept or Delete
+        <br>
+      {% endfor %}
 
-  {% else %}
-    No pending Friend Requests.
+    {% else %}
+      No pending Friend Requests.
 
-  {% endif %}
+    {% endif %}
+  </div>
+
+  <h3>Sent</h3>
+
+  <div>
+    {% if sent_friend_requests %}
+
+      {% for friend_request in sent_friend_requests %}
+        <a href="users/{{ friend_request.user_b.user_id }}">{{ friend_request.user_b.first_name }} {{ friend_request.user_b.last_name }}</a>
+        <br>
+        Cancel
+        <br>
+      {% endfor %}
+
+    {% else %}
+      No pending Friend Requests.
+
+    {% endif %}
+
+  </div>
 
   <h2>My Friends</h2>
 
-  {% if friends %}
+  <div>
+    {% if friends %}
 
-    {% for friend in friends %}
-      <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
-      Delete
-      <br>
-    {% endfor %}
+      {% for friend in friends %}
+        <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
+        Delete
+        <br>
+      {% endfor %}
 
-  {% else %}
-    You have no friends.
+    {% else %}
+      You have no friends.
 
-  {% endif %}
-
+    {% endif %}
+</div>
 
 {% endblock %}

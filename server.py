@@ -205,8 +205,12 @@ def show_friends_and_requests():
     """Show friend requests and list of all friends"""
 
     # Query to get all friend requests for current user
-    friend_requests = db.session.query(Connection).filter(Connection.user_b_id == session["current_user"]["user_id"],
-                                                          Connection.status == "Requested").all()
+    received_friend_requests = db.session.query(Connection).filter(Connection.user_b_id == session["current_user"]["user_id"],
+                                                                   Connection.status == "Requested").all()
+
+    # Query to get all friend requests sent by current user
+    sent_friend_requests = db.session.query(Connection).filter(Connection.user_a_id == session["current_user"]["user_id"],
+                                                               Connection.status == "Requested").all()
 
     # Query to get all friends for current user
     friends = db.session.query(Connection).filter(Connection.user_b_id == session["current_user"]["user_id"],
@@ -214,7 +218,10 @@ def show_friends_and_requests():
 
     # friend_requests[0].user_a.name
 
-    return render_template("friends.html", friend_requests=friend_requests, friends=friends)
+    return render_template("friends.html",
+                           received_friend_requests=received_friend_requests,
+                           sent_friend_requests=sent_friend_requests,
+                           friends=friends)
 
 
 @app.route("/user-visits.json")
