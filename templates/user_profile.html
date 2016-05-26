@@ -39,6 +39,7 @@
         <form id="add-friend-form" action="/add-friend" method="post">
           <input type="submit" value="Add Friend" id="add-friend-btn">
         </form>
+      {% endif %}
     {% endif %}
   </div>
 
@@ -62,7 +63,6 @@
 
     $("#add-friend-form").on("submit", sendFriendRequest);
   </script>
-  {% endif %}
 
 
   <div id="map"></div>
