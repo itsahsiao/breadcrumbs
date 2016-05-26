@@ -57,6 +57,7 @@
       {% for friend in friends %}
         <div>
           <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
+          <br>
           <button type="button" id="unfriend-btn">Unfriend</button>
         </div>
       {% endfor %}
