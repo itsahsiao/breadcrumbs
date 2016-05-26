@@ -1,3 +1,9 @@
+"use strict";
+
+// Define global variable so URL with user id for JSON can be passed into AJAX get request
+var user_visits_json = "/users/" + $("#user-info").data("userid") + "/visits.json";
+
+// Initialize Google Map
 function initMap() {
   
   // Specify where the map is centered
@@ -41,7 +47,7 @@ function initMap() {
   // Make AJAX call to server to get JSON that has info re: user's visits
   // For every restaurant that the user has visited, place markers on map
   // with an info window for each marker when clicked
-  $.get('/user-visits.json', function (visits) {
+  $.get(user_visits_json, function (visits) {
 
     for (var key in visits) {
       var visit = visits[key];

@@ -21,7 +21,7 @@
 
 {% block content %}
 
-  <div>
+  <div id="user-info" data-userid="{{ user.user_id }}">
     <p>
       User ID {{ user.user_id }}<br>
       Name: {{ user.first_name }} {{ user.last_name }}<br>
@@ -51,7 +51,7 @@
       evt.preventDefault();
 
       var formInputs = {
-        "user_b_id": {{ user.user_id }}
+        "user_b_id": $("#user-info").data("userid")
       };
 
       $.post("/add-friend", 

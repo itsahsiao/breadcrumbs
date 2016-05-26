@@ -161,6 +161,30 @@ def user_profile(user_id):
     return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
 
 
+@app.route("/users/<int:user_id>/visits.json")
+def user_restaurant_visits(user_id):
+    """Return info about a user's restaurant visits as JSON."""
+
+    # Query to get all visits for a user
+    user_visits = db.session.query(Visit).filter(Visit.user_id == user_id).all()
+
+    rest_visits = {}
+
+    for visit in user_visits:
+        rest_visits[visit.visit_id] = {
+            "restaurant": visit.restaurant.name,
+            "address": visit.restaurant.address,
+            "phone": visit.restaurant.phone,
+            "image_url": visit.restaurant.image_url,
+            # Need to convert latitude and longitude to floats
+            # Otherwise get a TypeError: Decimal is not JSON serializable
+            "latitude": float(visit.restaurant.latitude),
+            "longitude": float(visit.restaurant.longitude)
+        }
+
+    return jsonify(rest_visits)
+
+
 @app.route("/add-friend", methods=["POST"])
 def add_friend():
     """Send a friend request to another user."""
@@ -222,30 +246,6 @@ def show_friends_and_requests():
                            received_friend_requests=received_friend_requests,
                            sent_friend_requests=sent_friend_requests,
                            friends=friends)
-
-
-@app.route("/user-visits.json")
-def user_restaurant_visits():
-    """Return info about user's restaurant visits as JSON."""
-
-    # Query to get all visits for current logged in user (pass in user id from session)
-    user_visits = db.session.query(Visit).filter(Visit.user_id == session["current_user"]["user_id"]).all()
-
-    rest_visits = {}
-
-    for visit in user_visits:
-        rest_visits[visit.visit_id] = {
-            "restaurant": visit.restaurant.name,
-            "address": visit.restaurant.address,
-            "phone": visit.restaurant.phone,
-            "image_url": visit.restaurant.image_url,
-            # Need to convert latitude and longitude to floats
-            # Otherwise get a TypeError: Decimal is not JSON serializable
-            "latitude": float(visit.restaurant.latitude),
-            "longitude": float(visit.restaurant.longitude)
-        }
-
-    return jsonify(rest_visits)
 
 
 @app.route("/restaurants")
