@@ -13,15 +13,18 @@
     {% if received_friend_requests %}
 
       {% for friend_request in received_friend_requests %}
-        <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a>
-        <br>
-        Accept or Delete
-        <br>
+        <div>
+          <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a>
+          <br>
+          <button type="button" id="accepted-btn">Accept</button>
+          <button type="button" id="deleted-btn">Delete</button>
+        </div>
       {% endfor %}
 
     {% else %}
-      No pending Friend Requests.
-
+      <div>
+        No pending Friend Requests for you.
+      </div>
     {% endif %}
   </div>
 
@@ -31,15 +34,17 @@
     {% if sent_friend_requests %}
 
       {% for friend_request in sent_friend_requests %}
-        <a href="users/{{ friend_request.user_b.user_id }}">{{ friend_request.user_b.first_name }} {{ friend_request.user_b.last_name }}</a>
-        <br>
-        Cancel
-        <br>
+        <div>
+          <a href="users/{{ friend_request.user_b.user_id }}">{{ friend_request.user_b.first_name }} {{ friend_request.user_b.last_name }}</a>
+          <br>
+          <button type="button" id="cancel-btn">Cancel</button>
+        </div>
       {% endfor %}
 
     {% else %}
-      No pending Friend Requests.
-
+      <div>
+        No pending Friend Requests from you.
+      </div>
     {% endif %}
 
   </div>
@@ -50,14 +55,16 @@
     {% if friends %}
 
       {% for friend in friends %}
-        <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
-        Delete
-        <br>
+        <div>
+          <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
+          <button type="button" id="unfriend-btn">Unfriend</button>
+        </div>
       {% endfor %}
 
     {% else %}
-      You have no friends.
-
+      <div>
+        You have no friends.
+      </div>
     {% endif %}
 </div>
 
