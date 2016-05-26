@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Friends{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+
+  <h2>Friend Requests</h2>
+
+  {% if friend_requests %}
+
+    {% for friend_request in friend_requests %}
+      <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a><br>
+      Accept or Delete
+      <br>
+    {% endfor %}
+
+  {% else %}
+    No pending Friend Requests.
+
+  {% endif %}
+
+  <h2>My Friends</h2>
+
+  {% if friends %}
+
+    {% for friend in friends %}
+      <a href="users/{{ friend.user_a.user_id }}">{{ friend.user_a.first_name }} {{ friend.user_a.last_name}}</a>
+      Delete
+      <br>
+    {% endfor %}
+
+  {% else %}
+    You have no friends.
+
+  {% endif %}
+
+
+{% endblock %}
