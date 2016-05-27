@@ -194,18 +194,18 @@ def add_friend():
     user_b_id = request.form.get("user_b_id")
 
     # Check connection status between user_a and user_b
-    friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
+    is_friends, is_pending = is_friends_or_pending(user_a_id, user_b_id)
 
     # user_a cannot send friend request to self
     if user_a_id == user_b_id:
         return "You cannot add yourself as a friend."
 
     # user_a cannot send friend request to user_b if they are friends
-    elif friends:
+    elif is_friends:
         return "You are already friends."
 
     # user_a cannot send another friend request to user_b if there is a request pending
-    elif pending_request:
+    elif is_pending:
         return "Your friend request is pending."
 
     # If user_a and user_b are not friends and there is no pending request for user_b,
