@@ -15,7 +15,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy_searchable import search
 
 # Import help function
-from friends import is_friends_or_pending
+from friends import is_friends_or_pending, get_friend_requests, get_friends
 
 # Create Flask app
 app = Flask(__name__)
@@ -228,35 +228,11 @@ def add_friend():
 def show_friends_and_requests():
     """Show friend requests and list of all friends"""
 
-    # # Query to get all friend requests for current user
-    # received_friend_requests = db.session.query(Connection).filter(Connection.user_b_id == session["current_user"]["user_id"],
-    #                                                                Connection.status == "Requested").all()
+    # Get user's friend requests
+    received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
 
-    # # Query to get all friend requests sent by current user
-    # sent_friend_requests = db.session.query(Connection).filter(Connection.user_a_id == session["current_user"]["user_id"],
-    #                                                            Connection.status == "Requested").all()
-
-    # # Query to get all friends for current user
-    # friends = db.session.query(Connection).filter(Connection.user_a_id == session["current_user"]["user_id"],
-    #                                               Connection.status == "Accepted").all()
-
-    ### The below returns User objects, instead of Connection objects per above
-    ### Same information and either way is valid
-
-    # Query to get all friend requests received
-    received_friend_requests = db.session.query(User).filter(Connection.user_b_id == session["current_user"]["user_id"],
-                                                             Connection.status == "Requested").join(Connection,
-                                                                                                    Connection.user_a_id == User.user_id).all()
-
-    # Query to get all friend requests sent
-    sent_friend_requests = db.session.query(User).filter(Connection.user_a_id == session["current_user"]["user_id"],
-                                                         Connection.status == "Requested").join(Connection,
-                                                                                                Connection.user_b_id == User.user_id).all()
-
-    # Query to get all friends for current user
-    friends = db.session.query(User).filter(Connection.user_a_id == session["current_user"]["user_id"],
-                                            Connection.status == "Accepted").join(Connection,
-                                                                                  Connection.user_b_id == User.user_id).all()
+    # Get user's friends
+    friends = get_friends(session["current_user"]["user_id"])
 
     return render_template("friends.html",
                            received_friend_requests=received_friend_requests,

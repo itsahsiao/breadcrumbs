@@ -1,6 +1,6 @@
-"""Function to check the connection status between two users"""
+"""Functions that define the connection/relationship between users"""
 
-from model import Connection
+from model import Connection, User
 from model import db
 
 
@@ -18,3 +18,30 @@ def is_friends_or_pending(user_a_id, user_b_id):
                                                           Connection.status == "Requested").first()
 
     return friends, pending_request
+
+
+def get_friend_requests(user_id):
+    """Get all received and sent friend requests for a user"""
+
+    # Query to get all friend requests received
+    received_friend_requests = db.session.query(User).filter(Connection.user_b_id == user_id,
+                                                             Connection.status == "Requested").join(Connection,
+                                                                                                    Connection.user_a_id == User.user_id).all()
+
+    # Query to get all friend requests sent
+    sent_friend_requests = db.session.query(User).filter(Connection.user_a_id == user_id,
+                                                         Connection.status == "Requested").join(Connection,
+                                                                                                Connection.user_b_id == User.user_id).all()
+
+    return received_friend_requests, sent_friend_requests
+
+
+def get_friends(user_id):
+    """Get user's friends"""
+
+    # Query to get all friends for current user
+    friends = db.session.query(User).filter(Connection.user_a_id == user_id,
+                                            Connection.status == "Accepted").join(Connection,
+                                                                                  Connection.user_b_id == User.user_id).all()
+
+    return friends
