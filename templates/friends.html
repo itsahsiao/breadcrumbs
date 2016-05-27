@@ -12,9 +12,9 @@
   <div>
     {% if received_friend_requests %}
 
-      {% for friend_request in received_friend_requests %}
+      {% for received_friend_request in received_friend_requests %}
         <div>
-          <a href="users/{{ friend_request.user_a.user_id }}">{{ friend_request.user_a.first_name }} {{ friend_request.user_a.last_name }}</a>
+          <a href="users/{{ received_friend_request.user_id }}">{{ received_friend_request.first_name }} {{ received_friend_request.last_name }}</a>
           <br>
           <button type="button" id="accepted-btn">Accept</button>
           <button type="button" id="deleted-btn">Delete</button>
@@ -33,9 +33,9 @@
   <div>
     {% if sent_friend_requests %}
 
-      {% for friend_request in sent_friend_requests %}
+      {% for sent_friend_request in sent_friend_requests %}
         <div>
-          <a href="users/{{ friend_request.user_b.user_id }}">{{ friend_request.user_b.first_name }} {{ friend_request.user_b.last_name }}</a>
+          <a href="users/{{ sent_friend_request.user_id }}">{{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}</a>
           <br>
           <button type="button" id="cancel-btn">Cancel</button>
         </div>
@@ -56,7 +56,7 @@
 
       {% for friend in friends %}
         <div>
-          <a href="users/{{ friend.user_b.user_id }}">{{ friend.user_b.first_name }} {{ friend.user_b.last_name}}</a>
+          <a href="users/{{ friend.user_id }}">{{ friend.first_name }} {{ friend.last_name}}</a>
           <br>
           <button type="button" id="unfriend-btn">Unfriend</button>
         </div>
