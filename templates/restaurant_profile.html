@@ -30,8 +30,8 @@
   <div>
     Friends who have left breadcrumbs for this restaurant:
     <br>
-    {% if which_friends %}
-      {% for friend in which_friends %}
+    {% if friends_who_visited %}
+      {% for friend in friends_who_visited %}
         {{ friend.first_name }} {{ friend.last_name }}
       {% endfor %}
     {% else %}
