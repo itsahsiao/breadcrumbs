@@ -261,39 +261,9 @@ def restaurant_profile(restaurant_id):
     # Query for current user's friends (returns query, not User objects)
     friends = get_friends(session["current_user"]["user_id"])
 
-    # friends = db.session.query(User).filter(Connection.user_a_id == session["current_user"]["user_id"],
-    #                                         Connection.status == "Accepted").join(Connection,
-    #                                                                               Connection.user_b_id == User.user_id)
-
+    # Pass friends into query to filter by restaurant, joining visits table to see if friends visited this restaurant
     friends_who_visited = friends.filter(Visit.restaurant_id == restaurant_id).join(Visit,
                                                                                     Visit.user_id == Connection.user_b_id).all()
-
-
-    # # friends_user_ids = []
-
-    # # for friend in friends:
-    # #     friends_user_ids.append(friend.user_b.user_id)
-
-    # # friends_user_ids = set(friends_user_ids)
-
-    # # Get a set of user ids for friends of the current user
-    # friends_user_ids = set([friend.user_b.user_id for friend in friends])
-
-    # # restaurant_user_ids = []
-
-    # # for user in restaurant.users:
-    # #     restaurant_user_ids.append(user.user_id)
-
-    # # restaurant_user_ids = set(restaurant_user_ids)
-
-    # # Get a set of user ids for people who have visited this restaurant
-    # restaurant_user_ids = set([user.user_id for user in restaurant.users])
-
-    # # Find out which friends of the current user has visited this restaurant
-    # which_friends_user_ids = friends_user_ids & restaurant_user_ids  # intersection of the two sets
-    # # which_friends_user_ids = list(which_friends_user_ids)
-
-    # which_friends = db.session.query(User).filter(User.user_id.in_(which_friends_user_ids)).all()
 
     return render_template("restaurant_profile.html", restaurant=restaurant, friends_who_visited=friends_who_visited)
 
