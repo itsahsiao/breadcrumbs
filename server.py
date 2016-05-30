@@ -8,13 +8,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
 
-# Import SQLALchemy exception for try/except
+# Import SQLALchemy exception error to use in try/except
 from sqlalchemy.orm.exc import NoResultFound
 
-# Import search function to query for information in database
+# Import search function from library to query for information in database
 from sqlalchemy_searchable import search
 
-# Import help function
+# Import helper functions
 from friends import is_friends_or_pending, get_friend_requests, get_friends
 
 # Create Flask app
@@ -51,8 +51,8 @@ def login():
     login_email = request.form.get("login_email")
     login_password = request.form.get("login_password")
 
-    # Check if user credentials match record in database
-    # If user does not exist or credentials are incorrect, ask them to try again
+    # Try if credentials provided by user match record in database
+    # If incorrect (NoResultFound in db), ask them to try again
     # If correct, log them in, redirecting them to their user profile
     try:
         current_user = db.session.query(User).filter(User.email == login_email,
@@ -68,9 +68,9 @@ def login():
         "user_id": current_user.user_id
     }
 
-    flash("You have successfully logged in.")
+    flash("Welcome {}. You have successfully logged in.".format(current_user.first_name))
 
-    return redirect("/users/%s" % current_user.user_id)
+    return redirect("/users/{}".format(current_user.user_id))
 
 
 @app.route("/logout")
@@ -79,7 +79,7 @@ def logout():
 
     del session["current_user"]
 
-    flash("You have successfully logged out.")
+    flash("Goodbye! You have successfully logged out.")
 
     return redirect("/")
 
@@ -108,6 +108,9 @@ def signup():
     # TODO: Ask about object vs tuple, since can query on City.city_id and index [0] to get city id
     city_id = db.session.query(City).filter(City.name == city).one().city_id
 
+    # Try if signup email provided does not already exist in db
+    # If email does not exist (NoResultFound in db), create new user and log them in
+    # If it is an existing email, flash message to tell user to login
     try:
         db.session.query(User).filter(User.email == signup_email).one()
 
@@ -141,14 +144,15 @@ def user_list():
     # Query to get all users
     users = db.session.query(User).all()
 
-    return render_template("user_list.html", users=users)
+    return render_template("user_list.html",
+                           users=users)
 
 
 @app.route("/users/<int:user_id>")
 def user_profile(user_id):
     """Show user profile with map and list of visited restaurants."""
 
-    # Query by user id to return that record in database about user info
+    # Query by user id to return the user from database and access its attributes
     user = db.session.query(User).filter(User.user_id == user_id).one()
 
     # Get user_a_id (current user) and user_b_id (from user profile page)
@@ -158,14 +162,17 @@ def user_profile(user_id):
     # Check connection status between user_a and user_b
     friends, pending_request = is_friends_or_pending(user_a_id, user_b_id)
 
-    return render_template("user_profile.html", user=user, friends=friends, pending_request=pending_request)
+    return render_template("user_profile.html",
+                           user=user,
+                           friends=friends,
+                           pending_request=pending_request)
 
 
 @app.route("/users/<int:user_id>/visits.json")
 def user_restaurant_visits(user_id):
     """Return info about a user's restaurant visits as JSON."""
 
-    # Query to get all visits for a user
+    # Query to get all restaurant visits for a user
     user_visits = db.session.query(Visit).filter(Visit.user_id == user_id).all()
 
     rest_visits = {}
@@ -189,7 +196,7 @@ def user_restaurant_visits(user_id):
 def add_friend():
     """Send a friend request to another user."""
 
-    # Get user_a_id (current user) and user_b_id via AJAX post request when Add Friend button is clicked
+    # Get user_a_id (current user) from flask session and user_b_id via AJAX post request
     user_a_id = session["current_user"]["user_id"]
     user_b_id = request.form.get("user_b_id")
 
@@ -204,7 +211,7 @@ def add_friend():
     elif is_friends:
         return "You are already friends."
 
-    # user_a cannot send another friend request to user_b if there is a request pending
+    # user_a cannot send another friend request to user_b if there is a pending request
     elif is_pending:
         return "Your friend request is pending."
 
@@ -232,7 +239,7 @@ def show_friends_and_requests():
     received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
 
     # Query for current user's friends (returns query, not User objects)
-    # Add .all() to the end to get list of objects
+    # Add .all() to the end to get list of User objects
     friends = get_friends(session["current_user"]["user_id"]).all()
 
     return render_template("friends.html",
@@ -248,24 +255,28 @@ def restaurant_list():
     # Query to get all restaurants, sorted alphabetically
     restaurants = db.session.query(Restaurant).order_by(Restaurant.name).all()
 
-    return render_template("restaurant_list.html", restaurants=restaurants)
+    return render_template("restaurant_list.html",
+                           restaurants=restaurants)
 
 
 @app.route("/restaurants/<int:restaurant_id>")
 def restaurant_profile(restaurant_id):
     """Show restaurant information."""
 
-    # Query by restaurant id to return the record from the database and access its attributes
+    # Query by restaurant id to return the restaurant from the database and access its attributes
     restaurant = db.session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).one()
 
     # Query for current user's friends (returns query, not User objects)
     friends = get_friends(session["current_user"]["user_id"])
 
-    # Pass friends into query to filter by restaurant, joining visits table to see if friends visited this restaurant
+    # Pass friends into this query to filter by restaurant, and
+    # joining the visits table to see if user's friends have visited this restaurant
     friends_who_visited = friends.filter(Visit.restaurant_id == restaurant_id).join(Visit,
                                                                                     Visit.user_id == Connection.user_b_id).all()
 
-    return render_template("restaurant_profile.html", restaurant=restaurant, friends_who_visited=friends_who_visited)
+    return render_template("restaurant_profile.html",
+                           restaurant=restaurant,
+                           friends_who_visited=friends_who_visited)
 
 
 @app.route("/add-visit", methods=["POST"])
@@ -275,10 +286,10 @@ def add_visit():
     # Get restaurant id from hidden input form when user clicks "Leave a Breadcrumb" button
     restaurant_id = request.form.get("restaurant_id")
 
-    # Check if user has added this restaurant previously
-    # If so, do not add restaurant visit and redirect user back to restaurant page
+    # Try if user has added this restaurant previously
     # If not, add this restaurant visit to database under this user id
     # and redirect user to their profile page to see the newly added marker
+    # If so, do not add restaurant visit and redirect user back to restaurant page
     try:
         db.session.query(Visit).filter(Visit.restaurant_id == restaurant_id,
                                        Visit.user_id == session["current_user"]["user_id"]).one()
@@ -302,10 +313,10 @@ def add_visit():
 def search_restaurants():
     """Search for a restaurant and return results."""
 
-    # Get value from searchbox for user's query
+    # Get value from searchbox form for user's query
     user_search = request.args.get("q")
 
-    # # Search user's query in database and return all search results
+    # # Search user's query in restaurant table of db and return all search results
     # query = db.session.query(Restaurant)
     # query = search(query, user_search)
     # search_results = query.all()
