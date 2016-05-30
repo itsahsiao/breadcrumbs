@@ -5,20 +5,35 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-  <div>
-    Welcome to Breadcrumbs, where foodies unite.
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Breadcrumbs</h1>
+      <p>The ultimate social media network for foodies</p>
+      <p>Remember where you've been and what you've ate!</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Login</a>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
+    </div>
   </div>
 
-  <div>
-    Remember where you've been and what you've ate!
-
-    <ul>
-      <li>Leave a trail of breadcrumbs, tracking your restaurant history.</li>
-      <li>Upload and post images of food from each restaurant visit.</li>
-      <li>Connect with friends to see what restaurants they've visited and what they've ate.</li>
-    </ul>
-
-    This is the social media network for foodies.
+  <div class="container">
+    <h2>Features</h2>
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <i class="fa fa-plus fa-3x fa-border" aria-hidden="true"></i>
+        <h3>Track Restaurants</h3>
+        <p>Add a restaurant visit, leaving a trail of breadcrumbs for your restaurant history.</p>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <i class="fa fa-camera fa-3x fa-border" aria-hidden="true"></i>
+        <h3>Upload Food Porn</h3>
+        <p>Upload your food pictures for each restaurant visit and leave comments, to remember what tasted good.</p>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <i class="fa fa-users fa-3x fa-border" aria-hidden="true"></i>
+        <h3>Connect with Friends</h3>
+        <p>Connect with your friends to see what restaurants they've visited and what they've ate for your future restaurant visits.</p>
+      </div>
+    <div>
   </div>
 
 {% endblock %}
