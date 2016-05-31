@@ -1,20 +1,20 @@
 "use strict";
 
 function showSentRequest(result) {
-      $("#add-friend-btn").val(result).attr("disabled", true)
-    }
+    $("#add-friend-btn").val(result).attr("disabled", true);
+}
 
 function sendFriendRequest(evt) {
-  evt.preventDefault();
+    evt.preventDefault();
 
-  var formInput = {
-    "user_b_id": $("#add-friend-form").data("userid")
-  };
+    var formInput = {
+        "user_b_id": $("#user-info").data("userid")
+    };
 
-  $.post("/add-friend", 
-         formInput,
-         showSentRequest
-         );
+    $.post("/add-friend",
+           formInput,
+           showSentRequest
+           );
 }
 
 $("#add-friend-form").on("submit", sendFriendRequest);

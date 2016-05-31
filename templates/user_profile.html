@@ -21,7 +21,7 @@
 
 {% block content %}
 
-  <div class="container">
+  <div class="container" id="user-info" data-userid="{{ user.user_id }}">
     <div class="row">
       <div class="col-xs-12 col-md-2">
         <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Profile+Picture">
@@ -36,7 +36,7 @@
             {% elif pending_request %}
               <button type="button" id="requested-btn" disabled="true">Request Pending</button>
             {% else %}
-              <form id="add-friend-form" action="/add-friend" data-userid="{{ user.user_id }}" method="post">
+              <form id="add-friend-form" action="/add-friend" method="post">
                 <input type="submit" value="Add Friend" id="add-friend-btn">
               </form>
             {% endif %}
