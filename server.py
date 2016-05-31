@@ -58,7 +58,7 @@ def login():
         current_user = db.session.query(User).filter(User.email == login_email,
                                                      User.password == login_password).one()
     except NoResultFound:
-        flash("The email or password you have entered did not match our records. Please try again.")
+        flash("The email or password you have entered did not match our records. Please try again.", "danger")
         return redirect("/login")
 
     # Use a nested dictionary for session["current_user"] to store email and user id
@@ -68,7 +68,7 @@ def login():
         "user_id": current_user.user_id
     }
 
-    flash("Welcome {}. You have successfully logged in.".format(current_user.first_name))
+    flash("Welcome {}. You have successfully logged in.".format(current_user.first_name), "success")
 
     return redirect("/users/{}".format(current_user.user_id))
 
@@ -79,7 +79,7 @@ def logout():
 
     del session["current_user"]
 
-    flash("Goodbye! You have successfully logged out.")
+    flash("Goodbye! You have successfully logged out.", "success")
 
     return redirect("/")
 
@@ -128,11 +128,11 @@ def signup():
             "user_id": new_user.user_id
         }
 
-        flash("You have succesfully signed up for an account, and you are now logged in.")
+        flash("You have succesfully signed up for an account, and you are now logged in.", "success")
 
         return redirect("/users/%s" % new_user.user_id)
 
-    flash("An account already exists with this email address. Please login.")
+    flash("An account already exists with this email address. Please login.", "danger")
 
     return redirect("/login")
 
@@ -300,11 +300,11 @@ def add_visit():
         db.session.add(visit)
         db.session.commit()
 
-        flash("You just left a breadcrumb for this restaurant!")
+        flash("You just left a breadcrumb for this restaurant.", "success")
 
         return redirect("/users/%s" % session["current_user"]["user_id"])
 
-    flash("You have already left a breadcrumb for this restaurant previously.")
+    flash("You already have a breadcrumb for this restaurant.", "danger")
 
     return redirect("/restaurants/%s" % restaurant_id)
 
