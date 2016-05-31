@@ -12,6 +12,12 @@ body {
     width: 250px;
 }
 
+/* HOMEPAGE */
+#features {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
 /* FOOTER */
 .footer {
     background-color: #F8F8F8;
