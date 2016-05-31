@@ -39,6 +39,8 @@ function initMap() {
         maxWidth: 200
     });
 
+    var iconImage = '/static/img/restaurant-marker.png';
+
     // Make AJAX call to server to get JSON that has info re: user's restaurant visits
     // For every restaurant that the user has visited, place markers on map and display
     // an info window when a marker is clicked
@@ -63,7 +65,8 @@ function initMap() {
                 position: markerLatLng,
                 map: map,
                 title: 'Restaurant: ' + visit.restaurant,
-                html: contentString
+                html: contentString,
+                icon: iconImage
             });
 
             // Add an event handler that sets content of info window to "this" 
