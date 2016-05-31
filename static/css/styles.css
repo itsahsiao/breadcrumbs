@@ -36,8 +36,21 @@ h1, h3 {
     margin-top: 10px;
 }
 
+#restaurant-marker {
+    width: 14px;
+}
+
+.media-object {
+    width: 50px;
+}
+
+.media-body p {
+    margin-bottom: 0;
+    font-size: 11px;
+}
+
 #map {
-    height: 500px;
+    height: 515px;
 }
 
 /* FOOTER */

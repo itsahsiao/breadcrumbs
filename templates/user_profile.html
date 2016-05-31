@@ -29,9 +29,9 @@
       <div class="col-xs-12 col-md-10">
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
         <p>
-          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ user.city.name }}
+          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Location: {{ user.city.name }}
           <br>
-          <span class="fa fa-cutlery" aria-hidden="true"></span> {{ total_breadcrumbs }} breadcrumbs
+          <img src="/static/img/restaurant-marker.png" id="restaurant-marker"> Breadcrumbs: {{ total_breadcrumbs }}
         </p>
         {% if session.current_user.user_id != user.user_id %}
           <p>
@@ -54,18 +54,41 @@
       <div class="col-xs-12 col-md-8" id="map">
       </div>
       <div class="col-xs-12 col-md-4">
-        <h3>Recent Trail</h3>
-        {% if recent_breadcrumbs %}
-          <ul>
-            {% for visit in recent_breadcrumbs %}
-              <li>{{ visit.restaurant.name }}</li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          No breadcrumbs.
-        {% endif %}
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading">
+            <h3>Recent Trail</h3>
+          </div>
 
-      </div>
+          <!-- List group -->
+          {% if recent_breadcrumbs %}
+            <div class="list-group">
+              {% for visit in recent_breadcrumbs %}
+                <a href="/restaurants/{{ visit.restaurant.restaurant_id }}" class="list-group-item">
+                  <div class="media">
+                    <div class="media-left">
+                      <img class="media-object" src="{{ visit.restaurant.image_url }}" alt="Image for {{ visit.restaurant.name }}">
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">{{ visit.restaurant.name }}</h4>
+                      <p>
+                        {{ visit.restaurant.address }}
+                        <br>
+                        {{ visit.restaurant.phone }}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              {% endfor %}
+                <a href="#" class="list-group-item">See rest of breadcrumbs trail</a>
+            </div>
+          {% else %}
+            <ul class="list-group">
+              <li class="list-group-item">No breadcrumbs left yet.</li>
+            </ul>
+          {% endif %}
+        </div><!-- /.panel -->
+      </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container -->
 
