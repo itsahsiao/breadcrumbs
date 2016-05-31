@@ -1,5 +1,21 @@
-/*FOOTER */
+/* NAV BAR */
+/* Body padding required for fixed navbar */
+body {
+    padding-top: 50px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+#searchbox {
+    width: 250px;
+}
+
+/* FOOTER */
 .footer {
+    background-color: #F8F8F8;
     bottom: 0;
-    position: fixed;
+    padding-top: 10px;
+    width: 100%;
 }

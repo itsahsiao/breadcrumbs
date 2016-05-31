@@ -11,7 +11,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles -->
-  <link href="static/css/styles.css" rel="stylesheet">
+  <link href="/static/css/styles.css" rel="stylesheet">
 
   <!-- Font Awesome icons -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" >
@@ -27,45 +27,66 @@
 </head>
 
 <body>
-  <h1>Breadcrumbs</h1>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
 
-  <a href="/">Homepage</a>
-  <a href="/restaurants">Restaurants</a>
-  <a href="/users">Users</a>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">breadcrumbs</a>
+      </div><!-- /.navbar-header -->
 
-  {% if session.get('current_user') %}
-    <br>
-    <br>
-    <!-- Searchbox feature for restaurants -->
-    <form action="/search">
-      <!-- Source for invisible label for accessibility: http://webaim.org/techniques/forms/advanced -->
-      <input id="searchbox" type="search" name="q" aria-label="Find Restaurant" placeholder="Find restaurant">
-      <input type="submit" value="Search">
-    </form>
-    <br>
-    <a href="/users/{{ session.current_user.user_id }}">User Profile</a>
-    <a href="/friends">Friends</a>
-    <a href="/logout">Log out</a>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        {% if session.get('current_user') %}
+          <ul class="nav navbar-nav">
+            <li><a href="/users/{{ session.current_user.user_id }}">Profile</a></li>
+            <li><a href="/friends">Friends <span class="badge">3</span></a></li>
+            <li><a href="/restaurants">Restaurants</a></li>
+          </ul>
 
-  {% else %}
+          <!-- Searchbox feature for restaurants -->
+          <form class="navbar-form navbar-left" role="search" action="/search">
+            <div class="form-group">
+              <input class="form-control" id="searchbox" type="search" name="q" aria-label="Find Restaurant" placeholder="Find restaurant by name or address">
+            </div>
+            <input class="btn btn-default" type="submit" value="Search">
+          </form>
 
-    <a href="/signup">Sign up</a>
-    <a href="/login">Log in</a>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/users/{{ session.current_user.user_id }}">My Profile</a></li>
+                <li><a href="/friends">My Friends <span class="badge">3</span></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Help</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="/logout">Log out</a></li>
+              </ul>
+            </li>
+          </ul>
 
-    <!-- Think about user flow if want to implement login form in nav bar -->
-    <!-- <form action="/login" method="POST">
-      <label for="email">Email Address:</label>
-      <input id="email" type="text" name="login_email">
-      <label for="password">Password:</label>
-      <input id="password" type="text" name="login_password">
-      <input type="submit" value="Login">
-    </form> -->
-    
-  {% endif %} 
+        {% else %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/signup">Sign up</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
 
-  <hr>
+        {% endif %} 
+      </div><!-- /.navbar-collapse -->
 
-  <!-- Display flash messages -->
+    </div><!-- /.container -->
+  </nav>
+
+  <!-- Display flash messages if any -->
   {% with messages = get_flashed_messages() %}
     {% for message in messages %}
       {{ message }}
@@ -74,17 +95,20 @@
 
   {% block content %} put content here {% endblock %}
 
-  <div class="container-fluid">
-    <div class="footer">
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
       <p>Breadcrumbs &copy; 2016</p>
     </div>
-  </div>
+  </footer>
 
   <!-- Placed at the end of the document so the pages load faster -->
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- jQuery script -->
+  <script src="https://code.jquery.com/jquery.js"></script> 
 
 </body>
 </html>
