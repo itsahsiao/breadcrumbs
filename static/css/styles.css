@@ -1,7 +1,7 @@
 /* NAV BAR */
 /* Body padding required for fixed navbar */
 body {
-    padding-top: 50px;
+    padding-top: 70px;
 }
 
 .navbar-brand {
@@ -13,9 +13,23 @@ body {
 }
 
 /* HOMEPAGE */
+.jumbotron {
+    margin-top: -20px;
+}
+
 #features {
-    margin-top: 20px;
+    margin-top: 0;
     margin-bottom: 50px;
+}
+
+/* USER PROFILE */
+h2, h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#map {
+    height: 500px;
 }
 
 /* FOOTER */

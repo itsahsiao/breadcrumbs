@@ -4,44 +4,58 @@
 
 {% block head %}
   <style>
-    html, body {
+    /*html, body {
       height: 100%;
       margin: 0;
       padding: 0;
     }
     #map {
       height: 80%;
-    }
+    }*/
   </style>
-
+<!-- 
   <script src="https://code.jquery.com/jquery.js"></script> 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"></script>
+   -->
   
 {% endblock %}
 
 {% block content %}
 
-  <div id="user-info" data-userid="{{ user.user_id }}">
-    <p>
-      User ID {{ user.user_id }}<br>
-      Name: {{ user.first_name }} {{ user.last_name }}<br>
-      Email: {{ user.email }}<br>
-    </p>
-  </div>
+  <div class="container" id="user-info" data-userid="{{ user.user_id }}">
+    <div class="row">
+      <div class="col-xs-12 col-md-2">
+        <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Profile+Picture">
+      </div>
+      <div class="col-xs-12 col-md-10">
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ user.city.name }}</p>
+          {% if session.current_user.user_id != user.user_id %}
+          <p>
+            {% if friends %}
+              <button type="button" id="accepted-btn" disabled="true">Friends</button>
+            {% elif pending_request %}
+              <button type="button" id="requested-btn" disabled="true">Request Pending</button>
+            {% else %}
+              <form id="add-friend-form" action="/add-friend" method="post">
+                <input type="submit" value="Add Friend" id="add-friend-btn">
+              </form>
+            {% endif %}
+          </p>
+          {% endif %}
+      </div>
+    </div><!-- /.row -->
+    <hr>
+    <div class="row">
+      <h2>Breadcrumbs</h2>
+      <div class="col-xs-12 col-md-8" id="map">
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <h3>Recent Breadcrumbs</h3>
 
-  <div>
-    {% if session.current_user.user_id != user.user_id %}
-      {% if friends %}
-        <button type="button" id="accepted-btn" disabled="true">Friends</button>
-      {% elif pending_request %}
-        <button type="button" id="requested-btn" disabled="true">Request Pending</button>
-      {% else %}
-        <form id="add-friend-form" action="/add-friend" method="post">
-          <input type="submit" value="Add Friend" id="add-friend-btn">
-        </form>
-      {% endif %}
-    {% endif %}
-  </div>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+
 
   <script>
     function showSentRequest(result) {
@@ -64,8 +78,7 @@
     $("#add-friend-form").on("submit", sendFriendRequest);
   </script>
 
-
-  <div id="map"></div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"></script>
   <script src="/static/js/breadcrumbs-map.js"></script>
 
 {% endblock %}
