@@ -155,6 +155,13 @@ def user_profile(user_id):
     # Query by user id to return the user from database and access its attributes
     user = db.session.query(User).filter(User.user_id == user_id).one()
 
+    # Get user's breadcrumbs in ascending order
+    breadcrumbs = db.session.query(Visit).filter(Visit.user_id == user_id).order_by(Visit.visit_id.desc())
+
+    # Return total # of breadcrumbs and recent 5 breadcrumbs
+    total_breadcrumbs = len(breadcrumbs.all())
+    recent_breadcrumbs = breadcrumbs.limit(5).all()
+
     # Get user_a_id (current user) and user_b_id (from user profile page)
     user_a_id = session["current_user"]["user_id"]
     user_b_id = user.user_id
@@ -164,6 +171,8 @@ def user_profile(user_id):
 
     return render_template("user_profile.html",
                            user=user,
+                           total_breadcrumbs=total_breadcrumbs,
+                           recent_breadcrumbs=recent_breadcrumbs,
                            friends=friends,
                            pending_request=pending_request)
 
