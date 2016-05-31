@@ -23,9 +23,17 @@ body {
 }
 
 /* USER PROFILE */
-h2, h3 {
-    margin-top: 0;
+hr {
+    margin-bottom: 0;
+}
+
+h2 {
+    margin-top: 20px;
     margin-bottom: 20px;
+}
+
+h1, h3 {
+    margin-top: 10px;
 }
 
 #map {
