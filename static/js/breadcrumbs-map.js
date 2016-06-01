@@ -58,8 +58,8 @@ function initMap() {
                     '<div class="media-body">' +
                     '<h5 class="media-heading">' + visit.restaurant + '</h5>' +
                     '<p>' +
-                    visit.address + '<br>' +
-                    'Phone: ' + visit.phone +
+                    '<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + visit.address + '<br>' +
+                    '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> ' + visit.phone +
                     '</p>' +
                     '</div>' +
                     '</div>';

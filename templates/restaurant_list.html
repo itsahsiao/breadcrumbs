@@ -12,7 +12,6 @@
       {% for restaurant in restaurants %}
         <div class="col-xs-12 col-md-6">
           <div class="list-group" id="restaurant-list">
-            
               <a href="/restaurants/{{ restaurant.restaurant_id }}" class="list-group-item">
                 <div class="media">
                   <div class="media-left">
@@ -25,8 +24,8 @@
                   <div class="media-body">
                     <h3 class="media-heading">{{ restaurant.name }}</h3>
                     <p>
-                      {{ restaurant.address }}<br>
-                      Phone: {{ restaurant.phone }}
+                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
+                      <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}
                     </p>
                   </div>
                 </div><!-- /.media -->            
