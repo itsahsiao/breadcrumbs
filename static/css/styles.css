@@ -53,7 +53,7 @@ h1, h3 {
     border-radius: 0.75%;
 }
 
-/* RESTAURANTS */
+/* RESTAURANT LIST */
 #restaurant-list .list-group-item {
     border-radius: 0;
     border: 0;
@@ -63,6 +63,19 @@ h1, h3 {
     font-size: 14px;
 }
 
+/* RESTAURANT PROFILE */
+#restaurant-profile-pic img {
+    width: 150px;
+}
+
+/*#restaurant-friends {
+    text-align: center;
+}*/
+/*TODO: Figure out how to center-align text under restaurant friends thumbnail photo*/
+
+#restaurant-friends img {
+    width: 100px;
+}
 
 /* FOOTER */
 .footer {

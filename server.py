@@ -316,7 +316,7 @@ def add_visit():
 
         return redirect("/users/%s" % session["current_user"]["user_id"])
 
-    flash("You already have a breadcrumb for this restaurant.", "danger")
+    flash("You already left a breadcrumb for this restaurant.", "danger")
 
     return redirect("/restaurants/%s" % restaurant_id)
 
