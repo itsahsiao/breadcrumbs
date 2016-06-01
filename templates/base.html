@@ -91,20 +91,19 @@
     </div><!-- /.container -->
   </nav>
 
-  
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <!-- Display flash messages if any -->
-        <div class="container">
-          {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <!-- Display flash messages if any -->
+      <div class="container">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              {{ message }}
-            </div>
-          {% endfor %}
-      {% endif %}
-    {% endwith %}
-  </div>
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
 
   {% block content %} put content here {% endblock %}
 
