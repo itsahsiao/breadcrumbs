@@ -41,7 +41,7 @@ h1, h3 {
 }
 
 .media-object {
-    width: 50px;
+    width: 70px;
 }
 
 .media-body p {
@@ -50,7 +50,8 @@ h1, h3 {
 }
 
 #map {
-    height: 515px;
+    height: 565px;
+    border-radius: 0.75%;
 }
 
 /* FOOTER */

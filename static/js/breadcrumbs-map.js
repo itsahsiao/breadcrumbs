@@ -36,7 +36,7 @@ function initMap() {
     // Create a global variable for the info window within this function
     // This way, it changes the content each time when a marker is clicked
     var infoWindow = new google.maps.InfoWindow({
-        maxWidth: 200
+        maxWidth: 250
     });
 
     var iconImage = '/static/img/restaurant-marker.png';
@@ -51,11 +51,18 @@ function initMap() {
 
             // Content of info window 
             // Display information about the restaurant
-            var contentString = '<div id="content">' +
-                '<h3>'+ visit.restaurant + '</h3>' +
-                'Address: ' + visit.address + '<br>' +
-                'Phone: ' + visit.phone +
-                '</div>';
+            var contentString = '<div class="media">' +
+                    '<div class="media-left">' +
+                    '<img class="media-object" src="' + visit.image_url + '" alt="Image for' + visit.restaurant + '">' +
+                    '</div>' +
+                    '<div class="media-body">' +
+                    '<h5 class="media-heading">' + visit.restaurant + '</h5>' +
+                    '<p>' +
+                    visit.address + '<br>' +
+                    'Phone: ' + visit.phone +
+                    '</p>' +
+                    '</div>' +
+                    '</div>';
 
             // Specify marker coordinates with restaurant's coordinates
             var markerLatLng = {lat: visit.latitude, lng: visit.longitude};

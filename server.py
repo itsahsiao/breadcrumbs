@@ -187,11 +187,14 @@ def user_restaurant_visits(user_id):
     rest_visits = {}
 
     for visit in user_visits:
+        image_url = visit.restaurant.image_url if visit.restaurant.image_url else "http://placehold.it/100x100?text=No+Image+Available"
+        phone = visit.restaurant.phone if visit.restaurant.phone else "Not Available"
+
         rest_visits[visit.visit_id] = {
             "restaurant": visit.restaurant.name,
             "address": visit.restaurant.address,
-            "phone": visit.restaurant.phone,
-            "image_url": visit.restaurant.image_url,
+            "phone": phone,
+            "image_url": image_url,
             # Need to convert latitude and longitude to floats
             # Otherwise get a TypeError: Decimal is not JSON serializable
             "latitude": float(visit.restaurant.latitude),
