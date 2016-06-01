@@ -6,16 +6,36 @@
 
 {% block content %}
 
-  <h2>Restaurants</h2>
-  
-  <ul>
-    {% for restaurant in restaurants %}
-      <li>
-        <a href="/restaurants/{{ restaurant.restaurant_id }}">
-          {{ restaurant.name }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="container">
+    <h1>Restaurants</h1>
+    <div class="row">
+      {% for restaurant in restaurants %}
+        <div class="col-xs-12 col-md-6">
+          <div class="list-group" id="restaurant-list">
+            
+              <a href="/restaurants/{{ restaurant.restaurant_id }}" class="list-group-item">
+                <div class="media">
+                  <div class="media-left">
+                    {% if restaurant.image_url %}
+                      <img class="media-object" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
+                    {% else %}
+                      <img class="media-object" src="http://placehold.it/100x100?text=No+Image+Available" alt="Image for {{ restaurant.name }}">
+                    {% endif %}
+                  </div>
+                  <div class="media-body">
+                    <h3 class="media-heading">{{ restaurant.name }}</h3>
+                    <p>
+                      {{ restaurant.address }}<br>
+                      Phone: {{ restaurant.phone }}
+                    </p>
+                  </div>
+                </div><!-- /.media -->            
+              </a>
+            
+          </div><!-- /.list-group -->
+        </div><!-- /.col -->
+      {% endfor %}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 
 {% endblock %}

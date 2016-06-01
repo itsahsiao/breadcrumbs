@@ -1,7 +1,6 @@
 /* NAV BAR */
-/* Body padding required for fixed navbar */
 body {
-    padding-top: 70px;
+    padding-top: 70px; /* Body padding required for fixed navbar */
 }
 
 .navbar-brand {
@@ -53,6 +52,17 @@ h1, h3 {
     height: 565px;
     border-radius: 0.75%;
 }
+
+/* RESTAURANTS */
+#restaurant-list .list-group-item {
+    border-radius: 0;
+    border: 0;
+}
+
+#restaurant-list .media-body p {
+    font-size: 14px;
+}
+
 
 /* FOOTER */
 .footer {
