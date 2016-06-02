@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 import datetime
 
-# SQLAlchemy-Searchable is used for the searchbox feature to look up restaurants
-# Import and call make_searchable function below
+# SQLAlchemy-Searchable is the library used for the search engines
+# Per the docs, import and call make_searchable function below
 from sqlalchemy_searchable import make_searchable
 from sqlalchemy_utils.types import TSVectorType
 
@@ -31,6 +31,8 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
+    # Put email inside TSVectorType definition for it to be fulltext-indexed (searchable)
+    search_vector = db.Column(TSVectorType('email'))
 
     # Define relationship
     city = db.relationship("City", backref=db.backref("users"))
@@ -52,17 +54,11 @@ class Restaurant(db.Model):
     name = db.Column(db.String(150), nullable=False)
     address = db.Column(db.String(150), nullable=False)
     phone = db.Column(db.String(20), nullable=True)
-    # image_url could be nullable=False if you design your data in a way that you
-    # only want restaurants that have images
     image_url = db.Column(db.String(200), nullable=True)
     # Latitude and Longitude need to be Numeric, not Integer to have decimal places
-    # Could exclude restaurants from your dataset that do not have latitude/longitude
-    # Same thing with address
-    # Note: food trucks do not have an address, but random marker...
     latitude = db.Column(db.Numeric, nullable=False)
     longitude = db.Column(db.Numeric, nullable=False)
-    # We want restaurant name and address to be fulltext-indexed (searchable),
-    # so put them inside the definition of TSVectorType
+    # Put restaurant name and address inside definition of TSVectorType to be fulltext-indexed (searchable)
     search_vector = db.Column(TSVectorType('name', 'address'))
 
     # Define relationships
@@ -116,8 +112,6 @@ class City(db.Model):
         return "<City city_id=%s name=%s>" % (self.city_id,
                                               self.name)
 
-
-### BELOW MODELS ARE FOR ADDITIONAL FEATURES TO BE WORKED ON LATER ###
 
 class Category(db.Model):
     """Category of the restaurant."""
@@ -184,7 +178,7 @@ class Connection(db.Model):
     status = db.Column(db.String(100), nullable=False)
 
     # Define relationships
-    # When both columns have a relationship with the same table, need to specify how
+    # When both columns have a relationship with the same table, need to specify how 
     # to handle multiple join paths in the square brackets of foreign_keys per below
     user_a = db.relationship("User", foreign_keys=[user_a_id], backref=db.backref("sent_connections"))
     user_b = db.relationship("User", foreign_keys=[user_b_id], backref=db.backref("received_connections"))
