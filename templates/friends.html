@@ -6,67 +6,67 @@
 
 {% block content %}
 
-  <h2>Friend Requests</h2>
+  <div class="container">
+    <h1>Friends Requests</h1>
+    <div class="row">
+      <h2>Received Requests</h2>
+      {% if received_friend_requests %}
+        {% for received_friend_request in received_friend_requests %}
+          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
+            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+            <br>
+            <a href="users/{{ received_friend_request.user_id }}">
+              {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
+            </a>
+            <br>
+            <button type="button" id="accepted-btn">Accept</button>
+            <button type="button" id="deleted-btn">Delete</button>
+          </div><!-- /.col -->
+        {% endfor %}
+      {% else %}
+        <p>No pending Friend Requests for you.</p>
+      {% endif %}
+    </div><!-- /.row -->
+    <div class="row">
+      <h2>Sent Requests</h2>
+      {% if sent_friend_requests %}
+        {% for sent_friend_request in sent_friend_requests %}
+          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm"> 
+            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+            <br>
+            <a href="users/{{ sent_friend_request.user_id }}">
+              {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
+            </a>
+            <br>
+            <button type="button" id="cancel-btn">Cancel</button>
+          </div><!-- /.col -->
+        {% endfor %}
+      {% else %}
+        <p>No pending Friend Requests for you.</p>
+      {% endif %}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 
-  <h3>Received</h3>
-  <div>
-    {% if received_friend_requests %}
+  <div class="container">
+    <h1>My Friends</h1>
+    <div class="row">
+      {% if friends %}
+        {% for friend in friends %}
+          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
+            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+            <br>
+            <a href="users/{{ friend.user_id }}">
+              {{ friend.first_name }} {{ friend.last_name}}
+            </a>
+            <br>
+            <button type="button" id="unfriend-btn">Unfriend</button>
+          </div><!-- /.col -->
+        {% endfor %}
+      {% else %}
+        <p>You haven't added any friends. Please look them up and connect with them!</p>
+      {% endif %}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 
-      {% for received_friend_request in received_friend_requests %}
-        <div>
-          <a href="users/{{ received_friend_request.user_id }}">{{ received_friend_request.first_name }} {{ received_friend_request.last_name }}</a>
-          <br>
-          <button type="button" id="accepted-btn">Accept</button>
-          <button type="button" id="deleted-btn">Delete</button>
-        </div>
-      {% endfor %}
-
-    {% else %}
-      <div>
-        No pending Friend Requests for you.
-      </div>
-    {% endif %}
-  </div>
-
-  <h3>Sent</h3>
-
-  <div>
-    {% if sent_friend_requests %}
-
-      {% for sent_friend_request in sent_friend_requests %}
-        <div>
-          <a href="users/{{ sent_friend_request.user_id }}">{{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}</a>
-          <br>
-          <button type="button" id="cancel-btn">Cancel</button>
-        </div>
-      {% endfor %}
-
-    {% else %}
-      <div>
-        No pending Friend Requests from you.
-      </div>
-    {% endif %}
-
-  </div>
-
-  <h2>My Friends</h2>
-
-  <div>
-    {% if friends %}
-
-      {% for friend in friends %}
-        <div>
-          <a href="users/{{ friend.user_id }}">{{ friend.first_name }} {{ friend.last_name}}</a>
-          <br>
-          <button type="button" id="unfriend-btn">Unfriend</button>
-        </div>
-      {% endfor %}
-
-    {% else %}
-      <div>
-        You have no friends.
-      </div>
-    {% endif %}
-</div>
 
 {% endblock %}
