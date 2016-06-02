@@ -264,18 +264,23 @@ def show_friends_and_requests():
 def search_users():
     """Search for a user by email and return results."""
 
+    # Get current user's friend requests
+    received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
+
+    # Returns query for current user's friends (not User objects) so add .all() to the end to get list of User objects
+    friends = get_friends(session["current_user"]["user_id"]).all()
+
     # Get value from searchbox form for user's query
     user_search = request.args.get("q")
 
-    # # Search user's query in restaurant table of db and return all search results
-    # query = db.session.query(Restaurant)
-    # query = search(query, user_search)
-    # search_results = query.all()
-
-    # Refactored above code to one line
+    # Search user's query in users table of db and return all search results
     search_results = search(db.session.query(User), user_search).all()
 
-    return render_template("friends_search_results.html", search_results=search_results)
+    return render_template("friends_search_results.html",
+                           received_friend_requests=received_friend_requests,
+                           sent_friend_requests=sent_friend_requests,
+                           friends=friends,
+                           search_results=search_results)
 
 
 @app.route("/restaurants")
