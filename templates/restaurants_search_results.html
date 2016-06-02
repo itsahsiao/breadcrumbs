@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Restaurants: Search Results{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Restaurants: Search Results</h1>
+    {% if search_results %}
+      <div class="row">
+        {% for restaurant in search_results %}
+          <div class="col-xs-12 col-md-6">
+            <div class="list-group" id="restaurant-list">
+              <a href="/restaurants/{{ restaurant.restaurant_id }}" class="list-group-item">
+                <div class="media">
+                  <div class="media-left">
+                    {% if restaurant.image_url %}
+                      <img class="media-object" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
+                    {% else %}
+                      <img class="media-object" src="http://placehold.it/100x100?text=No+Image+Available" alt="Image for {{ restaurant.name }}">
+                    {% endif %}
+                  </div><!-- /.media-left --> 
+                  <div class="media-body">
+                    <h3 class="media-heading">{{ restaurant.name }}</h3>
+                    <p>
+                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
+                      <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}
+                    </p>
+                  </div><!-- /.media-body -->  
+                </div><!-- /.media -->            
+              </a>
+            </div><!-- /.list-group -->
+          </div><!-- /.col -->
+        {% endfor %}
+      </div><!-- /.row -->
+    {% else %}
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <p>No results found. Please try again.</p>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    {% endif %}
+  </div><!-- /.container -->
+
+{% endblock %}

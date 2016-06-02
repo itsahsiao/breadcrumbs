@@ -124,7 +124,7 @@ def signup():
         db.session.commit()
 
         session["current_user"] = {
-            "email": new_user.email,
+            "first_name": new_user.first_name,
             "user_id": new_user.user_id
         }
 
@@ -260,6 +260,24 @@ def show_friends_and_requests():
                            friends=friends)
 
 
+@app.route("/friends/search", methods=["GET"])
+def search_users():
+    """Search for a user by email and return results."""
+
+    # Get value from searchbox form for user's query
+    user_search = request.args.get("q")
+
+    # # Search user's query in restaurant table of db and return all search results
+    # query = db.session.query(Restaurant)
+    # query = search(query, user_search)
+    # search_results = query.all()
+
+    # Refactored above code to one line
+    search_results = search(db.session.query(User), user_search).all()
+
+    return render_template("friends_search_results.html", search_results=search_results)
+
+
 @app.route("/restaurants")
 def restaurant_list():
     """Show list of restaurants."""
@@ -269,6 +287,24 @@ def restaurant_list():
 
     return render_template("restaurant_list.html",
                            restaurants=restaurants)
+
+
+@app.route("/restaurants/search", methods=["GET"])
+def search_restaurants():
+    """Search for a restaurant by name or address and return results."""
+
+    # Get value from searchbox form for user's query
+    user_search = request.args.get("q")
+
+    # # Search user's query in restaurant table of db and return all search results
+    # query = db.session.query(Restaurant)
+    # query = search(query, user_search)
+    # search_results = query.all()
+
+    # Refactored above code to one line
+    search_results = search(db.session.query(Restaurant), user_search).all()
+
+    return render_template("restaurants_search_results.html", search_results=search_results)
 
 
 @app.route("/restaurants/<int:restaurant_id>")
@@ -319,24 +355,6 @@ def add_visit():
     flash("You already left a breadcrumb for this restaurant.", "danger")
 
     return redirect("/restaurants/%s" % restaurant_id)
-
-
-@app.route("/search", methods=["GET"])
-def search_restaurants():
-    """Search for a restaurant and return results."""
-
-    # Get value from searchbox form for user's query
-    user_search = request.args.get("q")
-
-    # # Search user's query in restaurant table of db and return all search results
-    # query = db.session.query(Restaurant)
-    # query = search(query, user_search)
-    # search_results = query.all()
-
-    # Refactored above code to one line
-    search_results = search(db.session.query(Restaurant), user_search).all()
-
-    return render_template("search_results.html", search_results=search_results)
 
 
 if __name__ == "__main__":
