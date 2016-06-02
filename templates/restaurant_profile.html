@@ -14,7 +14,7 @@
         {% if restaurant.image_url %}
           <img class="img-responsive img-rounded" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
         {% else %}
-          <img class="img-responsive img-rounded" src="http://placehold.it/150x150?text=No+Image+Available" alt="No image available for {{ restaurant.name }}">
+          <img class="img-responsive img-rounded" src="/static/img/restaurant-avatar.png" alt="No image available for {{ restaurant.name }}">
         {% endif %}
       </div><!-- /.col -->
       <div class="col-xs-12 col-md-10">
@@ -40,7 +40,7 @@
       {% if friends_who_visited %}
         {% for friend in friends_who_visited %}
           <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+            <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
             <br>
             <a href="/users/{{ friend.user_id }}">
               {{ friend.first_name }} {{ friend.last_name }}

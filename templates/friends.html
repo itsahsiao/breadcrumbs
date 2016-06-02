@@ -51,7 +51,7 @@
             {% if friends %}
               {% for friend in friends %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                   <br>
                   <a href="users/{{ friend.user_id }}">
                     {{ friend.first_name }} {{ friend.last_name}}
@@ -73,7 +73,7 @@
             {% if received_friend_requests %}
               {% for received_friend_request in received_friend_requests %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                   <br>
                   <a href="users/{{ received_friend_request.user_id }}">
                     {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
@@ -96,7 +96,7 @@
             {% if sent_friend_requests %}
               {% for sent_friend_request in sent_friend_requests %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm"> 
-                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                   <br>
                   <a href="users/{{ sent_friend_request.user_id }}">
                     {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
