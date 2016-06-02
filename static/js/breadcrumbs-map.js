@@ -1,18 +1,13 @@
 "use strict";
 
-// Define global variable so URL with user id for JSON can be passed into AJAX get request
+// URL (string) to pass into AJAX get request
 var user_visits_json = "/users/" + $("#user-info").data("userid") + "/visits.json";
 
-// Initialize map
 function initMap() {
   
-    // Specify where the map is centered
-    // Re: coordinates - North is positive / South is negative / West is negative / East is positive
-    // TODO: Center the map based on user's city (get coordinates for city)
-    // Currently map center is hard coded with the coordinates for Sunnyvale
+    // Specify where the map is centered (currently set as Sunnyvale)t
     var myLatLng = {lat: 37.3688, lng: -122.0363};
 
-    // Create a map object and specify the DOM element for display
     var map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 13,
@@ -33,25 +28,21 @@ function initMap() {
     // Resource used for multiple info windows:
     // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
 
-    // Create a global variable for the info window within this function
-    // This way, it changes the content each time when a marker is clicked
+    // Create a global info window which the content within changes each time a marker is clicked
     var infoWindow = new google.maps.InfoWindow({
         maxWidth: 250
     });
 
     var iconImage = '/static/img/restaurant-marker.png';
 
-    // Make AJAX call to server to get JSON that has info re: user's restaurant visits
-    // For every restaurant that the user has visited, place markers on map and display
-    // an info window when a marker is clicked
+    // Get JSON for user's restaurant visits with the response passed into the function
     $.get(user_visits_json, function (visits) {
 
+        // For every restaurant that the user has visited, specify restaurant details and place markers
         for (var key in visits) {
             var visit = visits[key];
 
-            // Content of info window 
-            // Display information about the restaurant
-            var contentString = '<div class="media">' +
+            var restaurantDetails = '<div class="media">' +
                     '<div class="media-left">' +
                     '<img class="media-object" src="' + visit.image_url + '" alt="Image for' + visit.restaurant + '">' +
                     '</div>' +
@@ -64,20 +55,18 @@ function initMap() {
                     '</div>' +
                     '</div>';
 
-            // Specify marker coordinates with restaurant's coordinates
+            // Specify marker coordinates with the restaurant's coordinates
             var markerLatLng = {lat: visit.latitude, lng: visit.longitude};
 
-            // Create a marker object
             var marker = new google.maps.Marker({
                 position: markerLatLng,
                 map: map,
                 title: 'Restaurant: ' + visit.restaurant,
-                html: contentString,
+                html: restaurantDetails,
                 icon: iconImage
             });
 
-            // Add an event handler that sets content of info window to "this" 
-            // marker being clicked and open the info window for "this" marker
+            // When a marker is clicked, set content to restaurant details for "this" marker and open "this"
             marker.addListener('click', function() {
                 infoWindow.setContent(this.html);
                 infoWindow.open(map, this);
