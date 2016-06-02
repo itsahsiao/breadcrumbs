@@ -7,66 +7,103 @@
 {% block content %}
 
   <div class="container">
-    <h1>Friends Requests</h1>
-    <div class="row">
-      <h2>Received Requests</h2>
-      {% if received_friend_requests %}
-        {% for received_friend_request in received_friend_requests %}
-          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
-            <br>
-            <a href="users/{{ received_friend_request.user_id }}">
-              {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
-            </a>
-            <br>
-            <button type="button" id="accepted-btn">Accept</button>
-            <button type="button" id="deleted-btn">Delete</button>
-          </div><!-- /.col -->
-        {% endfor %}
-      {% else %}
-        <p>No pending Friend Requests for you.</p>
-      {% endif %}
-    </div><!-- /.row -->
-    <div class="row">
-      <h2>Sent Requests</h2>
-      {% if sent_friend_requests %}
-        {% for sent_friend_request in sent_friend_requests %}
-          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm"> 
-            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
-            <br>
-            <a href="users/{{ sent_friend_request.user_id }}">
-              {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
-            </a>
-            <br>
-            <button type="button" id="cancel-btn">Cancel</button>
-          </div><!-- /.col -->
-        {% endfor %}
-      {% else %}
-        <p>No pending Friend Requests for you.</p>
-      {% endif %}
-    </div><!-- /.row -->
-  </div><!-- /.container -->
 
-  <div class="container">
-    <h1>My Friends</h1>
-    <div class="row">
-      {% if friends %}
-        {% for friend in friends %}
-          <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-            <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
-            <br>
-            <a href="users/{{ friend.user_id }}">
-              {{ friend.first_name }} {{ friend.last_name}}
-            </a>
-            <br>
-            <button type="button" id="unfriend-btn">Unfriend</button>
-          </div><!-- /.col -->
-        {% endfor %}
-      {% else %}
-        <p>You haven't added any friends. Please look them up and connect with them!</p>
-      {% endif %}
-    </div><!-- /.row -->
-  </div><!-- /.container -->
+    <div>
 
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#friends" id="friends-tab" role="tab" data-toggle="tab" aria-controls="friends" aria-expanded="true">My Friends</a>
+        </li>
+        <li role="presentation" class="dropdown">
+          <a href="#" id="tab-drop" class="dropdown-toggle" data-toggle="dropdown" aria-controls="tab-drop-contents" aria-expanded="false">Friend Requests
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="tab-drop" id="tab-drop-contents">
+            <li>
+              <a href="#received-friend-requests" id="received-friend-requests-tab" role="tab" data-toggle="tab" aria-controls="received-friend-requests">Received</a>
+            </li>
+            <li>
+              <a href="#sent-friend-requests" id="sent-friend-requests-tab" role="tab" data-toggle="tab" aria-controls="sent-friend-requests">Sent</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+
+        <!-- Friends -->
+        <div role="tabpanel" class="tab-pane fade active in" id="friends" aria-labelledby="friends-tab">
+          <h1>My Friends</h1>
+          <div class="row">
+            {% if friends %}
+              {% for friend in friends %}
+                <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
+                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <br>
+                  <a href="users/{{ friend.user_id }}">
+                    {{ friend.first_name }} {{ friend.last_name}}
+                  </a>
+                  <br>
+                  <button type="button" class="btn btn-primary" id="unfriend-btn">Unfriend</button>
+                </div><!-- /.col -->
+              {% endfor %}
+            {% else %}
+              <p>You haven't added any friends. Please look them up and connect with them!</p>
+            {% endif %}
+          </div><!-- /.row -->
+        </div><!-- /#friends -->
+
+        <!-- Received Friend Requests -->
+        <div role="tabpanel" class="tab-pane fade" id="received-friend-requests" aria-labelledby="received-friend-requests-tab">
+          <h1>Received Friend Requests</h1>
+          <div class="row">
+            {% if received_friend_requests %}
+              {% for received_friend_request in received_friend_requests %}
+                <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
+                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <br>
+                  <a href="users/{{ received_friend_request.user_id }}">
+                    {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
+                  </a>
+                  <br>
+                  <button type="button" class="btn btn-success" id="accepted-btn">Accept</button>
+                  <button type="button" class="btn btn-danger" id="deleted-btn">Delete</button>
+                </div><!-- /.col -->
+              {% endfor %}
+            {% else %}
+              <p>No pending Friend Requests for you.</p>
+            {% endif %}
+          </div><!-- /.row -->
+        </div><!-- /#received-friend-requests -->
+
+        <!-- Sent Friend Requests -->
+        <div role="tabpanel" class="tab-pane fade" id="sent-friend-requests" aria-labelledby="sent-friend-requests-tab">
+          <h1>Sent Friend Requests</h1>
+          <div class="row">
+            {% if sent_friend_requests %}
+              {% for sent_friend_request in sent_friend_requests %}
+                <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm"> 
+                  <img class="img-circle img-responsive" src="http://placehold.it/150x150?text=Friends+Profile+Picture">
+                  <br>
+                  <a href="users/{{ sent_friend_request.user_id }}">
+                    {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
+                  </a>
+                  <br>
+                  <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
+                </div><!-- /.col -->
+              {% endfor %}
+            {% else %}
+              <p>No pending Friend Requests for you.</p>
+            {% endif %}
+          </div><!-- /.row -->
+        </div><!-- /#sent-friend-requests -->
+
+      </div><!-- /.tab-content -->
+
+    </div><!-- /div wrapping the nav tabs and tab panes -->
+
+  </div><!-- /.container -->
 
 {% endblock %}
