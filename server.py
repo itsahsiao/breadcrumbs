@@ -61,10 +61,10 @@ def login():
         flash("The email or password you have entered did not match our records. Please try again.", "danger")
         return redirect("/login")
 
-    # Use a nested dictionary for session["current_user"] to store email and user id
+    # Use a nested dictionary for session["current_user"] to store first name and user id
     # This way, create only one session and delete only one session vs. two or more if want to store more info
     session["current_user"] = {
-        "email": current_user.email,
+        "first_name": current_user.first_name,
         "user_id": current_user.user_id
     }
 
