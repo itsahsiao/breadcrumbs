@@ -44,6 +44,15 @@ class FlaskTestsBasic(TestCase):
         self.assertIn("Login", result.data)
         self.assertIn("Don't have an account?", result.data)
 
+    def test_signup(self):
+        """Test signup page."""
+
+        result = self.client.get("/signup")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Sign up", result.data)
+        self.assertIn("First Name:", result.data)
+        self.assertNotIn("Don't have an account?", result.data)
+
 
 # class FlaskTestsDatabase(TestCase):
 #     """Flask tests that use the database."""
