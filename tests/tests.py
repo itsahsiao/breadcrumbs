@@ -36,6 +36,13 @@ class FlaskTestsBasic(TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertIn("The ultimate social media network for foodies", result.data)
 
+    def test_login(self):
+        """Test login page."""
+
+        result = self.client.get("/login")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Login", result.data)
+
 
 # class FlaskTestsDatabase(TestCase):
 #     """Flask tests that use the database."""
