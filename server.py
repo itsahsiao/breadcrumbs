@@ -61,11 +61,22 @@ def login():
         flash("The email or password you have entered did not match our records. Please try again.", "danger")
         return redirect("/login")
 
+    # import pdb; pdb.set_trace()
+
+    # Get current user's friend requests and number of requests to display in badges
+    received_friend_requests, sent_friend_requests = get_friend_requests(current_user.user_id)
+    num_received_requests = len(received_friend_requests)
+    num_sent_requests = len(sent_friend_requests)
+    num_total_requests = num_received_requests + num_sent_requests
+
     # Use a nested dictionary for session["current_user"] to store first name and user id
     # This way, create only one session and delete only one session vs. two or more if want to store more info
     session["current_user"] = {
         "first_name": current_user.first_name,
-        "user_id": current_user.user_id
+        "user_id": current_user.user_id,
+        "num_received_requests": num_received_requests,
+        "num_sent_requests": num_sent_requests,
+        "num_total_requests": num_total_requests
     }
 
     flash("Welcome {}. You have successfully logged in.".format(current_user.first_name), "success")

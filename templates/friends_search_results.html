@@ -18,20 +18,20 @@
         <li role="presentation" class="dropdown">
           <a href="#" id="tab-drop" class="dropdown-toggle" data-toggle="dropdown" aria-controls="tab-drop-contents" aria-expanded="false">
             Friend Requests
-            <span class="badge">3</span>
+            <span class="badge">{{ session.current_user.num_total_requests }}</span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="tab-drop" id="tab-drop-contents">
             <li>
               <a href="#received-friend-requests" id="received-friend-requests-tab" role="tab" data-toggle="tab" aria-controls="received-friend-requests">
                 Received
-                <span class="badge">2</span>
+                <span class="badge">{{ session.current_user.num_received_requests }}</span>
               </a>
             </li>
             <li>
               <a href="#sent-friend-requests" id="sent-friend-requests-tab" role="tab" data-toggle="tab" aria-controls="sent-friend-requests">
                 Sent
-                <span class="badge">1</span>
+                <span class="badge">{{ session.current_user.num_sent_requests }}</span>
               </a>
             </li>
           </ul>
