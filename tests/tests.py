@@ -17,24 +17,24 @@ from server import app
 from unittest import TestCase
 
 
-# class FlaskTestsBasic(TestCase):
-#     """Flask tests."""
+class FlaskTestsBasic(TestCase):
+    """Flask tests."""
 
-#     def setUp(self):
-#         """Stuff to do before every test."""
+    def setUp(self):
+        """Stuff to do before every test."""
 
-#         # Get the Flask test client
-#         self.client = app.test_client()
+        # Get the Flask test client
+        self.client = app.test_client()
 
-#         # Show Flask errors that happen during tests
-#         app.config['TESTING'] = True
+        # Show Flask errors that happen during tests
+        app.config['TESTING'] = True
 
-#     def test_index(self):
-#         """Test homepage page."""
+    def test_index(self):
+        """Test homepage page."""
 
-#         result = self.client.get("/")
-#         self.assertEqual(result.status_code, 200)
-#         self.assertIn("The ultimate social media network for foodies", result.data)
+        result = self.client.get("/")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("The ultimate social media network for foodies", result.data)
 
 
 # class FlaskTestsDatabase(TestCase):
