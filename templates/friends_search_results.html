@@ -135,6 +135,18 @@
                     </a>
                   </div><!-- /.list-group -->
                 </div><!-- /.col -->
+                <div class="col-xs-12">
+                  <p>Not who you're looking for? Please try searching again below.</p>
+                  <!-- Search engine for users -->
+                  <form class="navbar-form navbar-left" role="search" action="/friends/search">
+                    <div class="input-group">
+                      <input class="form-control" id="searchbox" type="search" name="q" aria-label="Find Friend" placeholder="Find friend by name">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
               {% endfor %}
             {% else %}
               <div class="col-xs-12">
