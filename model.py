@@ -31,8 +31,8 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    # Put email inside TSVectorType definition for it to be fulltext-indexed (searchable)
-    search_vector = db.Column(TSVectorType('email'))
+    # Put name inside TSVectorType definition for it to be fulltext-indexed (searchable)
+    search_vector = db.Column(TSVectorType('first_name', 'last_name'))
 
     # Define relationship
     city = db.relationship("City", backref=db.backref("users"))
