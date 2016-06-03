@@ -42,6 +42,7 @@ class FlaskTestsBasic(TestCase):
         result = self.client.get("/login")
         self.assertEqual(result.status_code, 200)
         self.assertIn("Login", result.data)
+        self.assertIn("Don't have an account?", result.data)
 
 
 # class FlaskTestsDatabase(TestCase):
