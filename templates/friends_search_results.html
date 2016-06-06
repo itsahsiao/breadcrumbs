@@ -51,17 +51,18 @@
             {% if friends %}
               {% for friend in friends %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
-                  <br>
                   <a href="users/{{ friend.user_id }}">
+                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                     {{ friend.first_name }} {{ friend.last_name}}
                   </a>
-                  <br>
-                  <button type="button" class="btn btn-primary" id="unfriend-btn">Unfriend</button>
+                  <!-- Put Unfriend button on user profile page instead -->
+                  <!-- <button type="button" class="btn btn-primary" id="unfriend-btn">Unfriend</button> -->
                 </div><!-- /.col -->
               {% endfor %}
             {% else %}
-              <p>You haven't added any friends. Find friends and connect with them!</p>
+              <div class="col-xs-12">
+                <p>You haven't added any friends. Find friends and connect with them!</p>
+              </div>
             {% endif %}
           </div><!-- /.row -->
         </div><!-- /#friends -->
@@ -73,9 +74,8 @@
             {% if received_friend_requests %}
               {% for received_friend_request in received_friend_requests %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
-                  <br>
                   <a href="users/{{ received_friend_request.user_id }}">
+                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                     {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
                   </a>
                   <br>
@@ -84,7 +84,9 @@
                 </div><!-- /.col -->
               {% endfor %}
             {% else %}
-              <p>No pending Friend Requests for you.</p>
+              <div class="col-xs-12">
+                <p>No pending Friend Requests for you.</p>
+              </div>
             {% endif %}
           </div><!-- /.row -->
         </div><!-- /#received-friend-requests -->
@@ -96,9 +98,8 @@
             {% if sent_friend_requests %}
               {% for sent_friend_request in sent_friend_requests %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm"> 
-                  <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
-                  <br>
                   <a href="users/{{ sent_friend_request.user_id }}">
+                   <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                     {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
                   </a>
                   <br>
@@ -106,7 +107,9 @@
                 </div><!-- /.col -->
               {% endfor %}
             {% else %}
-              <p>No pending Friend Requests for you.</p>
+              <div class="col-xs-12">
+                <p>No pending Friend Requests for you.</p>
+              </div>
             {% endif %}
           </div><!-- /.row -->
         </div><!-- /#sent-friend-requests -->
