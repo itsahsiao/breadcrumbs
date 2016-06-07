@@ -1,8 +1,16 @@
-/* BASE */
-body {
-    padding-top: 80px; /* Body padding required for fixed navbar */
+/* --------- BASE --------- */
+html {
+    min-height: 100%;
+    position: relative;
 }
 
+body {
+    margin-bottom: 70px; /* Margin bottom by footer height */
+    padding-top: 80px; /* Body padding required for fixed navbar */
+    /*font-family: 'Open Sans', sans-serif;*/
+}
+
+/* NAV BAR */
 .navbar {
     padding-top: 5px;
     min-height: 60px;
@@ -14,13 +22,13 @@ body {
     background-color: #FF9800;
     padding: 5px 10px 5px 7px;
     color: #333333;
-    font-weight: bold;
     font-size: 16px;
     font-family: 'Oleo Script', cursive;
     margin-top: 7px;
 }
 
 .navbar-nav li {
+    font-size: 12px;
     font-family: Lato, sans-serif;
     text-transform: uppercase;
 }
@@ -32,6 +40,36 @@ body {
 #searchbox {
     width: 250px;
 }
+
+/* FOOTER */
+.footer {
+    background-color: #263248;
+    bottom: 0;
+    color: #7E8AA2;
+    /* Set the fixed height of the footer here */
+    height: 70px;
+    padding-top: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-copyright {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+}
+
+#heart {
+    color: #993333;
+}
+
+
+/*h1, h2, h3 {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+}*/
+
+
 
 /* HOMEPAGE */
 .jumbotron {
@@ -147,24 +185,4 @@ h1, h3 {
 
 #user-profile-pic-sm img {
     width: 100px;
-}
-
-/* FOOTER */
-.footer {
-    background-color: #263248;
-    bottom: 0;
-    color: #7E8AA2;
-    padding-top: 50px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 100%;
-}
-
-.footer-copyright {
-    font-family: Lato, sans-serif;
-    text-transform: uppercase;
-}
-
-#heart {
-    color: #993333;
 }
