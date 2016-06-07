@@ -68,15 +68,20 @@ body {
     border-color: #FF8100;
 }
 
-#features {
+#features-section {
     margin-bottom: 50px;
     margin-top: 0;
+    text-align: center;
 }
 
-#features h2 {
+#features-section h2 {
     font-family: Lato, sans-serif;
-    text-align: center;
     text-transform: uppercase;
+}
+
+.features-icon {
+    color: #FF9800;
+    opacity: 0.6;
 }
 
 .circle {
@@ -149,7 +154,8 @@ h1, h3 {
     background-color: #263248;
     bottom: 0;
     color: #7E8AA2;
-    padding-top: 10px;
+    padding-top: 50px;
+    padding-bottom: 10px;
     text-align: center;
     width: 100%;
 }
@@ -157,4 +163,8 @@ h1, h3 {
 .footer-copyright {
     font-family: Lato, sans-serif;
     text-transform: uppercase;
+}
+
+#heart {
+    color: #993333;
 }
