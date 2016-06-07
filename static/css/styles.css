@@ -16,7 +16,9 @@ h1 {
 }
 
 h2, 
-h3 {
+h3,
+h4,
+h5 {
     font-family: Lato, sans-serif;
     text-transform: uppercase;
 }
@@ -202,7 +204,8 @@ h3 {
     height: 565px;
 }
 
-/* RESTAURANT LIST */
+/* --------- RESTAURANT LIST --------- */
+
 #restaurant-list .list-group-item {
     border-radius: 0;
     border: 0;
@@ -211,6 +214,13 @@ h3 {
 #restaurant-list .media-body p {
     font-size: 14px;
 }
+
+/* --------- RESTAURANT SEARCH RESULTS --------- */
+
+.restaurants h5 {
+    color: #FF9800;
+}
+
 
 /* RESTAURANT PROFILE */
 #restaurant-profile-pic img {
