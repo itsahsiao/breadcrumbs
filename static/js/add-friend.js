@@ -1,7 +1,7 @@
 "use strict";
 
 function showSentRequest(result) {
-    $("#add-friend-btn").val(result).attr("disabled", true);
+    $("#add-friend-btn").html(result).attr("disabled", true);
 }
 
 function sendFriendRequest(evt) {
