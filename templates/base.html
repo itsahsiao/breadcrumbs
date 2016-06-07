@@ -19,7 +19,7 @@
   <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
-  <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'> -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
   <!-- jQuery script -->
   <script src="https://code.jquery.com/jquery.js"></script> 
@@ -47,9 +47,9 @@
           <span class="icon-bar"></span>
         </button>
         {% if session.get('current_user') %}
-          <a href="/users/{{ session.current_user.user_id }}"><button id="brand-box"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
+          <a href="/users/{{ session.current_user.user_id }}"><button id="brand-logo"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
         {% else %}
-          <a href="/"><button id="brand-box"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
+          <a href="/"><button id="brand-logo"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
         {% endif %}
       </div><!-- /.navbar-header -->
 
