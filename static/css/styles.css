@@ -3,6 +3,11 @@ body {
     padding-top: 80px; /* Body padding required for fixed navbar */
 }
 
+/*h2, h3, h4 {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+}
+*/
 .navbar {
     padding-top: 5px;
     min-height: 60px;
@@ -16,7 +21,7 @@ body {
     color: #FFFFFF;
     font-weight: bold;
     font-size: 16px;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
     margin-top: 7px;
 }
 
@@ -44,10 +49,12 @@ body {
 
 .jumbotron h1 {
     color: #FFFFFF;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .description {
     color: #FFFFFF;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-style: italic;
     font-weight: bold;
     opacity: 0.8;
@@ -126,8 +133,14 @@ h1, h3 {
 
 /* FOOTER */
 .footer {
-    background-color: #F8F8F8;
+    background-color: #263248;
     bottom: 0;
+    color: #7E8AA2;
     padding-top: 10px;
     width: 100%;
+}
+
+.footer-copyright {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
 }
