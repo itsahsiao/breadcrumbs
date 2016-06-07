@@ -10,6 +10,17 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+h2, 
+h3 {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /* NAV BAR */
 .navbar {
     padding-top: 5px;
@@ -68,15 +79,7 @@ body {
     color: #993333;
 }
 
-
-/*h1, h2, h3 {
-    font-family: Lato, sans-serif;
-    text-transform: uppercase;
-}*/
-
-
-
-/* HOMEPAGE */
+/* --------- HOMEPAGE --------- */
 .jumbotron {
     background-image: url("/static/img/silverware-on-table.jpg");
     background-repeat: no-repeat;
@@ -90,12 +93,16 @@ body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.description {
+.jumbotron .site-description {
     color: #FFFFFF;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    /*font-family: "Helvetica Neue", Helvetica, sans-serif;*/
+    font-size: 18px !important;
     font-style: italic;
-    font-weight: bold;
     opacity: 0.8;
+}
+
+.jumbotron .indent {
+    margin-left: 20px;
 }
 
 .btn-homepage {
@@ -112,7 +119,7 @@ body {
 }
 
 #features-section {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     margin-top: 0;
     text-align: center;
 }
@@ -126,15 +133,6 @@ body {
     color: #FF9800;
     opacity: 0.6;
 }
-
-.circle {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background: yellow;
-    border: 3px solid red;
-}
-
 
 /* USER PROFILE */
 hr {
