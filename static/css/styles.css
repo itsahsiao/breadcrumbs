@@ -190,6 +190,10 @@ h3 {
     margin-bottom: 15px;
 }
 
+#disclaimer {
+    font-size: 80%;
+}
+
 /* --------- USER PROFILE --------- */
 .top-header {
     color: #FFFFFF;
