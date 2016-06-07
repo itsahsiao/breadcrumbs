@@ -13,9 +13,10 @@ body {
     border: solid 1px #FF9800;
     background-color: #FF9800;
     padding: 5px;
-    color: #000000;
+    color: #FFFFFF;
     font-weight: bold;
     font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,sans-serif;
     margin-top: 7px;
 }
 
@@ -43,6 +44,23 @@ body {
 
 .jumbotron h1 {
     color: #FFFFFF;
+}
+
+.description {
+    color: #FFFFFF;
+    font-style: italic;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.btn-homepage {
+    background-color: #FF9800;
+    border-color: #FF9800;
+}
+
+.btn-homepage:hover {
+    background-color: #FF8100;
+    border-color: #FF8100;
 }
 
 #features {
