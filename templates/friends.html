@@ -44,7 +44,7 @@
 
         <!-- Friends tab content -->
         <div role="tabpanel" class="tab-pane fade active in" id="friends" aria-labelledby="friends-tab">
-          <h1>My Friends</h1>
+          <h2>My Friends</h2>
           <div class="row">
             {% if friends %}
               {% for friend in friends %}
@@ -73,7 +73,7 @@
 
         <!-- Received Friend Requests tab content -->
         <div role="tabpanel" class="tab-pane fade" id="received-friend-requests" aria-labelledby="received-friend-requests-tab">
-          <h1>Received Friend Requests</h1>
+          <h2>Received Friend Requests</h2>
           <div class="row">
             {% if received_friend_requests %}
               {% for received_friend_request in received_friend_requests %}
@@ -97,7 +97,7 @@
 
         <!-- Sent Friend Requests tab content -->
         <div role="tabpanel" class="tab-pane fade" id="sent-friend-requests" aria-labelledby="sent-friend-requests-tab">
-          <h1>Sent Friend Requests</h1>
+          <h2>Sent Friend Requests</h2>
           <div class="row">
             {% if sent_friend_requests %}
               {% for sent_friend_request in sent_friend_requests %}
@@ -106,7 +106,7 @@
                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                     {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
                   </a>
-                  <br>
+                  <br><br>
                   <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
                 </div><!-- /.col -->
               {% endfor %}
@@ -120,7 +120,7 @@
 
         <!-- Find Friends tab content -->
         <div role="tabpanel" class="tab-pane fade" id="find-friends" aria-labelledby="find-friends-tab">
-          <h1>Find Friends</h1>
+          <h2>Find Friends</h2>
           <div class="row">
             <div class="col-xs-12">
               <p>

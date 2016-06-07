@@ -4,10 +4,10 @@
 
 {% block content %}
 
-  <div class="container restaurants">
+  <div class="container">
     <h2>Restaurants</h2>
       {% if restaurants %}
-      <h5>({{ restaurants | length }} results)</h5>
+        <h5 class="search-results">({{ restaurants | length }} results)</h5>
         <div class="row">
           {% for restaurant in restaurants %}
             <div class="col-xs-12 col-md-6">

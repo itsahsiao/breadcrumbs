@@ -28,7 +28,7 @@ h3 {
     font-weight: bold;
 }
 
-/* Across homepage, user profiles, restaurant profiles */
+/* Across various pages */
 .jumbotron {
     margin-top: -20px;
 }
@@ -39,6 +39,10 @@ h3 {
 
 #main-section {
     margin-bottom: 100px;
+}
+
+.search-results {
+    color: #FF9800;
 }
 
 
@@ -219,22 +223,10 @@ h3 {
     font-size: 14px;
 }
 
-/* --------- RESTAURANT SEARCH RESULTS --------- */
-
-.restaurants h5 {
-    color: #FF9800;
-}
-
-
-/* RESTAURANT PROFILE */
+/* --------- RESTAURANT PROFILE --------- */
 #restaurant-profile-pic img {
     width: 150px;
 }
-
-/*#restaurant-friends {
-    text-align: center;
-}*/
-/*TODO: Figure out how to center-align text under restaurant friends thumbnail photo*/
 
 #user-profile-pic-sm img {
     width: 100px;

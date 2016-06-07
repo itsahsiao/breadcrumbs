@@ -44,13 +44,19 @@
 
         <!-- Friends tab content -->
         <div role="tabpanel" class="tab-pane fade" id="friends" aria-labelledby="friends-tab">
-          <h1>My Friends</h1>
+          <h2>My Friends</h2>
           <div class="row">
             {% if friends %}
               {% for friend in friends %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
                   <a href="users/{{ friend.user_id }}">
-                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% if friend.user_id == 1 %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-cartman.jpg">
+                    {% elif friend.user_id == 4 %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-kenny.jpg">
+                    {% else %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% endif %}
                     {{ friend.first_name }} {{ friend.last_name}}
                   </a>
                   <!-- Put Unfriend button on user profile page instead -->
@@ -67,7 +73,7 @@
 
         <!-- Received Friend Requests tab content -->
         <div role="tabpanel" class="tab-pane fade" id="received-friend-requests" aria-labelledby="received-friend-requests-tab">
-          <h1>Received Friend Requests</h1>
+          <h2>Received Friend Requests</h2>
           <div class="row">
             {% if received_friend_requests %}
               {% for received_friend_request in received_friend_requests %}
@@ -91,7 +97,7 @@
 
         <!-- Sent Friend Requests tab content -->
         <div role="tabpanel" class="tab-pane fade" id="sent-friend-requests" aria-labelledby="sent-friend-requests-tab">
-          <h1>Sent Friend Requests</h1>
+          <h2>Sent Friend Requests</h2>
           <div class="row">
             {% if sent_friend_requests %}
               {% for sent_friend_request in sent_friend_requests %}
@@ -100,7 +106,7 @@
                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
                     {{ sent_friend_request.first_name }} {{ sent_friend_request.last_name }}
                   </a>
-                  <br>
+                  <br><br>
                   <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
                 </div><!-- /.col -->
               {% endfor %}
@@ -114,10 +120,10 @@
 
         <!-- Find Friends tab content -->
         <div role="tabpanel" class="tab-pane fade active in" id="find-friends" aria-labelledby="find-friends-tab">
-          <h1>Find Friends: Search Results</h1>
-          <div class="row">
-            <!-- Display results if any -->
-            {% if search_results %}
+          <h2>Find Friends</h2>
+          {% if search_results %}
+            <h5 class="search-results">({{ search_results | length }} results)</h5>
+            <div class="row">
               {% for user in search_results %}
                 <div class="col-xs-12 col-md-6">
                   <div class="list-group" id="restaurant-list"><!-- Need to fix this id across the other restaurant pages -->
@@ -150,19 +156,17 @@
                 </div>
               {% endfor %}
             {% else %}
-              <div class="col-xs-12">
-                <p>No results found.</p>
-                <p>Is your friend a user of Breadcrumbs? Get them to sign up now, or please searching again below.</p>
-                <!-- Search engine for users -->
-                <form class="navbar-form navbar-left" role="search" action="/friends/search">
-                  <div class="input-group">
-                    <input class="form-control" id="searchbox" type="search" name="q" aria-label="Find Friend" placeholder="Find friend by name">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                  </div>
-                </form>
-              </div><!-- /.col -->
+              <h5 class="search-results">No results found.</h5>
+              <p>Is your friend a user of Breadcrumbs? Get them to sign up now, or please searching again below.</p>
+              <!-- Search engine for users -->
+              <form class="navbar-form navbar-left" role="search" action="/friends/search">
+                <div class="input-group">
+                  <input class="form-control" id="searchbox" type="search" name="q" aria-label="Find Friend" placeholder="Find friend by name">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                  </span>
+                </div>
+              </form>
             {% endif %}
           </div><!-- /.row -->
         </div><!-- /#find-friends -->
