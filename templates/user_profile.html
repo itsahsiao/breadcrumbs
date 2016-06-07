@@ -2,23 +2,6 @@
 
 {% block title %}User: {{ user.user_id }}{% endblock %}
 
-{% block head %}
-  <style>
-    /*html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    #map {
-      height: 80%;
-    }*/
-  </style>
-<!-- 
-  <script src="https://code.jquery.com/jquery.js"></script> 
-   -->
-  
-{% endblock %}
-
 {% block content %}
 
   <div class="container" id="user-info" data-userid="{{ user.user_id }}">
