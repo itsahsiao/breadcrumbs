@@ -1,4 +1,4 @@
-/* NAV BAR */
+/* BASE */
 body {
     padding-top: 70px; /* Body padding required for fixed navbar */
 }
@@ -13,12 +13,20 @@ body {
 
 /* HOMEPAGE */
 .jumbotron {
+    background-image: url("/static/img/silverware-on-table.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-top: -20px;
+    padding-top: 200px;
+}
+
+.jumbotron h1 {
+    color: #FFFFFF;
 }
 
 #features {
-    margin-top: 0;
     margin-bottom: 50px;
+    margin-top: 0;
 }
 
 /* USER PROFILE */
@@ -44,13 +52,13 @@ h1, h3 {
 }
 
 .media-body p {
-    margin-bottom: 0;
     font-size: 11px;
+    margin-bottom: 0;
 }
 
 #map {
-    height: 565px;
     border-radius: 0.75%;
+    height: 565px;
 }
 
 /* RESTAURANT LIST */
