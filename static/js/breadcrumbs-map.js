@@ -43,6 +43,7 @@ function initMap() {
             var visit = visits[key];
 
             var restaurantDetails = '<div class="media">' +
+                    '<a href="/restaurants/' + visit.rest_id + '">' +
                     '<div class="media-left">' +
                     '<img class="media-object" src="' + visit.image_url + '" alt="Image for' + visit.restaurant + '">' +
                     '</div>' +
@@ -53,6 +54,7 @@ function initMap() {
                     '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> ' + visit.phone +
                     '</p>' +
                     '</div>' +
+                    '</a>' +
                     '</div>';
 
             // Specify marker coordinates with the restaurant's coordinates
