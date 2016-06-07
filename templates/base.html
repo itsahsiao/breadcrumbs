@@ -33,7 +33,7 @@
 </head>
 
 <body>
-  
+
   <!-- Navigation Bar -->
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -46,7 +46,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/"><button id="brand-box"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
+        {% if session.get('current_user') %}
+          <a href="/users/{{ session.current_user.user_id }}"><button id="brand-box"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
+        {% else %}
+          <a href="/"><button id="brand-box"><img src="/static/img/restaurant-marker.png"> breadcrumbs</button></a>
+        {% endif %}
       </div><!-- /.navbar-header -->
 
       <!-- Collect the nav links, forms, and other content for toggling -->
