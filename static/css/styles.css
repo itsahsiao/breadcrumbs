@@ -28,30 +28,6 @@ h3 {
     font-weight: bold;
 }
 
-.flash-messages {
-    background-color: #263248;
-    margin-top: -20px;
-    padding: 10px;
-}
-
-/* Across various pages */
-.jumbotron {
-    margin-top: -20px;
-}
-
-.jumbotron p {
-    font-size: 14px;
-}
-
-#main-section {
-    margin-bottom: 100px;
-}
-
-.search-results {
-    color: #FF9800;
-}
-
-
 /* NAV BAR */
 .navbar {
     padding-top: 5px;
@@ -88,6 +64,31 @@ h3 {
     font-size: 12px;
     text-transform: uppercase;
     width: 275px;
+}
+
+/* FLASH MESSAGES */
+
+.flash-messages {
+    background-color: #263248;
+    margin-top: -20px;
+    padding: 10px;
+}
+
+/* CONTENT  */
+.jumbotron {
+    margin-top: -20px;
+}
+
+.jumbotron p {
+    font-size: 14px;
+}
+
+#main-section {
+    margin-bottom: 100px;
+}
+
+.search-results {
+    color: #FF9800;
 }
 
 /* FOOTER */
