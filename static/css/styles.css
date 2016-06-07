@@ -6,6 +6,7 @@ body {
 .navbar {
     padding-top: 5px;
     min-height: 60px;
+    background-color: #FFFFFF;
 }
 
 #brand-box {
@@ -16,6 +17,15 @@ body {
     font-weight: bold;
     font-size: 16px;
     margin-top: 7px;
+}
+
+.navbar-nav li {
+    font-family: Lato, sans-serif;
+    text-transform: uppercase;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #FF9800;
 }
 
 #searchbox {
