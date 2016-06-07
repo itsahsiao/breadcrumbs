@@ -173,7 +173,8 @@ def user_profile(user_id):
     total_breadcrumbs = len(breadcrumbs.all())
     recent_breadcrumbs = breadcrumbs.limit(5).all()
 
-
+    # Return number of user's friends
+    total_friends = len(get_friends(user.user_id).all())
 
     # Get user_a_id (current user) and user_b_id (from user profile page)
     user_a_id = session["current_user"]["user_id"]
@@ -186,6 +187,7 @@ def user_profile(user_id):
                            user=user,
                            total_breadcrumbs=total_breadcrumbs,
                            recent_breadcrumbs=recent_breadcrumbs,
+                           total_friends=total_friends,
                            friends=friends,
                            pending_request=pending_request)
 

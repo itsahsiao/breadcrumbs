@@ -10,6 +10,11 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+h1 {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
+}
+
 h2, 
 h3 {
     font-family: Lato, sans-serif;
@@ -20,6 +25,12 @@ h3 {
     font-size: 18px;
     font-weight: bold;
 }
+
+/* Top section of homepage, user profiles, restaurant profiles */
+.jumbotron {
+    margin-top: -20px;
+}
+
 
 /* NAV BAR */
 .navbar {
@@ -82,20 +93,18 @@ h3 {
 }
 
 /* --------- HOMEPAGE --------- */
-.jumbotron {
+#cover {
     background-image: url("/static/img/silverware-on-table.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: -20px;
     padding-top: 200px;
 }
 
-.jumbotron h1 {
+#cover h1 {
     color: #FFFFFF;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.jumbotron .site-description {
+#cover .site-description {
     color: #FFFFFF;
     /*font-family: "Helvetica Neue", Helvetica, sans-serif;*/
     font-size: 18px !important;
@@ -103,7 +112,7 @@ h3 {
     opacity: 0.8;
 }
 
-.jumbotron .indent {
+#cover .indent {
     margin-left: 20px;
 }
 
@@ -136,8 +145,46 @@ h3 {
     opacity: 0.6;
 }
 
-/* USER PROFILE */
-hr {
+/* --------- USER PROFILE --------- */
+#user-info {
+    color: #FFFFFF;
+    background-color: #263248;
+    padding: 30px;
+}
+
+#user-info h1 {
+    font-size: 40px;
+}
+
+.user-stats {
+    margin-top: 10px;
+}
+
+.user-stats th,
+.user-stats td {
+    padding-right: 20px;
+}
+
+.user-stats .stats-label {
+    color: #8DB0BE;
+    font-family: Lato, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.user-stats .stats-value {
+    color: #FF9800;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#connection-status {
+    padding-top: 30px;
+}
+
+/*hr {
     margin-bottom: 0;
 }
 
@@ -148,7 +195,7 @@ h2 {
 
 h1, h3 {
     margin-top: 10px;
-}
+}*/
 
 #restaurant-marker {
     width: 14px;
