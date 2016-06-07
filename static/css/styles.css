@@ -64,6 +64,7 @@ h3 {
     background-color: #263248;
     bottom: 0;
     color: #7E8AA2;
+    font-size: 12px;
     height: 70px; /* Set the fixed height of the footer here */
     padding-top: 10px;
     position: absolute;
