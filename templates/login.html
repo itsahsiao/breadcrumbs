@@ -7,15 +7,14 @@
   <div class="container" id="main-section">
     <div class="panel panel-default login-signup">
       <div class="panel-heading">
-        <h1 class="panel-title">login</h3>
+        <h1 class="panel-title">login</h1>
       </div><!-- /.panel-heading -->
       <div class="panel-body">
-        <form class="form-signin" action="/login" method="post">
-          <label for="email" class="sr-only">Email address</label>
-          <input type="email" id="email" class="form-control" name="login_email" placeholder="Email address" required autofocus>
-          <label for="password" class="sr-only">Password</label>
-          <input type="password" id="password" class="form-control" name="login_password" placeholder="Password" required>
-          <br>
+        <form action="/login" method="post">
+          <label for="email">Email address</label>
+          <input type="email" id="email" class="form-control" name="login_email" placeholder="example@gmail.com" required autofocus>
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" name="login_password" placeholder="**********" required>
           <button class="btn btn-lg btn-primary btn-block btn-homepage" type="submit"><span class="fa fa-sign-in" aria-hidden="true"></span> Login</button>
         </form>
         <br>

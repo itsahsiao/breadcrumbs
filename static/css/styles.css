@@ -186,6 +186,10 @@ h3 {
     color: #FFFFFF;
 }
 
+.form-control {
+    margin-bottom: 15px;
+}
+
 /* --------- USER PROFILE --------- */
 .top-header {
     color: #FFFFFF;
