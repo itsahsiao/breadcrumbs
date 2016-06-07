@@ -56,7 +56,8 @@ h3 {
 
 .navbar-default .navbar-nav>li>a:focus, 
 .navbar-default .navbar-nav>li>a:hover {
-    color: #FF9800;
+    text-decoration: none;
+    background-color: #f5f5f5;
 }
 
 #searchbox {
