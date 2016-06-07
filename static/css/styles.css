@@ -146,7 +146,8 @@ h3 {
     text-transform: uppercase;
 }
 
-.btn-homepage:hover {
+.btn-homepage:hover,
+.btn-homepage:active {
     background-color: #FF8100;
     border-color: #FF8100;
 }
