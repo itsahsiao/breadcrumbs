@@ -4,41 +4,52 @@
 
 {% block content %}
 
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-md-2"  id="restaurant-profile-pic">
-        {% if restaurant.image_url %}
-          <img class="img-responsive img-rounded" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
-        {% else %}
-          <img class="img-responsive img-rounded" src="/static/img/restaurant-avatar.png" alt="No image available for {{ restaurant.name }}">
-        {% endif %}
-      </div><!-- /.col -->
-      <div class="col-xs-12 col-md-10">
-        <h1>{{ restaurant.name }}</h1>
-        <p>
-          <span class="fa fa-globe" aria-hidden="true"></span> {{ restaurant.city.name }}<br>
-          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
-          <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}<br>
+  <div class="jumbotron top-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-2"  id="restaurant-profile-pic">
+          {% if restaurant.image_url %}
+            <img class="img-responsive img-rounded" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
+          {% else %}
+            <img class="img-responsive img-rounded" src="/static/img/restaurant-avatar.png" alt="No image available for {{ restaurant.name }}">
+          {% endif %}
+        </div><!-- /.col -->
+        <div class="col-xs-12 col-md-6">
+          <h1>{{ restaurant.name }}</h1>
+          <p>
+            <span class="fa fa-globe" aria-hidden="true"></span> {{ restaurant.city.name }}<br>
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
+            <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}<br>
+          </p>
+        </div><!-- /.col -->
+        <div class="col-xs-12 col-md-4">
           <!-- Button to add restaurant visit to user's restaurant history -->
           <!-- This is a regular form submit with hidden input -->
           <form id="add-visit" action="/add-visit" method="post">
             <input type="hidden" name="restaurant_id" value="{{ restaurant.restaurant_id }}">
-            <button type="submit" class="btn btn-default">
+            <button type="submit" class="btn btn-primary">
               <!-- <img src="/static/img/restaurant-marker.png" id="restaurant-marker"> -->
               <span class="fa fa-plus" aria-hidden="true"></span> Leave a Breadcrumb</button>
           </form>
-        </p>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-    <hr>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div><!-- /.jumbotron -->
+
+  <div class="container" id="main-section">
     <div class="row">
       <h2>Friends Who Left A Breadcrumb</h2>
       {% if friends_who_visited %}
         {% for friend in friends_who_visited %}
           <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
-            <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
-            <br>
             <a href="/users/{{ friend.user_id }}">
+              {% if friend.user_id == 1 %}
+                <img class="img-circle img-responsive" src="/static/img/profile-cartman.jpg">
+              {% elif friend.user_id == 4 %}
+                <img class="img-circle img-responsive" src="/static/img/profile-kenny.jpg">
+              {% else %}
+                <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+              {% endif %}
               {{ friend.first_name }} {{ friend.last_name }}
             </a>
           </div><!-- /.col -->

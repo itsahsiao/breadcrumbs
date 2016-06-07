@@ -50,7 +50,13 @@
               {% for friend in friends %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
                   <a href="users/{{ friend.user_id }}">
-                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% if friend.user_id == 1 %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-cartman.jpg">
+                    {% elif friend.user_id == 4 %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-kenny.jpg">
+                    {% else %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% endif %}
                     {{ friend.first_name }} {{ friend.last_name}}
                   </a>
                   <!-- Put Unfriend button on user profile page instead -->
