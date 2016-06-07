@@ -4,34 +4,43 @@
 
 {% block content %}
 
-  <div class="container">
-    <h1>Restaurants</h1>
-    <div class="row">
-      {% for restaurant in restaurants %}
-        <div class="col-xs-12 col-md-6">
-          <div class="list-group" id="restaurant-list">
-            <a href="/restaurants/{{ restaurant.restaurant_id }}" class="list-group-item">
-              <div class="media">
-                <div class="media-left">
-                  {% if restaurant.image_url %}
-                    <img class="media-object" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
-                  {% else %}
-                    <img class="media-object" src="http://placehold.it/100x100?text=No+Image+Available" alt="Image for {{ restaurant.name }}">
-                  {% endif %}
-                </div>
-                <div class="media-body">
-                  <h3 class="media-heading">{{ restaurant.name }}</h3>
-                  <p>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}
-                  </p>
-                </div>
-              </div><!-- /.media -->            
-            </a>
-          </div><!-- /.list-group -->
-        </div><!-- /.col -->
-      {% endfor %}
-    </div><!-- /.row -->
+  <div class="container restaurants">
+    <h2>Restaurants</h2>
+      {% if restaurants %}
+      <h5>({{ restaurants | length }} results)</h5>
+        <div class="row">
+          {% for restaurant in restaurants %}
+            <div class="col-xs-12 col-md-6">
+              <div class="list-group" id="restaurant-list">
+                <a href="/restaurants/{{ restaurant.restaurant_id }}" class="list-group-item">
+                  <div class="media">
+                    <div class="media-left">
+                      {% if restaurant.image_url %}
+                        <img class="media-object" src="{{ restaurant.image_url }}" alt="Image for {{ restaurant.name }}">
+                      {% else %}
+                        <img class="media-object" src="http://placehold.it/100x100?text=No+Image+Available" alt="Image for {{ restaurant.name }}">
+                      {% endif %}
+                    </div>
+                    <div class="media-body">
+                      <h3 class="media-heading">{{ restaurant.name }}</h3>
+                      <p>
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ restaurant.address }}<br>
+                        <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{ restaurant.phone }}
+                      </p>
+                    </div>
+                  </div><!-- /.media -->            
+                </a>
+              </div><!-- /.list-group -->
+            </div><!-- /.col -->
+          {% endfor %}
+        </div><!-- /.row -->
+      {% else %}
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <h5>(0 results)</h5>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      {% endif %}
   </div><!-- /.container -->
 
 {% endblock %}
