@@ -167,6 +167,24 @@ h3 {
     opacity: 0.6;
 }
 
+/* --------- LOGIN/SIGNUP --------- */
+
+.login-signup {
+    width: 400px;
+    margin: auto;
+}
+
+.panel-title {
+    font-size: 24px;
+    padding: 5px;
+}
+
+.panel-default>.panel-heading {
+    background-color: #263248;
+    border-color: #263248;
+    color: #FFFFFF;
+}
+
 /* --------- USER PROFILE --------- */
 .top-header {
     color: #FFFFFF;
