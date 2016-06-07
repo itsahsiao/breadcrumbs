@@ -31,6 +31,10 @@ h3 {
     margin-top: -20px;
 }
 
+#main-section {
+    margin-bottom: 100px;
+}
+
 
 /* NAV BAR */
 .navbar {
@@ -74,7 +78,7 @@ h3 {
 .footer {
     background-color: #263248;
     bottom: 0;
-    color: #7E8AA2;
+    color: #8DB0BE;
     font-size: 12px;
     height: 70px; /* Set the fixed height of the footer here */
     padding-top: 10px;
@@ -146,13 +150,13 @@ h3 {
 }
 
 /* --------- USER PROFILE --------- */
-#user-info {
+.top-header {
     color: #FFFFFF;
     background-color: #263248;
     padding: 30px;
 }
 
-#user-info h1 {
+.top-header h1 {
     font-size: 40px;
 }
 
@@ -176,26 +180,9 @@ h3 {
 .user-stats .stats-value {
     color: #FF9800;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 24px;
+    /*font-weight: bold;*/
 }
-
-#connection-status {
-    padding-top: 30px;
-}
-
-/*hr {
-    margin-bottom: 0;
-}
-
-h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-h1, h3 {
-    margin-top: 10px;
-}*/
 
 #restaurant-marker {
     width: 14px;
