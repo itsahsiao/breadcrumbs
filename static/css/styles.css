@@ -214,7 +214,7 @@ h3 {
     padding-right: 20px;
 }
 
-.user-stats .stats-label {
+.stats-label {
     color: #8DB0BE;
     font-family: Lato, sans-serif;
     font-size: 10px;
@@ -222,11 +222,29 @@ h3 {
     text-transform: uppercase;
 }
 
-.user-stats .stats-value {
+.stats-value {
     color: #FF9800;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 24px;
     /*font-weight: bold;*/
+}
+
+#action-box {
+    padding-top: 30px;
+}
+
+#member-since, #member-since-long {
+    position: absolute;
+    padding-top: 80px;
+    font-size: 10px;
+}
+
+#member-since-long {
+    padding-top: 114px;
+}
+
+#member-since-date {
+    color: #FF9800;
 }
 
 #restaurant-marker {

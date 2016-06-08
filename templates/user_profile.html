@@ -34,19 +34,21 @@
             </tr>
           </table>
         </div><!-- /.col -->
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-4" id="action-box">
           {% if session.current_user.user_id != user.user_id %}
-            <p>
-              {% if friends %}
-                <button class="btn btn-primary disabled" id="accepted-btn"><span class="fa fa-users" aria-hidden="true"></span> Friends</button>
-              {% elif pending_request %}
-                <button class="btn btn-primary disabled" id="requested-btn"><span class="fa fa-clock-o" aria-hidden="true"></span> Request Pending</button>
-              {% else %}
-                <form id="add-friend-form" action="/add-friend" method="post">
-                  <button type="submit" class="btn btn-primary" id="add-friend-btn"><span class="fa fa-user-plus" aria-hidden="true"></span> Add Friend</button>
-                </form>
-              {% endif %}
-            </p>
+            {% if friends %}
+              <button class="btn btn-primary disabled" id="accepted-btn"><span class="fa fa-users" aria-hidden="true"></span> Friends</button>
+            {% elif pending_request %}
+              <button class="btn btn-primary disabled" id="requested-btn"><span class="fa fa-clock-o" aria-hidden="true"></span> Request Pending</button>
+            {% else %}
+              <form id="add-friend-form" action="/add-friend" method="post">
+                <button type="submit" class="btn btn-primary" id="add-friend-btn"><span class="fa fa-user-plus" aria-hidden="true"></span> Add Friend</button>
+              </form>
+            {% endif %}
+            <p class="stats-label" id="member-since">Leaving breadcrumbs since <span id="member-since-date">2016</span>.</p>
+          {% else %}
+            <!-- Need padding as current user does not see button and it affects placement of message -->
+            <p class="stats-label" id="member-since-long">Leaving breadcrumbs since <span id="member-since-date">2016</span>.</p>
           {% endif %}
         </div><!-- /.col -->
       </div><!-- /.row -->
