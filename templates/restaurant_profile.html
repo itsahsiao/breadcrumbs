@@ -61,7 +61,40 @@
     <hr>
     <div class="row">
       <h2>Food Pictures</h2>
-      <p>No pictures available yet.</p>
+      {% if restaurant.restaurant_id == 4 %}
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-1.jpg" alt="...">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-2.jpg" alt="...">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-3.jpg" alt="...">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-4.jpg" alt="...">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-5.jpg" alt="...">
+          </a>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="/static/img/greek-food-6.jpg" alt="...">
+          </a>
+        </div>
+      {% else %}
+        <p>No pictures have been uploaded for this restaurant. Be the first!</p>
+      {% endif %}
     </div><!-- /.row -->
   </div><!-- /.container -->
   
