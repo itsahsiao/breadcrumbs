@@ -6,7 +6,7 @@ html {
 
 body {
     margin-bottom: 70px; /* Margin bottom by footer height */
-    padding-top: 80px; /* Body padding required for fixed navbar */
+    padding-top: 70px; /* Body padding required for fixed navbar */
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -30,8 +30,7 @@ h3 {
 
 /* NAV BAR */
 .navbar {
-    padding-top: 5px;
-    min-height: 60px;
+    min-height: 50px;
     background-color: #FFFFFF;
 }
 
