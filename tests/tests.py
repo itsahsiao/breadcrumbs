@@ -16,6 +16,16 @@ from server import app
 
 from unittest import TestCase
 
+# To test:
+# python tests/tests.py
+
+# Coverage:
+# coverage run --omit=env/* tests/tests.py
+# coverage run --source=. tests/tests.py
+
+# For coverage report:
+# coverage report -m
+
 
 class FlaskTestsBasic(TestCase):
     """Flask tests."""
