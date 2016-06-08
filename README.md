@@ -50,6 +50,10 @@ Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can conn
 
 <img align="center" src="/static/img/screenshots/friend-requests.png">
 
+### Responsive design (iPhone 6)
+
+<img align="center" src="/static/img/screenshots/responsive-design.png">
+
 ## <a name="installation"></a>Installation
 As Breadcrumbs has not yet been deployed, please follow these instructions to run Breadcrumbs locally on your machine:
 
