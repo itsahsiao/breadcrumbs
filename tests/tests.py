@@ -60,7 +60,7 @@ class FlaskTestsBasic(TestCase):
         result = self.client.get("/signup")
         self.assertEqual(result.status_code, 200)
         self.assertIn("Sign up", result.data)
-        self.assertIn("First Name:", result.data)
+        self.assertIn("First Name", result.data)
         self.assertNotIn("Don't have an account?", result.data)
 
 
