@@ -79,10 +79,14 @@
               {% for received_friend_request in received_friend_requests %}
                 <div class="col-xs-6 col-sm-2" id="user-profile-pic-sm">
                   <a href="users/{{ received_friend_request.user_id }}">
-                    <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% if received_friend_request.user_id == 3 %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-stan-marsh.jpg">
+                    {% else %}
+                      <img class="img-circle img-responsive" src="/static/img/profile-avatar.png">
+                    {% endif %}
                     {{ received_friend_request.first_name }} {{ received_friend_request.last_name }}
                   </a>
-                  <br>
+                  <br><br>
                   <button type="button" class="btn btn-success" id="accepted-btn">Accept</button>
                   <button type="button" class="btn btn-danger" id="deleted-btn">Delete</button>
                 </div><!-- /.col -->
