@@ -147,9 +147,10 @@ h3 {
 }
 
 .btn-homepage:hover,
-.btn-homepage:active {
-    background-color: #FF8100;
-    border-color: #FF8100;
+.btn-homepage:active,
+.btn-homepage:focus {
+    background-color: #FF8100 !important;
+    border-color: #FF8100 !important;
 }
 
 #features-section {
