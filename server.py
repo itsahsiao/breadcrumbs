@@ -47,7 +47,6 @@ def show_login():
 def login():
     """Log user in if credentials provided are correct."""
 
-    # Get values from login form
     login_email = request.form.get("login_email")
     login_password = request.form.get("login_password")
 
@@ -61,16 +60,13 @@ def login():
         flash("The email or password you have entered did not match our records. Please try again.", "danger")
         return redirect("/login")
 
-    # import pdb; pdb.set_trace()
-
     # Get current user's friend requests and number of requests to display in badges
     received_friend_requests, sent_friend_requests = get_friend_requests(current_user.user_id)
     num_received_requests = len(received_friend_requests)
     num_sent_requests = len(sent_friend_requests)
     num_total_requests = num_received_requests + num_sent_requests
 
-    # Use a nested dictionary for session["current_user"] to store first name and user id
-    # This way, create only one session and delete only one session vs. two or more if want to store more info
+    # Use a nested dictionary for session["current_user"] to store more than just user_id
     session["current_user"] = {
         "first_name": current_user.first_name,
         "user_id": current_user.user_id,
@@ -99,8 +95,6 @@ def logout():
 def show_signup():
     """Show signup form."""
 
-    # query cities and pass into jinja for drop down menu and option value = city id
-
     return render_template("signup.html")
 
 
@@ -108,15 +102,12 @@ def show_signup():
 def signup():
     """Check if user exists in database, otherwise add user to database."""
 
-    # Get values from signup form
     signup_email = request.form.get("signup_email")
     signup_password = request.form.get("signup_password")
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
     city = request.form.get("city")
 
-    # Get city id for city name
-    # TODO: Ask about object vs tuple, since can query on City.city_id and index [0] to get city id
     city_id = db.session.query(City).filter(City.name == city).one().city_id
 
     # Try if signup email provided does not already exist in db
@@ -134,6 +125,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
+        # Add same info to session for new user as per /login route
         session["current_user"] = {
             "first_name": new_user.first_name,
             "user_id": new_user.user_id,
@@ -155,7 +147,6 @@ def signup():
 def user_list():
     """Show list of users."""
 
-    # Query to get all users
     users = db.session.query(User).all()
 
     return render_template("user_list.html",
@@ -166,20 +157,16 @@ def user_list():
 def user_profile(user_id):
     """Show user profile with map and list of visited restaurants."""
 
-    # Query by user id to return the user from database and access its attributes
     user = db.session.query(User).filter(User.user_id == user_id).one()
 
     # Get user's breadcrumbs in descending order
     breadcrumbs = db.session.query(Visit).filter(Visit.user_id == user_id).order_by(Visit.visit_id.desc())
 
-    # Return total # of breadcrumbs and recent 5 breadcrumbs
     total_breadcrumbs = len(breadcrumbs.all())
     recent_breadcrumbs = breadcrumbs.limit(5).all()
 
-    # Return number of user's friends
     total_friends = len(get_friends(user.user_id).all())
 
-    # Get user_a_id (current user) and user_b_id (from user profile page)
     user_a_id = session["current_user"]["user_id"]
     user_b_id = user.user_id
 
@@ -227,27 +214,22 @@ def user_restaurant_visits(user_id):
 def add_friend():
     """Send a friend request to another user."""
 
-    # Get user_a_id (current user) from flask session and user_b_id via AJAX post request
     user_a_id = session["current_user"]["user_id"]
     user_b_id = request.form.get("user_b_id")
 
     # Check connection status between user_a and user_b
     is_friends, is_pending = is_friends_or_pending(user_a_id, user_b_id)
 
-    # user_a cannot send friend request to self
     if user_a_id == user_b_id:
         return "You cannot add yourself as a friend."
 
-    # user_a cannot send friend request to user_b if they are friends
     elif is_friends:
         return "You are already friends."
 
-    # user_a cannot send another friend request to user_b if there is a pending request
     elif is_pending:
         return "Your friend request is pending."
 
-    # If user_a and user_b are not friends and there is no pending request for user_b,
-    # Add a connection in the database that user_a sent a friend request to user_b
+    # Add a connection to the database if above conditionals are not true
     else:
         requested_connection = Connection(user_a_id=user_a_id,
                                           user_b_id=user_b_id,
@@ -256,7 +238,7 @@ def add_friend():
         db.session.add(requested_connection)
         db.session.commit()
 
-        # Print in the console to check
+        # This prints in the console to check
         print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
 
         return "Request Sent"
@@ -266,11 +248,10 @@ def add_friend():
 def show_friends_and_requests():
     """Show friend requests and list of all friends"""
 
-    # Get current user's friend requests
+    # Returns users for current user's friend requests
     received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
 
-    # Query for current user's friends (returns query, not User objects)
-    # Add .all() to the end to get list of User objects
+    # Returns query for current user's friends (not User objects) so add .all() to the end to get list of User objects
     friends = get_friends(session["current_user"]["user_id"]).all()
 
     return render_template("friends.html",
@@ -283,17 +264,16 @@ def show_friends_and_requests():
 def search_users():
     """Search for a user by email and return results."""
 
-    # Get current user's friend requests
+    # Returns users for current user's friend requests
     received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
 
     # Returns query for current user's friends (not User objects) so add .all() to the end to get list of User objects
     friends = get_friends(session["current_user"]["user_id"]).all()
 
-    # Get value from searchbox form for user's query
-    user_search = request.args.get("q")
+    user_input = request.args.get("q")
 
     # Search user's query in users table of db and return all search results
-    search_results = search(db.session.query(User), user_search).all()
+    search_results = search(db.session.query(User), user_input).all()
 
     return render_template("friends_search_results.html",
                            received_friend_requests=received_friend_requests,
@@ -306,7 +286,7 @@ def search_users():
 def restaurant_list():
     """Show list of restaurants."""
 
-    # Query to get all restaurants, sorted alphabetically
+    # Returns all restaurants, sorted alphabetically
     restaurants = db.session.query(Restaurant).order_by(Restaurant.name).all()
 
     return render_template("restaurant_list.html",
@@ -317,16 +297,10 @@ def restaurant_list():
 def search_restaurants():
     """Search for a restaurant by name or address and return results."""
 
-    # Get value from searchbox form for user's query
-    user_search = request.args.get("q")
+    user_input = request.args.get("q")
 
-    # # Search user's query in restaurant table of db and return all search results
-    # query = db.session.query(Restaurant)
-    # query = search(query, user_search)
-    # search_results = query.all()
-
-    # Refactored above code to one line
-    search_results = search(db.session.query(Restaurant), user_search).all()
+    # Search user's query in restaurant table of db and return all search results
+    search_results = search(db.session.query(Restaurant), user_input).all()
 
     return render_template("restaurants_search_results.html", search_results=search_results)
 
@@ -335,14 +309,13 @@ def search_restaurants():
 def restaurant_profile(restaurant_id):
     """Show restaurant information."""
 
-    # Query by restaurant id to return the restaurant from the database and access its attributes
     restaurant = db.session.query(Restaurant).filter(Restaurant.restaurant_id == restaurant_id).one()
 
-    # Query for current user's friends (returns query, not User objects)
+    # Returns query for current user's friends, not User objects
     friends = get_friends(session["current_user"]["user_id"])
 
-    # Pass friends into this query to filter by restaurant, and
-    # joining the visits table to see if user's friends have visited this restaurant
+    # Pass friends into this query to filter by restaurant, and join visits table to 
+    # see which of user's friends have visited this restaurant
     friends_who_visited = friends.filter(Visit.restaurant_id == restaurant_id).join(Visit,
                                                                                     Visit.user_id == Connection.user_b_id).all()
 
@@ -355,7 +328,6 @@ def restaurant_profile(restaurant_id):
 def add_visit():
     """Add restaurant visit to user's restaurant history."""
 
-    # Get restaurant id from hidden input form when user clicks "Leave a Breadcrumb" button
     restaurant_id = request.form.get("restaurant_id")
 
     # Try if user has added this restaurant previously
@@ -389,6 +361,6 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run()

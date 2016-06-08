@@ -37,7 +37,7 @@ def get_city_id(city):
 # Resource for how to offset Yelp API results from http://www.mfumagalli.com/wp/portfolio/nycbars/
 def get_restaurants(city, offset):
     """
-    Make API request to Yelp to get restaurants for a city, and offset the results by an amount.
+    Returns API response from Yelp API call to get restaurants for a city, with the results offset.
 
     Note that Yelp only returns 20 results each time, which is why we need to offset if we want
     the next Nth results.
@@ -49,15 +49,13 @@ def get_restaurants(city, offset):
         auth = Oauth1Authenticator(**creds)
         client = Client(auth)
 
-    # Set search parameters for Yelp API request
-    # Set term as restaurant to get restaurants back as the results
-    # Also pass in offset, so Yelp knows how much to offset by
+    # Set term as restaurant to get restaurants for results
+    # Need to pass in offset, so Yelp knows how much to offset by
     params = {
         'term': 'restaurant',
         'offset': offset
     }
 
-    # Make Yelp API call and return the API response
     return client.search(city, **params)
 
 
