@@ -136,7 +136,10 @@ def signup():
 
         session["current_user"] = {
             "first_name": new_user.first_name,
-            "user_id": new_user.user_id
+            "user_id": new_user.user_id,
+            "num_received_requests": 0,
+            "num_sent_requests": 0,
+            "num_total_requests": 0
         }
 
         flash("You have succesfully signed up for an account, and you are now logged in.", "success")

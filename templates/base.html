@@ -58,7 +58,7 @@
         {% if session.get('current_user') %}
           <ul class="nav navbar-nav">
             <li><a href="/users/{{ session.current_user.user_id }}">Profile</a></li>
-            <li><a href="/friends">Friends <span class="badge">{{ session.get("current_user[num_total_requests]", 0) }}</span></a></li>
+            <li><a href="/friends">Friends <span class="badge">{{ session.current_user.num_total_requests }}</span></a></li>
             <li><a href="/restaurants">Restaurants</a></li>
           </ul>
 
@@ -81,7 +81,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a href="/users/{{ session.current_user.user_id }}">My Profile</a></li>
-                <li><a href="/friends">My Friends <span class="badge">{{ session.get("current_user[num_total_requests]", 0) }}</span></a></li>
+                <li><a href="/friends">My Friends <span class="badge">{{ session.current_user.num_total_requests }}</span></a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Help</a></li>
                 <li role="separator" class="divider"></li>
