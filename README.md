@@ -79,7 +79,7 @@ Install [PostgreSQL](http://postgresapp.com) (Mac OSX).
 
 Postgres needs to be running in order for the app to work. It is running when you see the elephant icon:
 
-<img align="center" src="/static/img/screenshots/postgres-icon.png" width-"300">
+<img align="center" src="/static/img/screenshots/postgres-icon.png" width="200">
 
 Add /bin directory to your path to use PostgreSQL commands and install the Python library.
 
