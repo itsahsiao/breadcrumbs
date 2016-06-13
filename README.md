@@ -1,7 +1,7 @@
 BREADCRUMBS
 ---
 
-<img align="center" src="/static/img/screenshots/homepage.png">
+<img align="center" src="/static/img/screenshots/homepage.png" width="500">
 
 **Breadcrumbs** is a web application designed to let foodies track their restaurant and eating history and connect with friends. If you have trouble remembering what restaurants you’ve been to before, or what you’ve ordered at a restaurant that was good, then Breadcrumbs is your go-to app.
 
@@ -32,27 +32,27 @@ Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can conn
 ## <a name="features"></a>Features
 ### Search for a restaurant
 
-<img align="center" src="/static/img/screenshots/search-restaurants.png">
+<img align="center" src="/static/img/screenshots/search-restaurants.png" width="500">
 
 ### Add a restaurant visit
 
-<img align="center" src="/static/img/screenshots/restaurant-profile.png">
+<img align="center" src="/static/img/screenshots/restaurant-profile.png" width="500">
 
 ### See your own personal map for your restaurant history
 
-<img align="center" src="/static/img/screenshots/user-profile.png">
+<img align="center" src="/static/img/screenshots/user-profile.png" width="500">
 
 ### Connect with friends
 
-<img align="center" src="/static/img/screenshots/friends.png">
+<img align="center" src="/static/img/screenshots/friends.png" width="500">
 
-<img align="center" src="/static/img/screenshots/friend-profile.png">
+<img align="center" src="/static/img/screenshots/friend-profile.png" width="500">
 
-<img align="center" src="/static/img/screenshots/friend-requests.png">
+<img align="center" src="/static/img/screenshots/friend-requests.png" width="500">
 
 ### Responsive design (iPhone 6)
 
-<img align="center" src="/static/img/screenshots/responsive-design.png">
+<img align="center" src="/static/img/screenshots/responsive-design.png" width="200">
 
 ## <a name="installation"></a>Installation
 As Breadcrumbs has not yet been deployed, please follow these instructions to run Breadcrumbs locally on your machine:
@@ -111,7 +111,7 @@ UnitTests and IntegrationTests have been implemented.
 
 Currently the coverage is 55%.
 
-<img align="center" src="/static/img/screenshots/testing-coverage.png">
+<img align="center" src="/static/img/screenshots/testing-coverage.png" width="500">
 
 To run tests, run the following command line:
 
