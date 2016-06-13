@@ -34,25 +34,41 @@ Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can conn
 
 <img align="center" src="/static/img/screenshots/search-restaurants.png" width="500">
 
+- Users can search for a restaurant by entering the name or address into the search engine at the top of the nav bar, and see all search results
+
 ### Add a restaurant visit
 
 <img align="center" src="/static/img/screenshots/restaurant-profile.png" width="500">
+
+- Users can add a restaurant to their restaurant history by clicking the "Leave A Breadcrumb" button on a particular restaurant's info page
+- The restaurant info page also shows which of their friends have visited this particular restaurant and more
 
 ### See your own personal map for your restaurant history
 
 <img align="center" src="/static/img/screenshots/user-profile.png" width="500">
 
+- Users can access their profile page (and other users' as well) to see their restaurant history as a trail of breadcrumbs on a map and on a list
+
 ### Connect with friends
 
 <img align="center" src="/static/img/screenshots/friends.png" width="500">
 
+- Users can click on the Friends tab to see all their friends, any pending friend requests, and search for friends
+
 <img align="center" src="/static/img/screenshots/friend-profile.png" width="500">
 
+- If they are not friends already, users can send a friend request to another user by clicking on the "Add Friend button"
+- If there is a request pending or if the two users are friends, the button will show the appropriate connection status between the two users
+
 <img align="center" src="/static/img/screenshots/friend-requests.png" width="500">
+
+- Users can see all pending friend requests that they have received and sent to accept or delete
 
 ### Responsive design (iPhone 6)
 
 <img align="center" src="/static/img/screenshots/responsive-design.png" width="200">
+
+- Breadcrumbs is also accessible by mobile!
 
 ## <a name="installation"></a>Installation
 As Breadcrumbs has not yet been deployed, please follow these instructions to run Breadcrumbs locally on your machine:
@@ -63,7 +79,7 @@ Install [PostgreSQL](http://postgresapp.com) (Mac OSX).
 
 Postgres needs to be running in order for the app to work. It is running when you see the elephant icon:
 
-<img align="center" src="/static/img/screenshots/postgres-icon.png">
+<img align="center" src="/static/img/screenshots/postgres-icon.png" width-"300">
 
 Add /bin directory to your path to use PostgreSQL commands and install the Python library.
 
