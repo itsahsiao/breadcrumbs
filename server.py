@@ -19,16 +19,12 @@ from sqlalchemy_searchable import search
 # Import helper functions
 from friends import is_friends_or_pending, get_friend_requests, get_friends
 
-# Create Flask app
 app = Flask(__name__)
-
-# Required to use Flask sessions and the debug toolbar
-app.secret_key = "ABC"
+app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
 
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
-
 
 
 @app.route('/')
