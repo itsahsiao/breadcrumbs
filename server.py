@@ -355,6 +355,11 @@ def add_visit():
     return redirect("/restaurants/%s" % restaurant_id)
 
 
+@app.route("/error")
+def error():
+    raise Exception("Error!")
+
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
