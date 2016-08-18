@@ -1,11 +1,11 @@
 BREADCRUMBS
 ---
 
-<img align="center" src="/static/img/screenshots/homepage.png" width="500">
+<img align="center" src="/static/img/screenshots/homepage.png" width="700">
 
-**Breadcrumbs** is a web application designed to let foodies track their restaurant and eating history and connect with friends. If you have trouble remembering what restaurants you’ve been to before, or what you’ve ordered at a restaurant that was good, then Breadcrumbs is your go-to app.
+**Breadcrumbs** is a web application designed to let foodies search restaurants, track their eating history, as well as connect with friends. If you have trouble remembering what restaurants you’ve been to before, or what you’ve ordered at a restaurant that was good, then Breadcrumbs is your go-to app.
 
-Search for restaurants by name or address. With the queried results, you can select and add a restaurant that you have visited to your own personal map, leaving behind a trail of breadcrumbs for your restaurant history. Connect with friends to see what restaurants your friends have dined at and what food they ate. Breadcrumbs is a social media network built for foodies.
+Search for restaurants by name or address. With the queried results, you can select and add a restaurant that you have visited to your own personal map, leaving behind a trail of breadcrumbs for your restaurant history. Connect with friends to see where your friends have dined at and what dishes they've tried. Breadcrumbs is a social media network built for foodies.
 
 Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can connect with Ashley by [email](mailto:aiyihsiao@gmail.com), [LinkedIn](http://linkedin.com/in/ashleyhsia0), or [Twitter](http://twitter.com/ashleyhsia0).
 
@@ -30,6 +30,7 @@ Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can conn
 **APIs:** [Yelp](https://www.yelp.ca/developers/documentation/v2/overview), [Google Maps](https://developers.google.com/maps/)
 
 ## <a name="features"></a>Features
+
 ### Search for a restaurant
 
 <img align="center" src="/static/img/screenshots/search-restaurants.png" width="500">
@@ -71,7 +72,7 @@ Breadcrumbs is created with love, sweat, and tears by Ashley Hsiao. You can conn
 - Breadcrumbs is also accessible by mobile!
 
 ## <a name="installation"></a>Installation
-As Breadcrumbs has not yet been deployed, please follow these instructions to run Breadcrumbs locally on your machine:
+If you would like to run Breadcrumbs locally, please follow these instructions. Otherwise, please check out the deployed version of Breadcrumbs here: [ah-breadcrumbs.herokuapp.com](http://ah-breadcrumbs.herokuapp.com).
 
 ### Prerequisite:
 
@@ -145,7 +146,7 @@ $ open htmlcov/index.html
 ```
 
 ## <a name="deployment"></a>Deployment
-Deployment details coming very soon!
+Breadcrumbs has been deployed. Check it out here: [ah-breadcrumbs.herokuapp.com](http://ah-breadcrumbs.herokuapp.com)
 
 ## <a name="future"></a>Looking Ahead
 ###Features
@@ -157,7 +158,6 @@ Deployment details coming very soon!
 
 ###Other:
 
-- Deployment
 - IntegrationTesting, Selenium Testing
 
 ## <a name="authoe"></a>Author
