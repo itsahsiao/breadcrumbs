@@ -26,6 +26,9 @@ app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
+from raven.contrib.flask import Sentry
+sentry = Sentry(app, dsn='https://c42cb440f5ce49039d750403b70d910d:d1c5986bcfe645e1963902d198ff021f@sentry.io/101473')
+
 
 @app.route('/')
 def index():
