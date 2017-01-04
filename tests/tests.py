@@ -180,12 +180,12 @@ class FlaskTestsLoggedIn(TestCase):
         self.assertIn("Ashley", result.data)
         self.assertIn("Leaving breadcrumbs", result.data)
         self.assertIn("Recent Trail", result.data)
-    #
-    # def test_important_page(self):
-    #     """Test important page."""
-    #
-    #     result = self.client.get("/important")
-    #     self.assertIn("You are a valued user", result.data)
+
+    def test_friends(self):
+        """Test friends page."""
+
+        result = self.client.get("/friends")
+        self.assertIn("My Friends", result.data)
 
 
 # class FlaskTestsLoggedOut(TestCase):
