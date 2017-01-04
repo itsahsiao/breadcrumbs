@@ -168,7 +168,13 @@ class FlaskTestsLoggedIn(TestCase):
         db.session.close()
         db.drop_all()
 
+    def test_user_profile(self):
 
+        result = self.client.get("/users/1")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Ashley", result.data)
+        self.assertIn("Leaving breadcrumbs", result.data)
+        self.assertIn("Recent Trail", result.data)
     #
     # def test_important_page(self):
     #     """Test important page."""
