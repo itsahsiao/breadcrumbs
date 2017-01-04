@@ -101,14 +101,28 @@ class FlaskDatabaseTests(TestCase):
 
         result = self.client.post("/signup",
                                   data={"signup_email": "ashley@test.com",
-                                        "login_password": "ashley",
+                                        "signup_password": "ashley",
                                         "first_name": "Ashley",
                                         "last_name": "Test",
                                         "city": "Vancouver"},
                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)
-        self.assertNotIn("You have successfully signed up for an account", result.data)
+        self.assertNotIn("You have succesfully signed up for an account, and you are now logged in.", result.data)
         self.assertIn("An account already exists with this email address. Please login.", result.data)
+
+    def test_signup_new_user(self):
+
+        result = self.client.post("/signup",
+                                  data={"signup_email": "doug@test.com",
+                                        "signup_password": "doug",
+                                        "first_name": "Doug",
+                                        "last_name": "Test",
+                                        "city": "Vancouver"},
+                                 follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("You have succesfully signed up for an account, and you are now logged in.", result.data)
+        self.assertIn("<h3>Recent Trail</h3>", result.data)
+        self.assertNotIn("An account already exists with this email address. Please login.", result.data)
 
 
 
