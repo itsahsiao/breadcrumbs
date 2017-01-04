@@ -39,7 +39,7 @@ class FlaskTestsBasic(TestCase):
         app.config['TESTING'] = True
 
     def test_index(self):
-        """Test homepage page."""
+        """Test homepage."""
 
         result = self.client.get("/")
         self.assertEqual(result.status_code, 200)
@@ -87,7 +87,7 @@ class FlaskTestsDatabase(TestCase):
         db.drop_all()
 
     def test_login(self):
-        """Test login page."""
+        """Test login page when a user logs in."""
 
         result = self.client.post("/login",
                                  data={"login_email": "ashley@test.com",
@@ -98,6 +98,7 @@ class FlaskTestsDatabase(TestCase):
         self.assertIn("<h3>Recent Trail</h3>", result.data)
 
     def test_signup_existing_user(self):
+        """Test signup page when an existing user tries to signup."""
 
         result = self.client.post("/signup",
                                   data={"signup_email": "ashley@test.com",
@@ -111,6 +112,7 @@ class FlaskTestsDatabase(TestCase):
         self.assertIn("An account already exists with this email address. Please login.", result.data)
 
     def test_signup_new_user(self):
+        """Test signup page when a new user signs up."""
 
         result = self.client.post("/signup",
                                   data={"signup_email": "doug@test.com",
@@ -125,11 +127,13 @@ class FlaskTestsDatabase(TestCase):
         self.assertNotIn("An account already exists with this email address. Please login.", result.data)
 
     def test_restaurants_list(self):
+        """Test restaurants page."""
 
         result = self.client.get("/restaurants")
         self.assertIn("Chambar", result.data)
 
     def test_restaurants_search(self):
+        """Test restaurant search results page."""
 
         result = self.client.get("/restaurants/search",
                                  data={"user_input": "cham"},
@@ -169,6 +173,7 @@ class FlaskTestsLoggedIn(TestCase):
         db.drop_all()
 
     def test_user_profile(self):
+        """Test user profile page."""
 
         result = self.client.get("/users/1")
         self.assertEqual(result.status_code, 200)
