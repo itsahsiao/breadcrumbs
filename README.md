@@ -86,7 +86,7 @@ Add /bin directory to your path to use PostgreSQL commands and install the Pytho
 
 Use Sublime to edit `~/.bash_profile` or `~/.profile`, and add:
 
-```export PATH=/Applications/Postgres.app/Contents/Versions/9.5/bin/:$PATH``` 
+```export PATH=/Applications/Postgres.app/Contents/Versions/9.5/bin/:$PATH```
 
 ### Set up Breadcrumbs:
 
@@ -124,9 +124,8 @@ Finally, to run the app, start the server:
 Go to `localhost:5000` in your browser to start using Breadcrumbs!
 
 ## <a name="testing"></a>Testing & Coverage
-UnitTests and IntegrationTests have been implemented.
-
-Currently the coverage is 55%.
+IntegrationTests have been implemented, with the coverage currently at 82%.
+Further tests still need to be added, as the sample data needs to include connections and restaurant visits.
 
 <img align="center" src="/static/img/screenshots/testing-coverage.png" width="500">
 
