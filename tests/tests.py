@@ -187,19 +187,28 @@ class FlaskTestsLoggedIn(TestCase):
         result = self.client.get("/friends")
         self.assertIn("My Friends", result.data)
 
+    def test_friends_search(self):
+        """Test friends search results page."""
+
+        result = self.client.get("/friends/search",
+                                 data={"user_input": "Bob"})
+        self.assertIn("Bob Test", result.data)
+
+    # TODO: Add to sample data for friend connections and restaurant visits to test routes where friend info shows up
+
 
 # class FlaskTestsLoggedOut(TestCase):
-#     """Flask tests with user logged in to session."""
-
+#     """Flask tests with user logged out of session."""
+#
 #     def setUp(self):
 #         """Stuff to do before every test."""
-
+#
 #         app.config['TESTING'] = True
 #         self.client = app.test_client()
-
+#
 #     def test_important_page(self):
 #         """Test that user can't see important page when logged out."""
-
+#
 #         result = self.client.get("/important", follow_redirects=True)
 #         self.assertNotIn("You are a valued user", result.data)
 #         self.assertIn("You must be logged in", result.data)
