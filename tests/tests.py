@@ -129,6 +129,13 @@ class FlaskDatabaseTests(TestCase):
         result = self.client.get("/restaurants")
         self.assertIn("Chambar", result.data)
 
+    def test_restaurants_search(self):
+
+        result = self.client.get("/restaurants/search",
+                                 data={"user_input": "cham"},
+                                 follow_redirects=True)
+        self.assertIn("Chambar", result.data)
+
 
 
     # THIS NEEDS A SESSION - TEST LATER WITH SESSION IN SETUP
