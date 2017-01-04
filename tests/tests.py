@@ -26,7 +26,7 @@ from model import *
 # coverage report -m
 
 
-class FlaskBasicTests(TestCase):
+class FlaskTestsBasic(TestCase):
     """Flask integration tests, ensuring that components work together."""
 
     def setUp(self):
@@ -63,7 +63,7 @@ class FlaskBasicTests(TestCase):
         self.assertNotIn("Don't have an account?", result.data)
 
 
-class FlaskDatabaseTests(TestCase):
+class FlaskTestsDatabase(TestCase):
     """Flask tests that use the database."""
 
     def setUp(self):
@@ -137,36 +137,44 @@ class FlaskDatabaseTests(TestCase):
         self.assertIn("Chambar", result.data)
 
 
+class FlaskTestsLoggedIn(TestCase):
+    """Flask tests with user logged into session."""
 
-    # THIS NEEDS A SESSION - TEST LATER WITH SESSION IN SETUP
-    # def test_user_profile(self):
+    def setUp(self):
+        """Stuff to do before every test."""
+
+        app.config['TESTING'] = True
+        app.config['SECRET_KEY'] = 'key'
+        self.client = app.test_client()
+
+        connect_to_db(app, "postgresql:///testdb")
+
+        db.create_all()
+        example_data()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess["current_user"] = {
+                    "first_name": "Ashley",
+                    "user_id": 1,
+                    "num_received_requests": 2,
+                    "num_sent_requests": 1,
+                    "num_total_requests": 3
+                }
+
+    def tearDown(self):
+        """Do at end of every test."""
+
+        db.session.close()
+        db.drop_all()
+
+
     #
-    #     result = self.client.get("/users/1")
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn("Leaving breadcrumbs", result.data)
-    #     self.assertIn("Recent Trail", result.data)
-
-
-
-# class FlaskTestsLoggedIn(TestCase):
-#     """Flask tests with user logged in to session."""
-
-#     def setUp(self):
-#         """Stuff to do before every test."""
-
-#         app.config['TESTING'] = True
-#         app.config['SECRET_KEY'] = 'key'
-#         self.client = app.test_client()
-
-#         with self.client as c:
-#             with c.session_transaction() as sess:
-#                 sess['user_id'] = 1
-
-#     def test_important_page(self):
-#         """Test important page."""
-
-#         result = self.client.get("/important")
-#         self.assertIn("You are a valued user", result.data)
+    # def test_important_page(self):
+    #     """Test important page."""
+    #
+    #     result = self.client.get("/important")
+    #     self.assertIn("You are a valued user", result.data)
 
 
 # class FlaskTestsLoggedOut(TestCase):
