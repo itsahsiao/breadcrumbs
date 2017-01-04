@@ -26,7 +26,7 @@ from model import *
 # coverage report -m
 
 
-class FlaskIntegrationTests(TestCase):
+class FlaskBasicTests(TestCase):
     """Flask integration tests, ensuring that components work together."""
 
     def setUp(self):
@@ -124,30 +124,21 @@ class FlaskDatabaseTests(TestCase):
         self.assertIn("<h3>Recent Trail</h3>", result.data)
         self.assertNotIn("An account already exists with this email address. Please login.", result.data)
 
+    def test_restaurants_list(self):
+
+        result = self.client.get("/restaurants")
+        self.assertIn("Chambar", result.data)
 
 
 
-#     def test_departments_list(self):
-#         """Test departments page."""
+    # THIS NEEDS A SESSION - TEST LATER WITH SESSION IN SETUP
+    # def test_user_profile(self):
+    #
+    #     result = self.client.get("/users/1")
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn("Leaving breadcrumbs", result.data)
+    #     self.assertIn("Recent Trail", result.data)
 
-#         result = self.client.get("/departments")
-#         self.assertIn("Legal", result.data)
-
-
-#     def test_departments_details(self):
-#         """Test departments page."""
-
-#         result = self.client.get("/department/fin")
-#         self.assertIn("Phone: 555-1000", result.data)
-
-
-#     def test_login(self):
-#         """Test login page."""
-
-#         result = self.client.post("/login",
-#                                   data={"user_id": "rachel", "password": "123"},
-#                                   follow_redirects=True)
-#         self.assertIn("You are a valued user", result.data)
 
 
 # class FlaskTestsLoggedIn(TestCase):
