@@ -11,10 +11,9 @@ parent_dir = os.path.dirname(current_dir)
 
 sys.path.append(parent_dir)
 
-import server
-from server import app
-
 from unittest import TestCase
+from server import app
+from model import *
 
 # To test:
 # python tests/tests.py
@@ -27,8 +26,8 @@ from unittest import TestCase
 # coverage report -m
 
 
-class FlaskTestsBasic(TestCase):
-    """Flask tests."""
+class FlaskIntegrationTests(TestCase):
+    """Flask integration tests, ensuring that components work together."""
 
     def setUp(self):
         """Stuff to do before every test."""
@@ -64,28 +63,39 @@ class FlaskTestsBasic(TestCase):
         self.assertNotIn("Don't have an account?", result.data)
 
 
-# class FlaskTestsDatabase(TestCase):
-#     """Flask tests that use the database."""
+class FlaskDatabaseTests(TestCase):
+    """Flask tests that use the database."""
 
-#     def setUp(self):
-#         """Stuff to do before every test."""
+    def setUp(self):
+        """Stuff to do before every test."""
 
-#         # Get the Flask test client
-#         self.client = app.test_client()
-#         app.config['TESTING'] = True
+        # Get the Flask test client
+        self.client = app.test_client()
+        app.config['TESTING'] = True
 
-#         # Connect to test database
-#         connect_to_db(app, "postgresql:///testdb")
+        # Connect to test database
+        connect_to_db(app, "postgresql:///testdb")
 
-#         # Create tables and add sample data
-#         db.create_all()
-#         example_data()
+        # Create tables and add sample data
+        db.create_all()
+        example_data()
 
-#     def tearDown(self):
-#         """Do at end of every test."""
+    def tearDown(self):
+        """Do at end of every test."""
 
-#         db.session.close()
-#         db.drop_all()
+        db.session.close()
+        db.drop_all()
+
+    def test_login(self):
+        """Test login page."""
+
+        result = self.client.post("/login",
+                                 data={"login_email": "ashley@test.com", "login_password": "ashley"},
+                                 follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("You have successfully logged in.", result.data)
+        self.assertIn("<h3>Recent Trail</h3>", result.data)
+
 
 #     def test_departments_list(self):
 #         """Test departments page."""
@@ -104,7 +114,7 @@ class FlaskTestsBasic(TestCase):
 #     def test_login(self):
 #         """Test login page."""
 
-#         result = self.client.post("/login", 
+#         result = self.client.post("/login",
 #                                   data={"user_id": "rachel", "password": "123"},
 #                                   follow_redirects=True)
 #         self.assertIn("You are a valued user", result.data)

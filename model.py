@@ -178,7 +178,7 @@ class Connection(db.Model):
     status = db.Column(db.String(100), nullable=False)
 
     # Define relationships
-    # When both columns have a relationship with the same table, need to specify how 
+    # When both columns have a relationship with the same table, need to specify how
     # to handle multiple join paths in the square brackets of foreign_keys per below
     user_a = db.relationship("User", foreign_keys=[user_a_id], backref=db.backref("sent_connections"))
     user_b = db.relationship("User", foreign_keys=[user_b_id], backref=db.backref("received_connections"))
@@ -198,11 +198,58 @@ class Connection(db.Model):
 def connect_to_db(app, db_uri=None):
     """Connect the database to our Flask app."""
 
-    # Configure to use our PstgreSQL database
+    # Configure to use our PostgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri or 'postgresql:///breadcrumbs'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
+
+def example_data():
+    """Create some sample data."""
+
+    van = City(name="Vancouver")
+
+    chambar = Restaurant(city_id=1,
+                         name="Chambar",
+                         address="568 Beatty St, Vancouver, BC V6B 2L3",
+                         phone="(604) 879-7119",
+                         latitude=49.2810018,
+                         longitude=-123.1109668)
+
+    miku = Restaurant(city_id=1,
+                      name="Miku",
+                      address="200 Granville St #70, Vancouver, BC V6C 1S4",
+                      phone="(604) 568-3900",
+                      latitude=49.2868017,
+                      longitude=-123.1131884)
+
+    fable = Restaurant(city_id=1,
+                       name="Fable",
+                       address="1944 W 4th Ave, Vancouver, BC V6J 1M7",
+                       phone="(604) 732-1322",
+                       latitude=49.2679389,
+                       longitude=-123.2190482)
+
+    ashley = User(city_id=1,
+                  email="ashley@test.com",
+                  password="ashley",
+                  first_name="Ashley",
+                  last_name="Test")
+
+    bob = User(city_id=1,
+               email="bob@test.com",
+               password="bob",
+               first_name="Bob",
+               last_name="Test")
+
+    cat = User(city_id=1,
+               email="cat@test.com",
+               password="cat",
+               first_name="Cat",
+               last_name="Test")
+
+    db.session.add_all([van, chambar, miku, fable, ashley, bob, cat])
+    db.session.commit()
 
 
 if __name__ == "__main__":
