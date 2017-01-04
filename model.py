@@ -4,8 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 import datetime
 
-# SQLAlchemy-Searchable is the library used for the search engines
-# Per the docs, import and call make_searchable function below
 from sqlalchemy_searchable import make_searchable
 from sqlalchemy_utils.types import TSVectorType
 
@@ -34,7 +32,6 @@ class User(db.Model):
     # Put name inside TSVectorType definition for it to be fulltext-indexed (searchable)
     search_vector = db.Column(TSVectorType('first_name', 'last_name'))
 
-    # Define relationship
     city = db.relationship("City", backref=db.backref("users"))
 
     def __repr__(self):
@@ -61,10 +58,8 @@ class Restaurant(db.Model):
     # Put restaurant name and address inside definition of TSVectorType to be fulltext-indexed (searchable)
     search_vector = db.Column(TSVectorType('name', 'address'))
 
-    # Define relationships
     city = db.relationship("City", backref=db.backref("restaurants"))
     categories = db.relationship("Category", secondary="restaurantcategories", backref="restaurants")
-    # Use the visits association table to create the relationship between restaurant and users
     users = db.relationship("User", secondary="visits", backref="restaurants")
 
     def __repr__(self):
@@ -85,7 +80,6 @@ class Visit(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'), nullable=False)
 
-    # Define relationships
     user = db.relationship("User", backref=db.backref("visits"))
     restaurant = db.relationship("Restaurant", backref=db.backref("visits"))
 
@@ -157,7 +151,6 @@ class Image(db.Model):
     taken_At = db.Column(db.DateTime, nullable=True)
     rating = db.Column(db.String(100), nullable=True)
 
-    # Define relationship
     visit = db.relationship("Visit", backref=db.backref("images"))
 
     def __repr__(self):
@@ -177,7 +170,6 @@ class Connection(db.Model):
     user_b_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     status = db.Column(db.String(100), nullable=False)
 
-    # Define relationships
     # When both columns have a relationship with the same table, need to specify how
     # to handle multiple join paths in the square brackets of foreign_keys per below
     user_a = db.relationship("User", foreign_keys=[user_a_id], backref=db.backref("sent_connections"))
@@ -205,7 +197,7 @@ def connect_to_db(app, db_uri=None):
     db.init_app(app)
 
 def example_data():
-    """Create some sample data."""
+    """Create some sample data for testing."""
 
     van = City(name="Vancouver")
 

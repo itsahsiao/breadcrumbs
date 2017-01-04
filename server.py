@@ -9,21 +9,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Restaurant, Visit, Category, City, RestaurantCategory, Image, Connection
 from model import connect_to_db, db
-
-# Import SQLALchemy exception error to use in try/except
-from sqlalchemy.orm.exc import NoResultFound
-
-# Import search function from library to query for information in database
-from sqlalchemy_searchable import search
-
-# Import helper functions
 from friends import is_friends_or_pending, get_friend_requests, get_friends
+
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy_searchable import search
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("FLASK_SECRET_KEY", "abcdef")
-
-# Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
 from raven.contrib.flask import Sentry
@@ -51,9 +43,6 @@ def login():
     login_email = request.form.get("login_email")
     login_password = request.form.get("login_password")
 
-    # Try if credentials provided by user match record in database
-    # If incorrect (NoResultFound in db), ask them to try again
-    # If correct, log them in, redirecting them to their user profile
     try:
         current_user = db.session.query(User).filter(User.email == login_email,
                                                      User.password == login_password).one()
@@ -111,9 +100,6 @@ def signup():
 
     city_id = db.session.query(City).filter(City.name == city).one().city_id
 
-    # Try if signup email provided does not already exist in db
-    # If email does not exist (NoResultFound in db), create new user and log them in
-    # If it is an existing email, flash message to tell user to login
     try:
         db.session.query(User).filter(User.email == signup_email).one()
 
@@ -187,7 +173,6 @@ def user_profile(user_id):
 def user_restaurant_visits(user_id):
     """Return info about a user's restaurant visits as JSON."""
 
-    # Query to get all restaurant visits for a user
     user_visits = db.session.query(Visit).filter(Visit.user_id == user_id).all()
 
     rest_visits = {}
@@ -223,25 +208,17 @@ def add_friend():
 
     if user_a_id == user_b_id:
         return "You cannot add yourself as a friend."
-
     elif is_friends:
         return "You are already friends."
-
     elif is_pending:
         return "Your friend request is pending."
-
-    # Add a connection to the database if above conditionals are not true
     else:
         requested_connection = Connection(user_a_id=user_a_id,
                                           user_b_id=user_b_id,
                                           status="Requested")
-
         db.session.add(requested_connection)
         db.session.commit()
-
-        # This prints in the console to check
         print "User ID %s has sent a friend request to User ID %s" % (user_a_id, user_b_id)
-
         return "Request Sent"
 
 
@@ -249,10 +226,10 @@ def add_friend():
 def show_friends_and_requests():
     """Show friend requests and list of all friends"""
 
-    # Returns users for current user's friend requests
+    # This returns User objects for current user's friend requests
     received_friend_requests, sent_friend_requests = get_friend_requests(session["current_user"]["user_id"])
 
-    # Returns query for current user's friends (not User objects) so add .all() to the end to get list of User objects
+    # This returns a query for current user's friends (not User objects), but adding .all() to the end gets list of User objects
     friends = get_friends(session["current_user"]["user_id"]).all()
 
     return render_template("friends.html",
@@ -315,7 +292,7 @@ def restaurant_profile(restaurant_id):
     # Returns query for current user's friends, not User objects
     friends = get_friends(session["current_user"]["user_id"])
 
-    # Pass friends into this query to filter by restaurant, and join visits table to 
+    # Pass friends into this query to filter by restaurant, and join visits table to
     # see which of user's friends have visited this restaurant
     friends_who_visited = friends.filter(Visit.restaurant_id == restaurant_id).join(Visit,
                                                                                     Visit.user_id == Connection.user_b_id).all()
@@ -331,26 +308,20 @@ def add_visit():
 
     restaurant_id = request.form.get("restaurant_id")
 
-    # Try if user has added this restaurant previously
-    # If not, add this restaurant visit to database under this user id
-    # and redirect user to their profile page to see the newly added marker
-    # If so, do not add restaurant visit and redirect user back to restaurant page
+    # Checks if user has added this restaurant before
     try:
         db.session.query(Visit).filter(Visit.restaurant_id == restaurant_id,
                                        Visit.user_id == session["current_user"]["user_id"]).one()
 
     except NoResultFound:
-        # Add restaurant visit to database and commit change
         visit = Visit(user_id=session["current_user"]["user_id"], restaurant_id=restaurant_id)
         db.session.add(visit)
         db.session.commit()
 
         flash("You just left a breadcrumb for this restaurant.", "success")
-
         return redirect("/users/%s" % session["current_user"]["user_id"])
 
     flash("You already left a breadcrumb for this restaurant.", "danger")
-
     return redirect("/restaurants/%s" % restaurant_id)
 
 
@@ -360,8 +331,7 @@ def error():
 
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the point
-    # that we invoke the DebugToolbarExtension
+    # Set debug=True here to invoke the DebugToolbarExtension
     app.debug = True
 
     # connect_to_db(app)

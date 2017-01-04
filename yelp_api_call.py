@@ -3,15 +3,11 @@
 from model import City, Restaurant
 from model import db
 
-# Import SQLALchemy exception for try/except
 from sqlalchemy.orm.exc import NoResultFound
 
-# Yelp has provided a Python wrapper for API requests
-# Import these as indicated per Yelp documentation
 from yelp.client import Client
 from yelp.oauth1_authenticator import Oauth1Authenticator
 
-# Keep Yelp API secret keys in json file per Yelp documentation
 import io
 import json
 
@@ -19,9 +15,6 @@ import json
 def get_city_id(city):
     """Get the city id from database. Otherwise, add city to database and get the city id."""
 
-    # Check if argument (city) passed in is a city that exists in the database
-    # If not, instantiate the new city in the database and get the city id
-    # Otherwise, return the city id for the existing city from the database
     try:
         existing_city = db.session.query(City).filter(City.name == city).one()
 
@@ -86,12 +79,9 @@ def load_restaurants(city):
                                     image_url=business.image_url,
                                     latitude=business.location.coordinate.latitude,
                                     longitude=business.location.coordinate.longitude)
-
-            # Add each restaurant to the db
             db.session.add(restaurant)
 
         # Yelp returns only 20 results each time, so need to offset by 20 while iterating
         offset += 20
 
-    # Commit to save changes
     db.session.commit()
