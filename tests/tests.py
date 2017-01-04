@@ -90,11 +90,27 @@ class FlaskDatabaseTests(TestCase):
         """Test login page."""
 
         result = self.client.post("/login",
-                                 data={"login_email": "ashley@test.com", "login_password": "ashley"},
+                                 data={"login_email": "ashley@test.com",
+                                       "login_password": "ashley"},
                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn("You have successfully logged in.", result.data)
         self.assertIn("<h3>Recent Trail</h3>", result.data)
+
+    def test_signup_existing_user(self):
+
+        result = self.client.post("/signup",
+                                  data={"signup_email": "ashley@test.com",
+                                        "login_password": "ashley",
+                                        "first_name": "Ashley",
+                                        "last_name": "Test",
+                                        "city": "Vancouver"},
+                                 follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertNotIn("You have successfully signed up for an account", result.data)
+        self.assertIn("An account already exists with this email address. Please login.", result.data)
+
+
 
 
 #     def test_departments_list(self):
