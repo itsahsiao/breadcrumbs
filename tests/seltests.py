@@ -12,7 +12,7 @@ sys.path.append(parent_dir)
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -49,7 +49,24 @@ class SeleniumTests(TestCase):
         wait = WebDriverWait(self.browser, 10)
         login_page = wait.until(EC.title_contains("Login"))
 
+    def test_signup_form(self):
 
+        self.browser.get('http://localhost:5000/signup')
+
+        email = self.browser.find_element_by_id("email")
+        email.send_keys("selenium@test.com")
+        password = self.browser.find_element_by_id("password")
+        password.send_keys("testing123")
+        fname = self.browser.find_element_by_id("firstname")
+        fname.send_keys("Selenium")
+        lname = self.browser.find_element_by_id("lastname")
+        lname.send_keys("Test")
+        city = Select(self.browser.find_element_by_id("city"))
+        city.select_by_visible_text("Sunnyvale")
+
+        self.browser.find_element_by_xpath("//button[@type='submit']").click()
+
+# TODO: Add more Selenium tests - need to see if can add session / dummy data
 
 
 if __name__ == "__main__":
