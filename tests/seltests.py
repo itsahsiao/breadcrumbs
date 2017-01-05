@@ -22,8 +22,21 @@ class SeleniumTests(TestCase):
         self.browser.quit()
 
     def test_title(self):
+        """Test title of homepage."""
+
         self.browser.get('http://localhost:5000/')
         self.assertEqual(self.browser.title, 'Breadcrumbs || Homepage')
+
+    def test_signup_link(self):
+        """Test signup links on homepage."""
+
+        self.browser.get('http://localhost:5000/')
+        signup_links = self.browser.find_elements_by_link_text('Sign up')
+
+        for link in signup_links:
+            link.click()
+
+
 
 
 if __name__ == "__main__":
