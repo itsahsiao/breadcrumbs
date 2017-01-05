@@ -132,14 +132,11 @@ Coverage is currently at 82%.
 
 To run tests, run the following command line:
 
-```$ python tests/tests.py```
+```$ coverage run --omit=env/* tests/tests.py```
 
 To get a coverage report, run the following:
 
-```
-$ coverage run --omit=env/* tests/tests.py
-$ coverage report -m
-```
+```$ coverage report -m```
 
 For an HTML version of the report, run the running:
 
@@ -171,5 +168,5 @@ Breadcrumbs has been deployed. Check it out here: [ah-breadcrumbs.herokuapp.com]
 - More tests!
 
 ## <a name="authoe"></a>Author
-Ashley Hsiao is a Software Engineer living in the San Francisco Bay Area.
+Ashley Hsiao is a Software Engineer living in Vancouver, BC.
 [Email](mailto:aiyihsiao@gmail.com) | [LinkedIn](http://linkedin.com/in/ashleyhsia0) | [Twitter](http://twitter.com/ashleyhsia0).
