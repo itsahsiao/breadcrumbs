@@ -12,6 +12,8 @@ sys.path.append(parent_dir)
 from unittest import TestCase
 from selenium import webdriver
 
+import time
+
 
 class SeleniumTests(TestCase):
 
@@ -21,11 +23,11 @@ class SeleniumTests(TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_title(self):
-        """Test title of homepage."""
-
-        self.browser.get('http://localhost:5000/')
-        self.assertEqual(self.browser.title, 'Breadcrumbs || Homepage')
+    # def test_title(self):
+    #     """Test title of homepage."""
+    #
+    #     self.browser.get('http://localhost:5000/')
+    #     self.assertEqual(self.browser.title, 'Breadcrumbs || Homepage')
 
     def test_signup_link(self):
         """Test signup links on homepage."""
@@ -33,9 +35,18 @@ class SeleniumTests(TestCase):
         self.browser.get('http://localhost:5000/')
         signup_links = self.browser.find_elements_by_link_text('Sign up')
 
+        time.sleep(3)
+
         for link in signup_links:
             link.click()
 
+    # def test_login_link(self):
+    #
+    #     self.browser.get('http://localhost:5000/')
+    #     login_links = self.browser.find_elements_by_link_text('Login')
+    #
+    #     for link in login_links:
+    #         link.click()
 
 
 
