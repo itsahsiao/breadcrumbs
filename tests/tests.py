@@ -196,7 +196,7 @@ class FlaskTestsLoggedIn(TestCase):
 
     # TODO: Add to sample data for friend connections and restaurant visits to test routes where friend info shows up
 
-
+# TODO: Redirect or render an error page to user when they access a page they are not authorized to see until they login
 # class FlaskTestsLoggedOut(TestCase):
 #     """Flask tests with user logged out of session."""
 #
