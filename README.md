@@ -124,18 +124,22 @@ Finally, to run the app, start the server:
 Go to `localhost:5000` in your browser to start using Breadcrumbs!
 
 ## <a name="testing"></a>Testing & Coverage
-IntegrationTests have been implemented, with the coverage currently at 82%.
-Further tests still need to be added, as the sample data needs to include connections and restaurant visits.
+Unit Tests, Integration Tests, and Selenium Tests have been implemented.
+
+Coverage is currently at 82%.
 
 <img align="center" src="/static/img/screenshots/testing-coverage.png" width="500">
 
 To run tests, run the following command line:
 
-```$ coverage run --omit=env/* tests/tests.py```
+```$ python tests/tests.py```
 
 To get a coverage report, run the following:
 
-```$ coverage report -m```
+```
+$ coverage run --omit=env/* tests/tests.py
+$ coverage report -m
+```
 
 For an HTML version of the report, run the running:
 
@@ -143,6 +147,13 @@ For an HTML version of the report, run the running:
 $ coverage html
 $ open htmlcov/index.html
 ```
+
+To perform the Selenium tests, run the following command line:
+
+```$ python tests/seltests.py```
+
+Note: Further tests still to be added, as the sample data needs to include connections and restaurant visits.
+Also the Selenium tests should check for UI functionality once a user has been logged in.
 
 ## <a name="deployment"></a>Deployment
 Breadcrumbs has been deployed. Check it out here: [ah-breadcrumbs.herokuapp.com](http://ah-breadcrumbs.herokuapp.com)
@@ -157,7 +168,7 @@ Breadcrumbs has been deployed. Check it out here: [ah-breadcrumbs.herokuapp.com]
 
 ###Other:
 
-- IntegrationTesting, Selenium Testing
+- More tests!
 
 ## <a name="authoe"></a>Author
 Ashley Hsiao is a Software Engineer living in the San Francisco Bay Area.
