@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/static/img/restaurant-marker.png" type="image/gif" sizes="16x16">
   <title>Breadcrumbs || {% block title %} put title here {% endblock %}</title>
 
@@ -20,9 +20,6 @@
   <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-
-  <!-- jQuery script -->
-  <script src="https://code.jquery.com/jquery.js"></script> 
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -97,7 +94,7 @@
             <li><a href="/login">Login</a></li>
           </ul>
 
-        {% endif %} 
+        {% endif %}
       </div><!-- /.navbar-collapse -->
 
     </div><!-- /.container -->
@@ -138,6 +135,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  {% block javascript %} put any scripts here {% endblock %}
 
 </body>
 </html>

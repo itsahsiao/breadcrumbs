@@ -3,7 +3,6 @@
 {% block title %}User: {{ user.user_id }}{% endblock %}
 
 {% block content %}
-
   <div class="jumbotron top-header" id="user-info" data-userid="{{ user.user_id }}">
     <div class="container">
       <div class="row">
@@ -98,11 +97,12 @@
       </div><!-- /.col -->
     </div><!-- /.row -->
   </div><!-- /.container -->
+{% endblock %}
 
+{% block javascript %}
   <script src="/static/js/add-friend.js"></script>
 
   <!-- Google Maps API -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCghH3Yc_A51fCIKx6b3tC-wr3mNvYif4I&callback=initMap"></script>
   <script src="/static/js/breadcrumbs-map.js"></script>
-
 {% endblock %}
